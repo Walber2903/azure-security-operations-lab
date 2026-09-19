@@ -189,8 +189,8 @@ Canada Central
 
 | Lab | Topic                              | Primary Skills                               | Status    |
 | --: | ---------------------------------- | -------------------------------------------- | --------- |
-|  00 | Azure Baseline and Cost Governance | Budgets, resource groups, tags, Activity Log | Completed |
-|  01 | Entra ID Users Managers and Groups | Identity management, security groups         | Planned   |
+|  [00](labs/lab-00-baseline/README.md) | Azure Baseline and Cost Governance | Budgets, resource groups, tags, Activity Log | Completed |
+|  [01](labs/lab01-entra-users-groups/README.md) | Entra ID Users Managers and Groups | Users, manager relationships, security groups, audit logs | Completed |
 |  02 | Administrative Units               | Delegated identity administration            | Planned   |
 |  03 | Azure RBAC                         | Roles, scopes, least privilege               | Planned   |
 |  04 | Azure Policy                       | Audit, deny, compliance                      | Planned   |
@@ -226,7 +226,9 @@ azure-security-operations-lab/
 │   │   ├── README.md
 │   │   └── screenshots/
 │   │
-│   ├── lab-01-entra-users-groups/
+│   ├── lab01-entra-users-groups/
+│   │   ├── README.md
+│   │   └── screenshots/
 │   ├── lab-02-administrative-units/
 │   ├── lab-03-azure-rbac/
 │   ├── lab-04-azure-policy/
@@ -608,14 +610,23 @@ The project is being developed one lab at a time.
 * Azure Activity Log validation
 * Screenshot sanitization
 * Initial portfolio structure
+* Lab 01 — Microsoft Entra ID Users, Managers and Groups
+* Five cloud-only lab users with job and department information
+* Grace Manager configured as manager of Alice Analyst and Bob Analyst
+* `SG-SecOps-Analysts` with Grace as owner and Alice and Bob as members
+* `SG-SecOps-Readers` with Victor Viewer as a member
+* Empty `SG-Cloud-Admins` group reserved for future least-privilege testing
+* Microsoft Entra user and group-management audit logs validated
+* Twelve sanitized evidence screenshots documented in the Lab 01 README
+* Dynamic membership documented but not executed because the tenant uses Microsoft Entra ID Free
 
 ### Next
 
-* Lab 01 — Microsoft Entra ID Users Managers and Groups
-* Test users and security groups
-* Manager relationships
-* Identity structure documentation
-* Preparation for RBAC testing
+* Lab 02 — Administrative Units and Microsoft Entra role scope
+* Create the `AU-Security-Lab` administrative unit
+* Add the Security Operations identities to the administrative unit
+* Compare scoped Microsoft Entra administration with Azure RBAC
+* Validate delegated administration and audit evidence
 
 ---
 
