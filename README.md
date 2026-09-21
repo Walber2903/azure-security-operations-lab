@@ -194,7 +194,7 @@ Canada Central
 |  [02](labs/lab02-administrative-units/README.md) | Administrative Units and Entra Role Scope | Scoped administration, least privilege, licensing validation | Completed |
 |  [03](labs/lab03-azure-rbac/README.md) | Azure RBAC | Resource-group roles, scopes, inheritance, least privilege | Completed |
 |  [04](labs/lab-04-azure-policy/README.md) | Azure Policy | Audit, deny, tagging, compliance | Completed |
-|  05 | Virtual Network and NSG            | Network segmentation, traffic filtering      | Planned   |
+|  [05](labs/lab-05-vnet-nsg/README.md) | Virtual Network and NSG | VNet design, subnet segmentation, NSG rules | Completed |
 |  06 | Windows and Linux Virtual Machines | Compute deployment, secure configuration     | Planned   |
 |  07 | Virtual Machine Administration     | Access, lifecycle and operational security   | Planned   |
 |  08 | Log Analytics AMA and DCR          | Log ingestion and collection rules           | Planned   |
@@ -239,6 +239,8 @@ azure-security-operations-lab/
 │   │   ├── README-lab-04.md
 │   │   └── screenshots/
 │   ├── lab-05-vnet-nsg/
+│   │   ├── README.md
+│   │   └── screenshots/
 │   ├── lab-06-virtual-machines/
 │   ├── lab-07-vm-administration/
 │   ├── lab-08-log-analytics-ama-dcr/
@@ -651,12 +653,20 @@ The project is being developed one lab at a time.
 * Compliance dashboard reviewed with three of five resource groups compliant
 * Eight sanitized evidence screenshots documented in the Lab 04 README
 
+* Lab 05 — Virtual Network Segmentation and Network Security Groups
+* `vnet-secops-cc-01` created with the `10.20.0.0/16` address space
+* Server and management workloads separated into `snet-servers` (`10.20.1.0/24`) and `snet-management` (`10.20.2.0/24`)
+* `nsg-secops-servers` configured to allow RDP and SSH from the management subnet and deny other management-subnet inbound traffic
+* Network Security Group associated only with the server subnet
+* Five sanitized evidence screenshots documented in the Lab 05 README
+* Effective connectivity testing deferred until virtual machines and network interfaces are deployed
+
 ### Next
 
-* Lab 05 — Virtual Network and Network Security Groups
-* Create the lab virtual network and subnets
-* Configure network segmentation and traffic-filtering rules
-* Validate and document the resulting network security controls
+* Lab 06 — Windows and Linux Virtual Machines
+* Deploy virtual machines into the segmented network
+* Apply secure compute and network configurations
+* Validate management access and NSG behavior with active workloads
 
 ---
 
