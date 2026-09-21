@@ -191,7 +191,7 @@ Canada Central
 | --: | ---------------------------------- | -------------------------------------------- | --------- |
 |  [00](labs/lab-00-baseline/README.md) | Azure Baseline and Cost Governance | Budgets, resource groups, tags, Activity Log | Completed |
 |  [01](labs/lab01-entra-users-groups/README.md) | Entra ID Users Managers and Groups | Users, manager relationships, security groups, audit logs | Completed |
-|  02 | Administrative Units               | Delegated identity administration            | Planned   |
+|  [02](labs/lab02-administrative-units/README.md) | Administrative Units and Entra Role Scope | Scoped administration, least privilege, licensing validation | Completed |
 |  03 | Azure RBAC                         | Roles, scopes, least privilege               | Planned   |
 |  04 | Azure Policy                       | Audit, deny, compliance                      | Planned   |
 |  05 | Virtual Network and NSG            | Network segmentation, traffic filtering      | Planned   |
@@ -229,7 +229,9 @@ azure-security-operations-lab/
 │   ├── lab01-entra-users-groups/
 │   │   ├── README.md
 │   │   └── screenshots/
-│   ├── lab-02-administrative-units/
+│   ├── lab02-administrative-units/
+│   │   ├── README.md
+│   │   └── screenshots/
 │   ├── lab-03-azure-rbac/
 │   ├── lab-04-azure-policy/
 │   ├── lab-05-vnet-nsg/
@@ -620,13 +622,21 @@ The project is being developed one lab at a time.
 * Twelve sanitized evidence screenshots documented in the Lab 01 README
 * Dynamic membership documented but not executed because the tenant uses Microsoft Entra ID Free
 
+* Lab 02 — Administrative Units and Microsoft Entra Role Scope
+* `AU-Security-Lab` administrative unit created with assigned membership
+* Alice Analyst, Bob Analyst, and Grace Manager added as direct members
+* Restricted management kept disabled for the lab
+* Scoped `User Administrator` assignment to Ian IT evaluated but not executed because Microsoft Entra ID P1 or P2 is required
+* Least privilege preserved without activating a trial or assigning a broader tenant-wide role
+* Three sanitized evidence screenshots documented in the Lab 02 README
+
 ### Next
 
-* Lab 02 — Administrative Units and Microsoft Entra role scope
-* Create the `AU-Security-Lab` administrative unit
-* Add the Security Operations identities to the administrative unit
-* Compare scoped Microsoft Entra administration with Azure RBAC
-* Validate delegated administration and audit evidence
+* Lab 03 — Azure RBAC: Subscription vs Resource Permissions
+* Assign Azure roles at resource-group scope
+* Compare direct and inherited role assignments
+* Validate read-only and virtual-machine management permissions
+* Document the differences between Owner, Contributor, and User Access Administrator
 
 ---
 
