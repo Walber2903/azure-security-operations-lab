@@ -192,7 +192,7 @@ Canada Central
 |  [00](labs/lab-00-baseline/README.md) | Azure Baseline and Cost Governance | Budgets, resource groups, tags, Activity Log | Completed |
 |  [01](labs/lab01-entra-users-groups/README.md) | Entra ID Users Managers and Groups | Users, manager relationships, security groups, audit logs | Completed |
 |  [02](labs/lab02-administrative-units/README.md) | Administrative Units and Entra Role Scope | Scoped administration, least privilege, licensing validation | Completed |
-|  03 | Azure RBAC                         | Roles, scopes, least privilege               | Planned   |
+|  [03](labs/lab03-azure-rbac/README.md) | Azure RBAC | Resource-group roles, scopes, inheritance, least privilege | Completed |
 |  04 | Azure Policy                       | Audit, deny, compliance                      | Planned   |
 |  05 | Virtual Network and NSG            | Network segmentation, traffic filtering      | Planned   |
 |  06 | Windows and Linux Virtual Machines | Compute deployment, secure configuration     | Planned   |
@@ -223,16 +223,18 @@ azure-security-operations-lab/
 │
 ├── labs/
 │   ├── lab-00-baseline/
-│   │   ├── README.md
+│   │   ├── README-lab-00.md
 │   │   └── screenshots/
 │   │
 │   ├── lab01-entra-users-groups/
-│   │   ├── README.md
+│   │   ├── README-lab-01.md
 │   │   └── screenshots/
 │   ├── lab02-administrative-units/
-│   │   ├── README.md
+│   │   ├── README-lab-02.md
 │   │   └── screenshots/
-│   ├── lab-03-azure-rbac/
+│   ├── lab03-azure-rbac/
+│   │   ├── README-lab-03.md
+│   │   └── screenshots/
 │   ├── lab-04-azure-policy/
 │   ├── lab-05-vnet-nsg/
 │   ├── lab-06-virtual-machines/
@@ -630,13 +632,21 @@ The project is being developed one lab at a time.
 * Least privilege preserved without activating a trial or assigning a broader tenant-wide role
 * Three sanitized evidence screenshots documented in the Lab 02 README
 
+* Lab 03 — Azure RBAC: Subscription vs Resource Permissions
+* `SG-SecOps-Readers` assigned the Reader role at the compute resource-group scope
+* `SG-SecOps-Analysts` assigned the Virtual Machine Contributor role at the same scope
+* Direct resource-group assignments compared with inherited subscription permissions
+* Least privilege applied through group-based access and resource-group scoping
+* Differences between Reader, Virtual Machine Contributor, Contributor, Owner, and User Access Administrator documented
+* Four sanitized evidence screenshots documented in the Lab 03 README
+* End-user permission testing deferred until virtual machines are deployed in a later lab
+
 ### Next
 
-* Lab 03 — Azure RBAC: Subscription vs Resource Permissions
-* Assign Azure roles at resource-group scope
-* Compare direct and inherited role assignments
-* Validate read-only and virtual-machine management permissions
-* Document the differences between Owner, Contributor, and User Access Administrator
+* Lab 04 — Azure Policy
+* Create audit and deny policy assignments
+* Evaluate policy compliance and enforcement behavior
+* Document governance decisions and validation evidence
 
 ---
 
