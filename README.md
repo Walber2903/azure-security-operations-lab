@@ -193,7 +193,7 @@ Canada Central
 |  [01](labs/lab01-entra-users-groups/README.md) | Entra ID Users Managers and Groups | Users, manager relationships, security groups, audit logs | Completed |
 |  [02](labs/lab02-administrative-units/README.md) | Administrative Units and Entra Role Scope | Scoped administration, least privilege, licensing validation | Completed |
 |  [03](labs/lab03-azure-rbac/README.md) | Azure RBAC | Resource-group roles, scopes, inheritance, least privilege | Completed |
-|  04 | Azure Policy                       | Audit, deny, compliance                      | Planned   |
+|  [04](labs/lab-04-azure-policy/README.md) | Azure Policy | Audit, deny, tagging, compliance | Completed |
 |  05 | Virtual Network and NSG            | Network segmentation, traffic filtering      | Planned   |
 |  06 | Windows and Linux Virtual Machines | Compute deployment, secure configuration     | Planned   |
 |  07 | Virtual Machine Administration     | Access, lifecycle and operational security   | Planned   |
@@ -236,6 +236,8 @@ azure-security-operations-lab/
 │   │   ├── README-lab-03.md
 │   │   └── screenshots/
 │   ├── lab-04-azure-policy/
+│   │   ├── README-lab-04.md
+│   │   └── screenshots/
 │   ├── lab-05-vnet-nsg/
 │   ├── lab-06-virtual-machines/
 │   ├── lab-07-vm-administration/
@@ -641,12 +643,20 @@ The project is being developed one lab at a time.
 * Four sanitized evidence screenshots documented in the Lab 03 README
 * End-user permission testing deferred until virtual machines are deployed in a later lab
 
+* Lab 04 — Azure Policy: Audit, Deny, and Compliance
+* Custom policy definition created to audit resource groups missing the `Environment` tag
+* Audit assignment applied at subscription scope and non-compliant resources identified
+* Built-in deny policy assigned to require the `Environment` tag on new resource groups
+* Requests without the required tag blocked while `Environment=Lab` passed validation
+* Compliance dashboard reviewed with three of five resource groups compliant
+* Eight sanitized evidence screenshots documented in the Lab 04 README
+
 ### Next
 
-* Lab 04 — Azure Policy
-* Create audit and deny policy assignments
-* Evaluate policy compliance and enforcement behavior
-* Document governance decisions and validation evidence
+* Lab 05 — Virtual Network and Network Security Groups
+* Create the lab virtual network and subnets
+* Configure network segmentation and traffic-filtering rules
+* Validate and document the resulting network security controls
 
 ---
 
