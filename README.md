@@ -195,7 +195,7 @@ Canada Central
 |  [03](labs/lab03-azure-rbac/README.md) | Azure RBAC | Resource-group roles, scopes, inheritance, least privilege | Completed |
 |  [04](labs/lab-04-azure-policy/README.md) | Azure Policy | Audit, deny, tagging, compliance | Completed |
 |  [05](labs/lab-05-vnet-nsg/README.md) | Virtual Network and NSG | VNet design, subnet segmentation, NSG rules | Completed |
-|  06 | Windows and Linux Virtual Machines | Compute deployment, secure configuration     | Planned   |
+|  [06](labs/lab-06-virtual-machines/README.md) | Windows and Linux Virtual Machines | Secure deployment, Bastion access, segmentation testing | Completed |
 |  07 | Virtual Machine Administration     | Access, lifecycle and operational security   | Planned   |
 |  08 | Log Analytics AMA and DCR          | Log ingestion and collection rules           | Planned   |
 |  09 | Microsoft Sentinel                 | SIEM deployment and data connectors          | Planned   |
@@ -239,9 +239,11 @@ azure-security-operations-lab/
 │   │   ├── README-lab-04.md
 │   │   └── screenshots/
 │   ├── lab-05-vnet-nsg/
-│   │   ├── README.md
+│   │   ├── README-lab-05.md
 │   │   └── screenshots/
 │   ├── lab-06-virtual-machines/
+│   │   ├── README-lab-06.md
+│   │   └── screenshots/
 │   ├── lab-07-vm-administration/
 │   ├── lab-08-log-analytics-ama-dcr/
 │   ├── lab-09-microsoft-sentinel/
@@ -661,12 +663,19 @@ The project is being developed one lab at a time.
 * Five sanitized evidence screenshots documented in the Lab 05 README
 * Effective connectivity testing deferred until virtual machines and network interfaces are deployed
 
+* Lab 06 — Windows and Linux Virtual Machines
+* Windows Server 2022 and Ubuntu Server 24.04 LTS deployed into the server and management subnets
+* Trusted Launch, Secure Boot, vTPM, managed disks, SSH key authentication, and automatic shutdown configured
+* Windows RDP and Linux SSH administration validated through Azure Bastion Developer without public inbound rules
+* Subnet segmentation tested from Linux: TCP/3389 reached the Windows server while TCP/445, TCP/80, and TCP/22 were not reachable during testing
+* Compute provider registration, subscription quota restrictions, Microsoft support escalation, regional allocation failure, and VM resizing documented
+* Both virtual machines confirmed as stopped and deallocated after validation
+* Twenty sanitized evidence screenshots documented in the Lab 06 README
+
 ### Next
 
-* Lab 06 — Windows and Linux Virtual Machines
-* Deploy virtual machines into the segmented network
-* Apply secure compute and network configurations
-* Validate management access and NSG behavior with active workloads
+* Lab 07 — Virtual Machine Administration
+* Continue lifecycle, access, maintenance, and operational-security validation using the deployed Windows and Linux workloads
 
 ---
 
