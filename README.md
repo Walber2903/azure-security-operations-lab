@@ -196,7 +196,7 @@ Canada Central
 |  [04](labs/lab-04-azure-policy/README.md) | Azure Policy | Audit, deny, tagging, compliance | Completed |
 |  [05](labs/lab-05-vnet-nsg/README.md) | Virtual Network and NSG | VNet design, subnet segmentation, NSG rules | Completed |
 |  [06](labs/lab-06-virtual-machines/README.md) | Windows and Linux Virtual Machines | Secure deployment, Bastion access, segmentation testing | Completed |
-|  07 | Virtual Machine Administration     | Access, lifecycle and operational security   | Planned   |
+|  [07](labs/lab-07-vm-administration/README.md) | Virtual Machine Administration | VM lifecycle, managed disks, Run Command | Completed |
 |  08 | Log Analytics AMA and DCR          | Log ingestion and collection rules           | Planned   |
 |  09 | Microsoft Sentinel                 | SIEM deployment and data connectors          | Planned   |
 |  10 | KQL Fundamentals                   | Log analysis and query development           | Planned   |
@@ -245,6 +245,8 @@ azure-security-operations-lab/
 │   │   ├── README-lab-06.md
 │   │   └── screenshots/
 │   ├── lab-07-vm-administration/
+│   │   ├── README.md
+│   │   └── screenshots/
 │   ├── lab-08-log-analytics-ama-dcr/
 │   ├── lab-09-microsoft-sentinel/
 │   ├── lab-10-kql/
@@ -672,10 +674,20 @@ The project is being developed one lab at a time.
 * Both virtual machines confirmed as stopped and deallocated after validation
 * Twenty sanitized evidence screenshots documented in the Lab 06 README
 
+* Lab 07 — Virtual Machine Administration and Managed Disks
+* Windows and Linux VM lifecycle managed and validated with Azure CLI
+* Difference between stopped and deallocated states tested and documented
+* 4 GiB Standard SSD managed disk attached, formatted as `ext4`, and mounted persistently on Linux using its UUID
+* Disk persistence confirmed after restart despite the Linux device name changing
+* Linux and Windows guest diagnostics executed remotely with Azure Run Command
+* Windows RDP listener, Secure Boot, and vTPM validated
+* Both virtual machines deallocated after testing for cost control
+* Ten sanitized evidence screenshots documented in the Lab 07 README
+
 ### Next
 
-* Lab 07 — Virtual Machine Administration
-* Continue lifecycle, access, maintenance, and operational-security validation using the deployed Windows and Linux workloads
+* Lab 08 — Log Analytics, Azure Monitor Agent, and Data Collection Rules
+* Configure centralized telemetry collection from the deployed Windows and Linux workloads
 
 ---
 
