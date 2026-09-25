@@ -1,0 +1,11 @@
+// Lab 08 - Investigate controlled local-account lifecycle events.
+// Event IDs: 4720 create, 4726 delete, 4732 group add, 4733 group remove.
+let TimeRange = 2h;
+let TargetComputer = "vm-win-cac-01";
+Event
+| where TimeGenerated > ago(TimeRange)
+| where Computer startswith TargetComputer
+| where EventLog == "Security"
+| where EventID in (4720, 4726, 4732, 4733)
+| project TimeGenerated, Computer, EventLog, EventID, RenderedDescription
+| order by TimeGenerated asc

@@ -1,0 +1,9 @@
+// Lab 08 - Validate Azure Monitor Agent heartbeat ingestion.
+// Change TargetComputer if the query is reused for another VM.
+let TimeRange = 1h;
+let TargetComputer = "vm-win-cac-01";
+Heartbeat
+| where TimeGenerated > ago(TimeRange)
+| where Computer startswith TargetComputer
+| project TimeGenerated, Computer, Category, Version
+| order by TimeGenerated desc

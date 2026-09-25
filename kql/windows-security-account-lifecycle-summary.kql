@@ -1,0 +1,21 @@
+// Lab 08 - Translate account-lifecycle event IDs into an analyst-friendly summary.
+let TimeRange = 2h;
+let TargetComputer = "vm-win-cac-01";
+Event
+| where TimeGenerated > ago(TimeRange)
+| where Computer startswith TargetComputer
+| where EventLog == "Security"
+| where EventID in (4720, 4726, 4732, 4733)
+| extend Activity = case(
+    EventID == 4720, "Local account created",
+    EventID == 4726, "Local account deleted",
+    EventID == 4732, "Member added to local group",
+    EventID == 4733, "Member removed from local group",
+    "Other"
+)
+| summarize
+    EventCount = count(),
+    FirstSeen = min(TimeGenerated),
+    LastSeen = max(TimeGenerated)
+    by EventID, Activity, Computer
+| order by FirstSeen asc

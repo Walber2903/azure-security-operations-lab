@@ -1,0 +1,18 @@
+// Lab 08 - Validate ingestion of the controlled System Warning event.
+let TimeRange = 2h;
+let TargetComputer = "vm-win-cac-01";
+Event
+| where TimeGenerated > ago(TimeRange)
+| where Computer startswith TargetComputer
+| where EventLog == "System"
+| where EventID == 100
+| where Source == "Lab08Monitor"
+| project
+    TimeGenerated,
+    Computer,
+    EventLog,
+    EventLevelName,
+    EventID,
+    Source,
+    RenderedDescription
+| order by TimeGenerated desc

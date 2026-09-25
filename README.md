@@ -146,7 +146,9 @@ Topics include:
 
 ## Architecture
 
-The lab follows this general security operations flow:
+The following diagram represents the target security operations flow. Components through Log Analytics were implemented by Lab 08; Microsoft Sentinel, detections, incidents, and threat hunting remain later phases.
+
+The [current-state architecture](architecture/azure-secops-current-architecture.md) documents only the components already validated.
 
 ```mermaid
 flowchart TD
@@ -197,7 +199,7 @@ Canada Central
 |  [05](labs/lab-05-vnet-nsg/README.md) | Virtual Network and NSG | VNet design, subnet segmentation, NSG rules | Completed |
 |  [06](labs/lab-06-virtual-machines/README.md) | Windows and Linux Virtual Machines | Secure deployment, Bastion access, segmentation testing | Completed |
 |  [07](labs/lab-07-vm-administration/README.md) | Virtual Machine Administration | VM lifecycle, managed disks, Run Command | Completed |
-|  08 | Log Analytics AMA and DCR          | Log ingestion and collection rules           | Planned   |
+|  [08](labs/lab-08-log-analytics-ama-dcr/README-lab-08.md) | Log Analytics, AMA, and DCR | Log ingestion, DCR, XPath filtering, and KQL validation | Completed |
 |  09 | Microsoft Sentinel                 | SIEM deployment and data connectors          | Planned   |
 |  10 | KQL Fundamentals                   | Log analysis and query development           | Planned   |
 |  11 | Detection Rule                     | Analytics rules and detection engineering    | Planned   |
@@ -218,8 +220,8 @@ azure-security-operations-lab/
 ├── README.md
 │
 ├── architecture/
-│   ├── azure-secops-architecture.png
-│   └── architecture-notes.md
+│   ├── azure-secops-current-architecture.md
+│   └── architecture-decisions.md
 │
 ├── labs/
 │   ├── lab-00-baseline/
@@ -245,9 +247,11 @@ azure-security-operations-lab/
 │   │   ├── README-lab-06.md
 │   │   └── screenshots/
 │   ├── lab-07-vm-administration/
-│   │   ├── README.md
+│   │   ├── README-lab-07.md
 │   │   └── screenshots/
 │   ├── lab-08-log-analytics-ama-dcr/
+│   │   ├── README-lab-08.md
+│   │   └── screenshots/
 │   ├── lab-09-microsoft-sentinel/
 │   ├── lab-10-kql/
 │   ├── lab-11-detection-rule/
@@ -259,20 +263,20 @@ azure-security-operations-lab/
 │   └── lab-17-cleanup/
 │
 ├── kql/
-│   ├── authentication.kql
-│   ├── azure-activity.kql
-│   ├── hunting.kql
-│   └── detections.kql
+│   ├── ama-heartbeat-validation.kql
+│   ├── windows-security-account-lifecycle.kql
+│   ├── windows-security-account-lifecycle-summary.kql
+│   └── windows-system-dcr-validation.kql
 │
-├── detections/
-│   └── repeated-failed-logons.md
+├── detections/ (populated when validated detections are created)
 │
-├── incidents/
-│   └── incident-001-failed-logons.md
+├── incidents/ (populated when Sentinel incidents are investigated)
 │
 └── docs/
     ├── rbac-matrix.md
     ├── cost-tracking.md
+    ├── naming-and-tagging-standards.md
+    ├── evidence-register.md
     └── lessons-learned.md
 ```
 
@@ -415,7 +419,7 @@ This workflow represents the relationship between cloud administration, telemetr
 
 ---
 
-## Planned KQL Coverage
+## KQL Coverage
 
 The project will include queries related to:
 
@@ -445,7 +449,7 @@ AzureActivity
 | order by TimeGenerated desc
 ```
 
-The final queries will be stored in the `kql/` directory and referenced by the relevant lab documentation.
+Reusable queries are stored in the `kql/` directory and referenced by the relevant lab documentation.
 
 ---
 
@@ -684,10 +688,20 @@ The project is being developed one lab at a time.
 * Both virtual machines deallocated after testing for cost control
 * Ten sanitized evidence screenshots documented in the Lab 07 README
 
+* Lab 08 — Log Analytics, Azure Monitor Agent, Data Collection Rules, and KQL
+* Log Analytics workspace configured with 30-day retention and cost review
+* Windows VM onboarded through AMA and a scoped Data Collection Rule
+* Selected Security and System events collected through narrow XPath filters
+* DCR provisioning, VM association, AMA health, and data ingestion validated
+* Controlled account-lifecycle and System Warning events investigated with KQL
+* Four reusable KQL queries stored in the root `kql/` directory
+* Windows VM deallocated after testing for cost control
+* Nineteen sanitized evidence screenshots documented in the Lab 08 README
+
 ### Next
 
-* Lab 08 — Log Analytics, Azure Monitor Agent, and Data Collection Rules
-* Configure centralized telemetry collection from the deployed Windows and Linux workloads
+* Lab 09 — Microsoft Sentinel
+* Onboard the existing Log Analytics workspace and begin SIEM configuration
 
 ---
 
