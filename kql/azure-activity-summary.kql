@@ -1,0 +1,10 @@
+// Lab 09 - Azure Activity event summary
+// Purpose: Summarize event volume and observation window by category and status.
+AzureActivity
+| where TimeGenerated > ago(24h)
+| summarize
+    EventCount = count(),
+    FirstSeen = min(TimeGenerated),
+    LastSeen = max(TimeGenerated)
+    by CategoryValue, ActivityStatusValue
+| order by EventCount desc

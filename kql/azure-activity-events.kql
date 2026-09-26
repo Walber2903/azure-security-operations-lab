@@ -1,0 +1,11 @@
+// Lab 09 - Detailed Azure Activity events
+// Purpose: Validate recent subscription activity without exposing Caller or subscription identifiers.
+AzureActivity
+| where TimeGenerated > ago(2h)
+| project
+    TimeGenerated,
+    OperationNameValue,
+    ActivityStatusValue,
+    CategoryValue,
+    ResourceGroup
+| order by TimeGenerated desc

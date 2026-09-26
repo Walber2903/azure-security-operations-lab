@@ -146,7 +146,7 @@ Topics include:
 
 ## Architecture
 
-The following diagram represents the target security operations flow. Components through Log Analytics were implemented by Lab 08; Microsoft Sentinel, detections, incidents, and threat hunting remain later phases.
+The following diagram represents the target security operations flow. Components through Microsoft Sentinel and Azure Activity ingestion were implemented by Lab 09; detections, incidents, and threat hunting remain later phases.
 
 The [current-state architecture](architecture/azure-secops-current-architecture.md) documents only the components already validated.
 
@@ -200,7 +200,7 @@ Canada Central
 |  [06](labs/lab-06-virtual-machines/README.md) | Windows and Linux Virtual Machines | Secure deployment, Bastion access, segmentation testing | Completed |
 |  [07](labs/lab-07-vm-administration/README.md) | Virtual Machine Administration | VM lifecycle, managed disks, Run Command | Completed |
 |  [08](labs/lab-08-log-analytics-ama-dcr/README-lab-08.md) | Log Analytics, AMA, and DCR | Log ingestion, DCR, XPath filtering, and KQL validation | Completed |
-|  09 | Microsoft Sentinel                 | SIEM deployment and data connectors          | Planned   |
+|  [09](labs/lab-09-microsoft-sentinel/README-lab-09.md) | Microsoft Sentinel | SIEM deployment, Azure Activity connector, Policy remediation, and KQL validation | Completed |
 |  10 | KQL Fundamentals                   | Log analysis and query development           | Planned   |
 |  11 | Detection Rule                     | Analytics rules and detection engineering    | Planned   |
 |  12 | Incident Investigation             | Triage, entities, evidence and remediation   | Planned   |
@@ -253,6 +253,8 @@ azure-security-operations-lab/
 │   │   ├── README-lab-08.md
 │   │   └── screenshots/
 │   ├── lab-09-microsoft-sentinel/
+│   │   ├── README-lab-09.md
+│   │   └── screenshots/
 │   ├── lab-10-kql/
 │   ├── lab-11-detection-rule/
 │   ├── lab-12-incident-investigation/
@@ -266,7 +268,9 @@ azure-security-operations-lab/
 │   ├── ama-heartbeat-validation.kql
 │   ├── windows-security-account-lifecycle.kql
 │   ├── windows-security-account-lifecycle-summary.kql
-│   └── windows-system-dcr-validation.kql
+│   ├── windows-system-dcr-validation.kql
+│   ├── azure-activity-events.kql
+│   └── azure-activity-summary.kql
 │
 ├── detections/ (populated when validated detections are created)
 │
@@ -698,10 +702,20 @@ The project is being developed one lab at a time.
 * Windows VM deallocated after testing for cost control
 * Nineteen sanitized evidence screenshots documented in the Lab 08 README
 
+* Lab 09 — Microsoft Sentinel and Azure Activity Connector
+* Existing Log Analytics workspace onboarded to Microsoft Sentinel
+* Primary SIEM workspace connected to the Microsoft Defender portal
+* Azure Activity solution installed from Content Hub
+* Subscription Activity Logs routed through an Azure Policy-managed diagnostic setting
+* Policy remediation completed and assignment validated at 100% compliance
+* Controlled resource-tag activity ingested into the `AzureActivity` table
+* Two reusable Azure Activity queries stored in the root `kql/` directory
+* Thirteen sanitized evidence screenshots documented in the Lab 09 README
+
 ### Next
 
-* Lab 09 — Microsoft Sentinel
-* Onboard the existing Log Analytics workspace and begin SIEM configuration
+* Lab 10 — KQL Fundamentals
+* Expand analysis across the telemetry collected in Labs 08 and 09
 
 ---
 
