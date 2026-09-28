@@ -1,0 +1,26 @@
+Event
+| where EventLog == "Security"
+| where EventID == 4688
+| where Computer startswith "vm-win-cac-01"
+| where RenderedDescription contains "powershell.exe"
+| extend NewProcessName = extract(
+    @"New Process Name:\s+(\S+)",
+    1,
+    RenderedDescription
+)
+| extend ParentProcessName = extract(
+    @"Creator Process Name:\s+(\S+)",
+    1,
+    RenderedDescription
+)
+| extend SubjectAccount = extract(
+    @"Creator Subject:[\s\S]*?Account Name:\s+(\S+)\s+Account Domain:",
+    1,
+    RenderedDescription
+)
+| extend NewProcessName = trim(@"[ \t]", NewProcessName)
+| extend ParentProcessName = trim(@"[ \t]", ParentProcessName)
+| extend SubjectAccount = trim(@"[ \t]", SubjectAccount)
+| where NewProcessName endswith @"\powershell.exe"
+| where ParentProcessName endswith @"\cmd.exe"
+| project TimeGenerated, SubjectAccount, NewProcessName, ParentProcessName, Computer, EventID

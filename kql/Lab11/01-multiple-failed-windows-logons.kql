@@ -1,0 +1,16 @@
+Event
+| where EventLog == "Security"
+| where EventID == 4625
+| where Computer startswith "vm-win-cac-01"
+| extend Account = extract(
+    @"Account For Which Logon Failed:[\s\S]*?Account Name:\s+(\S+)\s+Account Domain:",
+    1,
+    RenderedDescription
+)
+| extend Account = trim(@"[ \t]", Account)
+| summarize
+    FailedLogons = count(),
+    FirstSeen = min(TimeGenerated),
+    LastSeen = max(TimeGenerated)
+    by Account, Computer
+| where FailedLogons >= 5

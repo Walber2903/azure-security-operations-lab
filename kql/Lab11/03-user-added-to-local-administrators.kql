@@ -1,0 +1,19 @@
+Event
+| where EventLog == "Security"
+| where EventID == 4732
+| where Computer startswith "vm-win-cac-01"
+| extend AccountSid = extract(
+    @"Member:[\s\S]*?Security ID:\s+(\S+)",
+    1,
+    RenderedDescription
+)
+| extend GroupName = extract(
+    @"Group:[\s\S]*?Group Name:\s+(.*?)\s+Group Domain:",
+    1,
+    RenderedDescription
+)
+| extend AccountSid = trim(@"[ \t]", AccountSid)
+| extend GroupName = trim(@"[ \t]", GroupName)
+| where GroupName =~ "Administrators"
+| where isnotempty(AccountSid)
+| project TimeGenerated, AccountSid, GroupName, Computer, EventID

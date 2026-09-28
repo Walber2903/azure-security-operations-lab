@@ -146,7 +146,7 @@ Topics include:
 
 ## Architecture
 
-The following diagram represents the target security operations flow. Microsoft Sentinel ingestion and the first cross-source KQL investigations were implemented through Lab 10; detections, incidents, and threat hunting remain later phases.
+The following diagram represents the security operations flow implemented through Lab 11. Microsoft Sentinel ingestion, cross-source KQL investigations, scheduled analytics rules, alert generation, entity mapping, and incident creation have now been validated. Formal incident triage and threat hunting remain the next phases.
 
 The [current-state architecture](architecture/azure-secops-current-architecture.md) documents only the components already validated.
 
@@ -202,7 +202,7 @@ Canada Central
 |  [08](labs/lab-08-log-analytics-ama-dcr/README-lab-08.md) | Log Analytics, AMA, and DCR | Log ingestion, DCR, XPath filtering, and KQL validation | Completed |
 |  [09](labs/lab-09-microsoft-sentinel/README-lab-09.md) | Microsoft Sentinel | SIEM deployment, Azure Activity connector, Policy remediation, and KQL validation | Completed |
 |  [10](labs/lab-10-kql/README-lab-10.md) | KQL Investigation Fundamentals | Windows authentication, rare-event hunting, Azure control-plane analysis, and unified timelines | Completed |
-|  11 | Detection Rule                     | Analytics rules and detection engineering    | Planned   |
+|  [11](labs/lab-11-detection-rule/README-lab-11.md) | Microsoft Sentinel Scheduled Analytics Rules | KQL detections, entity mapping, alert grouping, incident generation | Completed |
 |  12 | Incident Investigation             | Triage, entities, evidence and remediation   | Planned   |
 |  13 | Threat Hunting                     | Hypothesis-based security investigation      | Planned   |
 |  14 | Conditional Access                 | Identity protection and access controls      | Planned   |
@@ -259,6 +259,8 @@ azure-security-operations-lab/
 │   │   ├── README-lab-10.md
 │   │   └── screenshots/
 │   ├── lab-11-detection-rule/
+│   │   ├── README-lab-11.md
+│   │   └── screenshots/
 │   ├── lab-12-incident-investigation/
 │   ├── lab-13-threat-hunting/
 │   ├── lab-14-conditional-access/
@@ -267,19 +269,25 @@ azure-security-operations-lab/
 │   └── lab-17-cleanup/
 │
 ├── kql/
+│   ├── lab10/
+│   │   ├── lab10-01-data-source-validation.kql
+│   │   ├── lab10-02-windows-event-baseline.kql
+│   │   ├── lab10-03-authentication-investigation.kql
+│   │   ├── lab10-04-rare-windows-security-events.kql
+│   │   ├── lab10-05-azure-control-plane-investigation.kql
+│   │   ├── lab10-06-unified-security-timeline.kql
+│   │   └── lab10-07-security-events-timechart.kql
+│   ├── lab11/
+│   │   ├── 01-multiple-failed-windows-logons.kql
+│   │   ├── 02-local-user-account-created.kql
+│   │   ├── 03-user-added-to-local-administrators.kql
+│   │   └── 04-powershell-spawned-by-command-shell.kql
 │   ├── ama-heartbeat-validation.kql
 │   ├── windows-security-account-lifecycle.kql
 │   ├── windows-security-account-lifecycle-summary.kql
 │   ├── windows-system-dcr-validation.kql
 │   ├── azure-activity-events.kql
-│   ├── azure-activity-summary.kql
-│   ├── lab10-01-data-source-validation.kql
-│   ├── lab10-02-windows-event-baseline.kql
-│   ├── lab10-03-authentication-investigation.kql
-│   ├── lab10-04-rare-windows-security-events.kql
-│   ├── lab10-05-azure-control-plane-investigation.kql
-│   ├── lab10-06-unified-security-timeline.kql
-│   └── lab10-07-security-events-timechart.kql
+│   └── azure-activity-summary.kql
 │
 ├── detections/ (populated when validated detections are created)
 │
@@ -434,7 +442,7 @@ This workflow represents the relationship between cloud administration, telemetr
 
 ## KQL Coverage
 
-The project will include queries related to:
+The project includes reusable queries developed and validated throughout the completed labs, with additional investigation and hunting queries planned for later phases. Current and planned coverage includes:
 
 * Azure administrative activity
 * Resource creation and modification
@@ -468,9 +476,9 @@ Reusable queries are stored in the `kql/` directory and referenced by the releva
 
 ## Detection Engineering
 
-The detection phase will document more than the final KQL query.
+Lab 11 introduced the detection-engineering phase by converting validated Windows Security patterns into four Microsoft Sentinel scheduled analytics rules. The implemented detections cover repeated failed logons, local account creation, membership in the local Administrators group, and PowerShell launched by Command Prompt.
 
-Each detection document will include:
+The rule-development process documents more than the final KQL query. Each detection includes:
 
 * Detection objective
 * Threat scenario
@@ -731,10 +739,21 @@ The project is being developed one lab at a time.
 * Seven reusable, commented KQL query files stored in the root `kql/` directory
 * Ten sanitized evidence screenshots documented in the Lab 10 README
 
+* Lab 11 — Microsoft Sentinel Scheduled Analytics Rules
+* Four scheduled analytics rules created and validated from Windows Security Events `4625`, `4720`, `4732`, and `4688`
+* Controlled events generated safely on the Windows VM through Azure VM Run Command
+* Detection logic tested manually in Log Analytics before each rule was enabled
+* Five-minute execution frequency and 15-minute lookback windows validated
+* Account and Host entities mapped using account names, computer names, and SIDs where appropriate
+* Alert thresholds, event grouping, suppression, MITRE ATT&CK mappings, and custom details configured
+* Sentinel incidents investigated through their timelines, alerts, entities, and supporting event evidence
+* KQL parsing, rule-window timing, account-name limitations, and PowerShell telemetry gaps troubleshot and documented
+* Four reusable detection queries stored in `kql/lab11/` and seventeen sanitized evidence screenshots stored in the Lab 11 directory
+
 ### Next
 
-* Lab 11 — Detection Rule
-* Convert the validated authentication pattern into a Microsoft Sentinel analytics rule
+* Lab 12 — Incident Investigation
+* Apply a repeatable triage process to the generated Sentinel incidents, document evidence and scope, classify the activity, and define containment and remediation recommendations
 
 ---
 

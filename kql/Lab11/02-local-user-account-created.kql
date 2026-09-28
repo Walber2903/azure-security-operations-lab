@@ -1,0 +1,12 @@
+Event
+| where EventLog == "Security"
+| where EventID == 4720
+| where Computer startswith "vm-win-cac-01"
+| extend TargetAccount = extract(
+    @"New Account:[\s\S]*?Account Name:\s+(\S+)\s+Account Domain:",
+    1,
+    RenderedDescription
+)
+| extend TargetAccount = trim(@"[ \t]", TargetAccount)
+| where isnotempty(TargetAccount)
+| project TimeGenerated, TargetAccount, Computer, EventID
