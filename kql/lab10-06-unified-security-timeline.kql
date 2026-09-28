@@ -1,0 +1,38 @@
+// Lab 10 - Step 6: correlate Windows authentication with Azure control-plane actions.
+let WindowsAuthentication =
+    Event
+    | where TimeGenerated > ago(7d)
+    | where Computer startswith "vm-win-cac-01"
+    | where EventLog == "Security"
+    | where EventID in (4624, 4625)
+    | extend Activity = iff(
+        EventID == 4624,
+        "Successful Windows logon",
+        "Failed Windows logon"
+    )
+    | extend Actor = case(
+        EventID == 4624,
+            extract(@"New Logon:[\s\S]*?Account Name:\s+(\S+)\s+Account Domain:", 1, RenderedDescription),
+        EventID == 4625,
+            extract(@"Account For Which Logon Failed:[\s\S]*?Account Name:\s+(\S+)\s+Account Domain:", 1, RenderedDescription),
+        ""
+    )
+    | project
+        TimeGenerated,
+        SourceType = "Windows Security",
+        Activity,
+        Actor = trim(@"[ \t]", Actor),
+        Status = iff(EventID == 4624, "Success", "Failure");
+let AzureControlPlane =
+    AzureActivity
+    | where TimeGenerated > ago(7d)
+    | where Caller contains "@"
+    | project
+        TimeGenerated,
+        SourceType = "Azure Control Plane",
+        Activity = OperationNameValue,
+        Actor = Caller,
+        Status = ActivityStatusValue;
+union WindowsAuthentication, AzureControlPlane
+| order by TimeGenerated desc
+| take 100

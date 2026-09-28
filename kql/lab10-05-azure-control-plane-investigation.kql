@@ -1,0 +1,32 @@
+// Lab 10 - Step 5A: review raw Azure control-plane activity.
+AzureActivity
+| where TimeGenerated > ago(7d)
+| where Caller contains "@"
+| project
+    TimeGenerated,
+    Caller,
+    OperationNameValue,
+    ActivityStatusValue,
+    CategoryValue,
+    ResourceGroup
+| order by TimeGenerated desc
+| take 50;
+
+// Lab 10 - Step 5B: translate operations into analyst-friendly activities.
+AzureActivity
+| where TimeGenerated > ago(7d)
+| where Caller contains "@"
+| extend Activity = case(
+    OperationNameValue contains "RUNCOMMAND", "Execute VM Run Command",
+    OperationNameValue contains "VIRTUALMACHINES/START", "Start virtual machine",
+    OperationNameValue contains "TAGS/WRITE", "Create or update resource tags",
+    OperationNameValue contains "TRIGGEREVALUATION", "Trigger policy evaluation",
+    OperationNameValue contains "DIAGNOSTICSETTINGS/WRITE", "Create or update diagnostic settings",
+    OperationNameValue
+)
+| summarize
+    EventCount = count(),
+    FirstSeen = min(TimeGenerated),
+    LastSeen = max(TimeGenerated)
+    by Caller, Activity, ActivityStatusValue
+| order by EventCount desc

@@ -1,0 +1,12 @@
+// Lab 10 - Step 1: validate the telemetry available to the investigation.
+// The withsource option records which table produced each row.
+union withsource=TableName
+    Event,
+    Heartbeat,
+    AzureActivity
+| where TimeGenerated > ago(7d)
+| summarize
+    Records = count(),
+    LastEvent = max(TimeGenerated)
+    by TableName
+| order by TableName asc

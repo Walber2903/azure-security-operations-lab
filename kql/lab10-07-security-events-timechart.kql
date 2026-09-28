@@ -1,0 +1,21 @@
+// Lab 10 - Optional visualization: compare event series in 15-minute bins.
+// A short data window can produce a single spike; the unified table is the
+// primary investigation view, while this chart is supporting evidence.
+let WindowsAuthentication =
+    Event
+    | where TimeGenerated > ago(7d)
+    | where Computer startswith "vm-win-cac-01"
+    | where EventLog == "Security"
+    | where EventID in (4624, 4625)
+    | extend Status = iff(EventID == 4624, "Success", "Failure")
+    | project TimeGenerated, SourceType = "Windows Security", Status;
+let AzureControlPlane =
+    AzureActivity
+    | where TimeGenerated > ago(7d)
+    | where Caller contains "@"
+    | project TimeGenerated, SourceType = "Azure Control Plane", Status = ActivityStatusValue;
+union WindowsAuthentication, AzureControlPlane
+| extend Series = strcat(SourceType, " - ", Status)
+| summarize EventCount = count() by bin(TimeGenerated, 15m), Series
+| order by TimeGenerated asc
+| render timechart

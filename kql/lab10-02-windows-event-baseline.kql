@@ -1,0 +1,14 @@
+// Lab 10 - Step 2: establish a readable Windows event baseline.
+// This environment sends Windows events to Event through AMA and a DCR.
+Event
+| where TimeGenerated > ago(7d)
+| where Computer startswith "vm-win-cac-01"
+| project
+    TimeGenerated,
+    Computer,
+    EventLog,
+    EventID,
+    EventLevelName,
+    Source,
+    RenderedDescription
+| order by TimeGenerated desc

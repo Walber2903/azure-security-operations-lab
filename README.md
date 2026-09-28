@@ -146,7 +146,7 @@ Topics include:
 
 ## Architecture
 
-The following diagram represents the target security operations flow. Components through Microsoft Sentinel and Azure Activity ingestion were implemented by Lab 09; detections, incidents, and threat hunting remain later phases.
+The following diagram represents the target security operations flow. Microsoft Sentinel ingestion and the first cross-source KQL investigations were implemented through Lab 10; detections, incidents, and threat hunting remain later phases.
 
 The [current-state architecture](architecture/azure-secops-current-architecture.md) documents only the components already validated.
 
@@ -201,7 +201,7 @@ Canada Central
 |  [07](labs/lab-07-vm-administration/README.md) | Virtual Machine Administration | VM lifecycle, managed disks, Run Command | Completed |
 |  [08](labs/lab-08-log-analytics-ama-dcr/README-lab-08.md) | Log Analytics, AMA, and DCR | Log ingestion, DCR, XPath filtering, and KQL validation | Completed |
 |  [09](labs/lab-09-microsoft-sentinel/README-lab-09.md) | Microsoft Sentinel | SIEM deployment, Azure Activity connector, Policy remediation, and KQL validation | Completed |
-|  10 | KQL Fundamentals                   | Log analysis and query development           | Planned   |
+|  [10](labs/lab-10-kql/README-lab-10.md) | KQL Investigation Fundamentals | Windows authentication, rare-event hunting, Azure control-plane analysis, and unified timelines | Completed |
 |  11 | Detection Rule                     | Analytics rules and detection engineering    | Planned   |
 |  12 | Incident Investigation             | Triage, entities, evidence and remediation   | Planned   |
 |  13 | Threat Hunting                     | Hypothesis-based security investigation      | Planned   |
@@ -256,6 +256,8 @@ azure-security-operations-lab/
 │   │   ├── README-lab-09.md
 │   │   └── screenshots/
 │   ├── lab-10-kql/
+│   │   ├── README-lab-10.md
+│   │   └── screenshots/
 │   ├── lab-11-detection-rule/
 │   ├── lab-12-incident-investigation/
 │   ├── lab-13-threat-hunting/
@@ -270,7 +272,14 @@ azure-security-operations-lab/
 │   ├── windows-security-account-lifecycle-summary.kql
 │   ├── windows-system-dcr-validation.kql
 │   ├── azure-activity-events.kql
-│   └── azure-activity-summary.kql
+│   ├── azure-activity-summary.kql
+│   ├── lab10-01-data-source-validation.kql
+│   ├── lab10-02-windows-event-baseline.kql
+│   ├── lab10-03-authentication-investigation.kql
+│   ├── lab10-04-rare-windows-security-events.kql
+│   ├── lab10-05-azure-control-plane-investigation.kql
+│   ├── lab10-06-unified-security-timeline.kql
+│   └── lab10-07-security-events-timechart.kql
 │
 ├── detections/ (populated when validated detections are created)
 │
@@ -712,10 +721,20 @@ The project is being developed one lab at a time.
 * Two reusable Azure Activity queries stored in the root `kql/` directory
 * Thirteen sanitized evidence screenshots documented in the Lab 09 README
 
+* Lab 10 — KQL Investigation Fundamentals
+* Data freshness validated across `Event`, `Heartbeat`, and `AzureActivity`
+* Windows authentication investigated with controlled `4624` and `4625` events
+* Account names parsed from event-specific `RenderedDescription` layouts
+* Rare Windows Security events prioritized and mapped to readable activities
+* Azure control-plane operations summarized into analyst-friendly actions
+* Windows and Azure activity normalized into a unified security timeline
+* Seven reusable, commented KQL query files stored in the root `kql/` directory
+* Ten sanitized evidence screenshots documented in the Lab 10 README
+
 ### Next
 
-* Lab 10 — KQL Fundamentals
-* Expand analysis across the telemetry collected in Labs 08 and 09
+* Lab 11 — Detection Rule
+* Convert the validated authentication pattern into a Microsoft Sentinel analytics rule
 
 ---
 

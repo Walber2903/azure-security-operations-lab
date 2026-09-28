@@ -1,0 +1,67 @@
+// Lab 10 - Step 3A: confirm successful and failed logon events are available.
+Event
+| where TimeGenerated > ago(2h)
+| where Computer startswith "vm-win-cac-01"
+| where EventLog == "Security"
+| where EventID in (4624, 4625)
+| extend Activity = case(
+    EventID == 4624, "Successful logon",
+    EventID == 4625, "Failed logon",
+    "Other"
+)
+| summarize
+    EventCount = count(),
+    FirstSeen = min(TimeGenerated),
+    LastSeen = max(TimeGenerated)
+    by EventID, Activity
+| order by EventID asc;
+
+// Lab 10 - Step 3B: group failed attempts into 15-minute windows.
+Event
+| where TimeGenerated > ago(2h)
+| where Computer startswith "vm-win-cac-01"
+| where EventLog == "Security"
+| where EventID == 4625
+| extend Account = extract(
+    @"Account For Which Logon Failed:[\s\S]*?Account Name:\s+(\S+)\s+Account Domain:",
+    1,
+    RenderedDescription
+)
+| extend Account = trim(@"[ \t]", Account)
+| summarize
+    FailedLogons = count(),
+    FirstSeen = min(TimeGenerated),
+    LastSeen = max(TimeGenerated)
+    by bin(TimeGenerated, 15m), Account, Computer
+| order by TimeGenerated desc;
+
+// Lab 10 - Step 3C: compare authentication activity by account.
+// Event 4624 and 4625 use different sections in RenderedDescription.
+Event
+| where TimeGenerated > ago(2h)
+| where Computer startswith "vm-win-cac-01"
+| where EventLog == "Security"
+| where EventID in (4624, 4625)
+| extend Account = case(
+    EventID == 4624,
+        extract(
+            @"New Logon:[\s\S]*?Account Name:\s+(\S+)\s+Account Domain:",
+            1,
+            RenderedDescription
+        ),
+    EventID == 4625,
+        extract(
+            @"Account For Which Logon Failed:[\s\S]*?Account Name:\s+(\S+)\s+Account Domain:",
+            1,
+            RenderedDescription
+        ),
+    ""
+)
+| extend Account = trim(@"[ \t]", Account)
+| summarize
+    SuccessfulLogons = countif(EventID == 4624),
+    FailedLogons = countif(EventID == 4625),
+    FirstSeen = min(TimeGenerated),
+    LastSeen = max(TimeGenerated)
+    by Account, Computer
+| order by FailedLogons desc, SuccessfulLogons desc

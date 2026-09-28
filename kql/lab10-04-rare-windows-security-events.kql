@@ -1,0 +1,26 @@
+// Lab 10 - Step 4: surface low-frequency Windows Security events.
+// Ordering by the lowest count first helps unusual activity stand out.
+Event
+| where TimeGenerated > ago(7d)
+| where Computer startswith "vm-win-cac-01"
+| where EventLog == "Security"
+| extend Activity = case(
+    EventID == 4624, "Successful logon",
+    EventID == 4625, "Failed logon",
+    EventID == 4634, "Account logged off",
+    EventID == 4648, "Logon with explicit credentials",
+    EventID == 4672, "Special privileges assigned",
+    EventID == 4688, "New process created",
+    EventID == 4720, "User account created",
+    EventID == 4726, "User account deleted",
+    EventID == 4732, "Member added to local security group",
+    EventID == 4733, "Member removed from local security group",
+    EventID == 1102, "Audit log cleared",
+    "Other Windows security event"
+)
+| summarize
+    EventCount = count(),
+    FirstSeen = min(TimeGenerated),
+    LastSeen = max(TimeGenerated)
+    by EventID, Activity
+| order by EventCount asc
