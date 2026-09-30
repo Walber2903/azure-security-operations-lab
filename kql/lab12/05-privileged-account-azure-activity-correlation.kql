@@ -1,0 +1,10 @@
+let StartTime = datetime(2026-09-28T19:55:00Z);
+let EndTime = datetime(2026-09-28T20:55:00Z);
+AzureActivity
+| where TimeGenerated between (StartTime .. EndTime)
+| where ResourceGroup =~ "rg-secops-compute-canadacentral"
+| where ResourceId has "/virtualMachines/vm-win-cac-01"
+| where OperationNameValue has "runCommand"
+| project TimeGenerated, Caller, OperationNameValue, ActivityStatusValue,
+          ResourceGroup, ResourceId, CorrelationId
+| order by TimeGenerated asc

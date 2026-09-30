@@ -1,0 +1,9 @@
+Event
+| where TimeGenerated between (datetime(2026-09-28T19:55:00Z) .. datetime(2026-09-28T20:55:00Z))
+| where EventLog == "Security"
+| where Computer startswith "vm-win-cac-01"
+| where EventID in (4720, 4732, 4733)
+| where RenderedDescription contains "lab11-persist"
+   or RenderedDescription contains "S-1-5-21-"
+| project TimeGenerated, EventID, Computer, RenderedDescription
+| order by TimeGenerated asc

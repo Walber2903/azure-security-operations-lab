@@ -146,7 +146,7 @@ Topics include:
 
 ## Architecture
 
-The following diagram represents the security operations flow implemented through Lab 11. Microsoft Sentinel ingestion, cross-source KQL investigations, scheduled analytics rules, alert generation, entity mapping, and incident creation have now been validated. Formal incident triage and threat hunting remain the next phases.
+The following diagram represents the security operations flow implemented through Lab 12. Microsoft Sentinel ingestion, cross-source KQL investigations, scheduled analytics rules, alert generation, entity mapping, incident creation, and evidence-based incident triage have now been validated. Threat hunting remains the next phase.
 
 The [current-state architecture](architecture/azure-secops-current-architecture.md) documents only the components already validated.
 
@@ -203,7 +203,7 @@ Canada Central
 |  [09](labs/lab-09-microsoft-sentinel/README-lab-09.md) | Microsoft Sentinel | SIEM deployment, Azure Activity connector, Policy remediation, and KQL validation | Completed |
 |  [10](labs/lab-10-kql/README-lab-10.md) | KQL Investigation Fundamentals | Windows authentication, rare-event hunting, Azure control-plane analysis, and unified timelines | Completed |
 |  [11](labs/lab-11-detection-rule/README-lab-11.md) | Microsoft Sentinel Scheduled Analytics Rules | KQL detections, entity mapping, alert grouping, incident generation | Completed |
-|  12 | Incident Investigation             | Triage, entities, evidence and remediation   | Planned   |
+| [12](labs/lab-12-incident-triage/README-lab-12.md) | Microsoft Sentinel Incident Triage and Correlation | Windows event timelines, Azure control-plane correlation, classification, and closure | Completed |
 |  13 | Threat Hunting                     | Hypothesis-based security investigation      | Planned   |
 |  14 | Conditional Access                 | Identity protection and access controls      | Planned   |
 |  15 | Policy Compliance                  | Governance assessment and remediation        | Planned   |
@@ -261,7 +261,9 @@ azure-security-operations-lab/
 │   ├── lab-11-detection-rule/
 │   │   ├── README-lab-11.md
 │   │   └── screenshots/
-│   ├── lab-12-incident-investigation/
+│   ├── lab-12-incident-triage/
+│   │   ├── README-lab-12.md
+│   │   └── screenshots/
 │   ├── lab-13-threat-hunting/
 │   ├── lab-14-conditional-access/
 │   ├── lab-15-policy-compliance/
@@ -282,6 +284,12 @@ azure-security-operations-lab/
 │   │   ├── 02-local-user-account-created.kql
 │   │   ├── 03-user-added-to-local-administrators.kql
 │   │   └── 04-powershell-spawned-by-command-shell.kql
+│   ├── lab12/
+│   │   ├── 01-powershell-security-event-correlation.kql
+│   │   ├── 02-powershell-azure-activity-correlation.kql
+│   │   ├── 03-privileged-account-lifecycle.kql
+│   │   ├── 04-privileged-account-actor-identification.kql
+│   │   └── 05-privileged-account-azure-activity-correlation.kql
 │   ├── ama-heartbeat-validation.kql
 │   ├── windows-security-account-lifecycle.kql
 │   ├── windows-security-account-lifecycle-summary.kql
@@ -289,9 +297,12 @@ azure-security-operations-lab/
 │   ├── azure-activity-events.kql
 │   └── azure-activity-summary.kql
 │
-├── detections/ (populated when validated detections are created)
+├── detections/
+│   └── DET-001 through DET-004
 │
-├── incidents/ (populated when Sentinel incidents are investigated)
+├── incidents/
+│   ├── INC-001-powershell-run-command-investigation.md
+│   └── INC-002-privileged-local-account-investigation.md
 │
 └── docs/
     ├── rbac-matrix.md
@@ -750,10 +761,21 @@ The project is being developed one lab at a time.
 * KQL parsing, rule-window timing, account-name limitations, and PowerShell telemetry gaps troubleshot and documented
 * Four reusable detection queries stored in `kql/lab11/` and seventeen sanitized evidence screenshots stored in the Lab 11 directory
 
+* Lab 12 — Microsoft Sentinel Incident Triage and Correlation
+* Two Sentinel incidents investigated from initial triage through classification and closure
+* Incident ownership, Active status, investigation tasks, analyst comments, and closure reasons documented
+* PowerShell execution correlated across Windows Security Events `4624`, `4672`, and `4688`
+* Local-account creation and privileged-group membership reconstructed with Events `4720`, `4732`, and `4733`
+* Windows Security evidence correlated with Azure `Run Command` operations in the `AzureActivity` table
+* Endpoint execution under `LOCAL SYSTEM` connected to the authorized Azure identity that initiated each controlled action
+* Alerts classified as **Benign Positive — Suspicious but expected** only after host, identity, operation, and timestamp validation
+* Five reusable investigation queries stored in `kql/lab12/`
+* Two formal incident records stored in `incidents/` and twenty sanitized evidence screenshots stored in the Lab 12 directory
+
 ### Next
 
-* Lab 12 — Incident Investigation
-* Apply a repeatable triage process to the generated Sentinel incidents, document evidence and scope, classify the activity, and define containment and remediation recommendations
+* Lab 13 — Threat Hunting
+* Develop investigation hypotheses from the validated detections and incidents, search across Windows Security and Azure control-plane telemetry, identify related activity outside alert boundaries, and document hunting findings and potential detection improvements
 
 ---
 

@@ -1,0 +1,8 @@
+let ExecutionTime = datetime(2026-09-28T21:14:09.0597176Z);
+Event
+| where TimeGenerated between ((ExecutionTime - 10m) .. (ExecutionTime + 10m))
+| where EventLog == "Security"
+| where Computer startswith "vm-win-cac-01"
+| where EventID in (4624, 4625, 4672, 4688, 4720, 4732, 4733)
+| project TimeGenerated, EventID, Computer, RenderedDescription
+| order by TimeGenerated asc

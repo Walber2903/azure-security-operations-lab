@@ -1,0 +1,17 @@
+Event
+| where TimeGenerated between (datetime(2026-09-28T19:55:00Z) .. datetime(2026-09-28T20:55:00Z))
+| where EventLog == "Security"
+| where Computer startswith "vm-win-cac-01"
+| where EventID in (4720, 4732, 4733)
+| extend ActorSid = extract(@"Subject:[\s\S]*?Security ID:\s+(\S+)", 1, RenderedDescription)
+| extend ActorAccount = extract(@"Subject:[\s\S]*?Account Name:\s+(\S+)", 1, RenderedDescription)
+| extend ActorDomain = extract(@"Subject:[\s\S]*?Account Domain:\s+(\S+)", 1, RenderedDescription)
+| extend ActorLogonId = extract(@"Subject:[\s\S]*?Logon ID:\s+(\S+)", 1, RenderedDescription)
+| extend TargetSid = coalesce(
+    extract(@"New Account:[\s\S]*?Security ID:\s+(\S+)", 1, RenderedDescription),
+    extract(@"Member:[\s\S]*?Security ID:\s+(\S+)", 1, RenderedDescription))
+| extend TargetAccount = extract(@"New Account:[\s\S]*?Account Name:\s+(\S+)", 1, RenderedDescription)
+| where TargetAccount =~ "lab11-persist" or isnotempty(TargetSid)
+| project TimeGenerated, EventID, ActorAccount, ActorDomain, ActorSid,
+          ActorLogonId, TargetAccount, TargetSid, Computer
+| order by TimeGenerated asc
