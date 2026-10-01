@@ -1,0 +1,27 @@
+// Lab 13 - Windows Command-Line Interpreter Execution
+// Purpose: identify PowerShell and CMD process creation events from Windows Event ID 4688.
+
+Event
+| where EventID == 4688
+| extend
+    SubjectUserName = extract(@"<Data Name=""SubjectUserName"">([^<]*)</Data>", 1, EventData),
+    SubjectUserSid  = extract(@"<Data Name=""SubjectUserSid"">([^<]*)</Data>", 1, EventData),
+    NewProcessName  = extract(@"<Data Name=""NewProcessName"">([^<]*)</Data>", 1, EventData),
+    CommandLine     = extract(@"<Data Name=""CommandLine"">([^<]*)</Data>", 1, EventData),
+    ParentProcessName = extract(@"<Data Name=""ParentProcessName"">([^<]*)</Data>", 1, EventData),
+    ProcessId       = extract(@"<Data Name=""ProcessId"">([^<]*)</Data>", 1, EventData),
+    NewProcessId    = extract(@"<Data Name=""NewProcessId"">([^<]*)</Data>", 1, EventData)
+| where NewProcessName has_any ("powershell.exe", "cmd.exe")
+| project
+    TimeGenerated,
+    Computer,
+    SubjectUserName,
+    SubjectUserSid,
+    ParentProcessName,
+    NewProcessName,
+    CommandLine,
+    ProcessId,
+    NewProcessId
+| order by TimeGenerated desc
+| extend Host_0_HostName = Computer
+| extend Account_0_Name = SubjectUserName

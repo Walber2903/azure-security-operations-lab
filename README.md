@@ -146,7 +146,7 @@ Topics include:
 
 ## Architecture
 
-The following diagram represents the security operations flow implemented through Lab 12. Microsoft Sentinel ingestion, cross-source KQL investigations, scheduled analytics rules, alert generation, entity mapping, incident creation, and evidence-based incident triage have now been validated. Threat hunting remains the next phase.
+The following diagram represents the security operations flow implemented through Lab 13. Microsoft Sentinel ingestion, cross-source KQL investigations, scheduled analytics rules, alert generation, entity mapping, incident creation, evidence-based incident triage, and hypothesis-driven threat hunting have now been validated.
 
 The [current-state architecture](architecture/azure-secops-current-architecture.md) documents only the components already validated.
 
@@ -204,7 +204,7 @@ Canada Central
 |  [10](labs/lab-10-kql/README-lab-10.md) | KQL Investigation Fundamentals | Windows authentication, rare-event hunting, Azure control-plane analysis, and unified timelines | Completed |
 |  [11](labs/lab-11-detection-rule/README-lab-11.md) | Microsoft Sentinel Scheduled Analytics Rules | KQL detections, entity mapping, alert grouping, incident generation | Completed |
 | [12](labs/lab-12-incident-triage/README-lab-12.md) | Microsoft Sentinel Incident Triage and Correlation | Windows event timelines, Azure control-plane correlation, classification, and closure | Completed |
-|  13 | Threat Hunting                     | Hypothesis-based security investigation      | Planned   |
+| [13](labs/lab-13-threat-hunting/README-lab-13.md) | Microsoft Sentinel Threat Hunting | Hypothesis-driven hunting, process analysis, telemetry validation, and bookmarks | Completed |
 |  14 | Conditional Access                 | Identity protection and access controls      | Planned   |
 |  15 | Policy Compliance                  | Governance assessment and remediation        | Planned   |
 |  16 | Mini SOC Capstone                  | End-to-end detection and investigation       | Planned   |
@@ -227,7 +227,6 @@ azure-security-operations-lab/
 │   ├── lab-00-baseline/
 │   │   ├── README-lab-00.md
 │   │   └── screenshots/
-│   │
 │   ├── lab01-entra-users-groups/
 │   │   ├── README-lab-01.md
 │   │   └── screenshots/
@@ -265,6 +264,8 @@ azure-security-operations-lab/
 │   │   ├── README-lab-12.md
 │   │   └── screenshots/
 │   ├── lab-13-threat-hunting/
+│   │   ├── README-lab-13.md
+│   │   └── screenshots/
 │   ├── lab-14-conditional-access/
 │   ├── lab-15-policy-compliance/
 │   ├── lab-16-mini-soc-capstone/
@@ -290,6 +291,11 @@ azure-security-operations-lab/
 │   │   ├── 03-privileged-account-lifecycle.kql
 │   │   ├── 04-privileged-account-actor-identification.kql
 │   │   └── 05-privileged-account-azure-activity-correlation.kql
+│   ├── lab13/
+│   │   ├── 01-command-interpreter-execution.kql
+│   │   ├── 02-process-parent-summary.kql
+│   │   ├── 03-powershell-parent-process-pivot.kql
+│   │   └── 04-controlled-validation-event.kql
 │   ├── ama-heartbeat-validation.kql
 │   ├── windows-security-account-lifecycle.kql
 │   ├── windows-security-account-lifecycle-summary.kql
@@ -772,10 +778,21 @@ The project is being developed one lab at a time.
 * Five reusable investigation queries stored in `kql/lab12/`
 * Two formal incident records stored in `incidents/` and twenty sanitized evidence screenshots stored in the Lab 12 directory
 
+* Lab 13 — Microsoft Sentinel Threat Hunting
+* Hypothesis-driven hunt performed across Windows process-creation telemetry using Security Event `4688`
+* PowerShell and CMD executions investigated through account, host, parent-process, and command-line context
+* Parent-child process pivots used to distinguish expected activity from potentially suspicious execution paths
+* Missing process command-line telemetry identified as an investigation visibility gap
+* Windows process-creation command-line auditing enabled and validated with the controlled `LAB13-HUNT-TEST` execution
+* Custom hunting query linked to a Microsoft Sentinel Hunt and executed against collected telemetry
+* Controlled evidence preserved with a Sentinel Bookmark and Host and Account entity mappings
+* Hunt closed with the hypothesis **Invalidated** after no evidence of malicious command execution was identified
+* Four reusable hunting and validation queries stored in `kql/lab13/` and nineteen curated sanitized evidence screenshots stored in the Lab 13 directory
+
 ### Next
 
-* Lab 13 — Threat Hunting
-* Develop investigation hypotheses from the validated detections and incidents, search across Windows Security and Azure control-plane telemetry, identify related activity outside alert boundaries, and document hunting findings and potential detection improvements
+* Lab 14 — Conditional Access
+* Extend the identity-security phase by evaluating and implementing Conditional Access controls where tenant licensing permits, then validate their effect and document any licensing constraints.
 
 ---
 

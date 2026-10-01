@@ -1,0 +1,13 @@
+// Lab 13 - PowerShell Parent-Process Pivot
+// Purpose: investigate PowerShell executions by parent process, user and host.
+
+Event
+| where EventID == 4688
+| extend
+    SubjectUserName = extract(@"<Data Name=""SubjectUserName"">([^<]*)</Data>", 1, EventData),
+    NewProcessName = extract(@"<Data Name=""NewProcessName"">([^<]*)</Data>", 1, EventData),
+    CommandLine = extract(@"<Data Name=""CommandLine"">([^<]*)</Data>", 1, EventData),
+    ParentProcessName = extract(@"<Data Name=""ParentProcessName"">([^<]*)</Data>", 1, EventData)
+| where NewProcessName endswith @"\powershell.exe"
+| project TimeGenerated, Computer, SubjectUserName, ParentProcessName, NewProcessName, CommandLine
+| order by TimeGenerated desc
