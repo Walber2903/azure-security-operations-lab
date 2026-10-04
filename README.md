@@ -146,7 +146,7 @@ Topics include:
 
 ## Architecture
 
-The following diagram represents the security operations flow implemented through Lab 13. Microsoft Sentinel ingestion, cross-source KQL investigations, scheduled analytics rules, alert generation, entity mapping, incident creation, evidence-based incident triage, and hypothesis-driven threat hunting have now been validated.
+The following diagram represents the security operations flow implemented through Lab 14. Microsoft Sentinel ingestion, cross-source KQL investigations, scheduled analytics rules, alert generation, entity mapping, incident creation, evidence-based incident triage, hypothesis-driven threat hunting, and Microsoft Entra identity-control validation have now been completed.
 
 The [current-state architecture](architecture/azure-secops-current-architecture.md) documents only the components already validated.
 
@@ -160,8 +160,10 @@ flowchart TD
     F["Microsoft Sentinel"]
     G["KQL Queries and Detections"]
     H["Incidents and Threat Hunting"]
+    I["Microsoft Entra Identity Protection<br/>Security Defaults and MFA"]
 
     A --> B
+    A --> I
     B --> C
     C --> D
     B --> D
@@ -205,7 +207,7 @@ Canada Central
 |  [11](labs/lab-11-detection-rule/README-lab-11.md) | Microsoft Sentinel Scheduled Analytics Rules | KQL detections, entity mapping, alert grouping, incident generation | Completed |
 | [12](labs/lab-12-incident-triage/README-lab-12.md) | Microsoft Sentinel Incident Triage and Correlation | Windows event timelines, Azure control-plane correlation, classification, and closure | Completed |
 | [13](labs/lab-13-threat-hunting/README-lab-13.md) | Microsoft Sentinel Threat Hunting | Hypothesis-driven hunting, process analysis, telemetry validation, and bookmarks | Completed |
-|  14 | Conditional Access                 | Identity protection and access controls      | Planned   |
+| [14](labs/lab-14-conditional-access/README-lab-14.md) | Conditional Access, Security Defaults and MFA Validation | Conditional Access assessment, Security Defaults, MFA, sign-in investigation | Completed |
 |  15 | Policy Compliance                  | Governance assessment and remediation        | Planned   |
 |  16 | Mini SOC Capstone                  | End-to-end detection and investigation       | Planned   |
 |  17 | Cleanup and Portfolio Review       | Cost validation, cleanup and documentation   | Planned   |
@@ -267,6 +269,8 @@ azure-security-operations-lab/
 │   │   ├── README-lab-13.md
 │   │   └── screenshots/
 │   ├── lab-14-conditional-access/
+│   │   ├── README-lab-14.md
+│   │   └── screenshots/
 │   ├── lab-15-policy-compliance/
 │   ├── lab-16-mini-soc-capstone/
 │   └── lab-17-cleanup/
@@ -559,7 +563,11 @@ This project is designed to demonstrate practical experience with:
 * Azure RBAC
 * Least privilege
 * Azure Policy
-* Conditional Access
+* Conditional Access assessment
+* Security Defaults
+* Multifactor Authentication (MFA)
+* Microsoft Authenticator
+* Sign-in log investigation
 * Resource tagging
 * Policy compliance
 
@@ -789,10 +797,24 @@ The project is being developed one lab at a time.
 * Hunt closed with the hypothesis **Invalidated** after no evidence of malicious command execution was identified
 * Four reusable hunting and validation queries stored in `kql/lab13/` and nineteen curated sanitized evidence screenshots stored in the Lab 13 directory
 
+* Lab 14 — Microsoft Entra ID Conditional Access, Security Defaults and MFA Validation
+* Conditional Access capabilities assessed and Microsoft Entra ID Premium licensing requirements validated
+* Custom Conditional Access policy creation and Named Locations configuration confirmed unavailable with the current tenant licensing
+* Existing Security Defaults configuration reviewed and confirmed enabled
+* Microsoft Entra sign-in logs investigated to validate authentication requirements and access-control evaluation
+* Alice Analyst used as a controlled lab identity with no initial usable authentication methods
+* Microsoft Authenticator registration triggered and completed through the Security Defaults workflow
+* Authentication-method state validated before and after enrollment
+* Interrupted and successful Azure Portal sign-ins compared to reconstruct the MFA registration and authentication sequence
+* Security Defaults confirmed to require multifactor authentication with a successful enforcement result
+* Authentication Details and Basic Info used to verify that the MFA requirement was satisfied by the authentication claim in the token
+* Registration timeout troubleshooting documented and successfully resolved through a new authentication session
+* Seventeen sanitized evidence screenshots documented in the Lab 14 README
+
 ### Next
 
-* Lab 14 — Conditional Access
-* Extend the identity-security phase by evaluating and implementing Conditional Access controls where tenant licensing permits, then validate their effect and document any licensing constraints.
+* Lab 15 — Policy Compliance
+* Validate Azure Policy compliance state, investigate non-compliant resources, and document governance assessment and remediation outcomes.
 
 ---
 
