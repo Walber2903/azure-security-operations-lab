@@ -146,7 +146,7 @@ Topics include:
 
 ## Architecture
 
-The following diagram represents the security operations flow implemented through Lab 14. Microsoft Sentinel ingestion, cross-source KQL investigations, scheduled analytics rules, alert generation, entity mapping, incident creation, evidence-based incident triage, hypothesis-driven threat hunting, and Microsoft Entra identity-control validation have now been completed.
+The following diagram represents the security operations flow implemented through Lab 15. Microsoft Sentinel ingestion, cross-source KQL investigations, scheduled analytics rules, alert generation, entity mapping, incident creation, evidence-based incident triage, hypothesis-driven threat hunting, Microsoft Entra identity-control validation, and Azure Policy compliance assessment and remediation have now been completed.
 
 The [current-state architecture](architecture/azure-secops-current-architecture.md) documents only the components already validated.
 
@@ -208,7 +208,7 @@ Canada Central
 | [12](labs/lab-12-incident-triage/README-lab-12.md) | Microsoft Sentinel Incident Triage and Correlation | Windows event timelines, Azure control-plane correlation, classification, and closure | Completed |
 | [13](labs/lab-13-threat-hunting/README-lab-13.md) | Microsoft Sentinel Threat Hunting | Hypothesis-driven hunting, process analysis, telemetry validation, and bookmarks | Completed |
 | [14](labs/lab-14-conditional-access/README-lab-14.md) | Conditional Access, Security Defaults and MFA Validation | Conditional Access assessment, Security Defaults, MFA, sign-in investigation | Completed |
-|  15 | Policy Compliance                  | Governance assessment and remediation        | Planned   |
+| [15](labs/lab-15-policy-compliance/README-lab-15.md) | Azure Policy Compliance, Remediation and Governance Assessment | Compliance assessment, remediation, policy scans, exemptions, technical-debt documentation | Completed |
 |  16 | Mini SOC Capstone                  | End-to-end detection and investigation       | Planned   |
 |  17 | Cleanup and Portfolio Review       | Cost validation, cleanup and documentation   | Planned   |
 
@@ -272,6 +272,8 @@ azure-security-operations-lab/
 │   │   ├── README-lab-14.md
 │   │   └── screenshots/
 │   ├── lab-15-policy-compliance/
+│   │   ├── README-lab-15.md
+│   │   └── screenshots/
 │   ├── lab-16-mini-soc-capstone/
 │   └── lab-17-cleanup/
 │
@@ -570,6 +572,10 @@ This project is designed to demonstrate practical experience with:
 * Sign-in log investigation
 * Resource tagging
 * Policy compliance
+* Compliance remediation
+* On-demand policy evaluation
+* Policy exemptions
+* Governance technical-debt assessment
 
 ### Security Operations
 
@@ -811,10 +817,23 @@ The project is being developed one lab at a time.
 * Registration timeout troubleshooting documented and successfully resolved through a new authentication session
 * Seventeen sanitized evidence screenshots documented in the Lab 14 README
 
+* Lab 15 — Azure Policy Compliance, Remediation and Governance Assessment
+* Azure Policy compliance baseline reviewed with 71% overall resource compliance and two non-compliant resource groups
+* Audit and Deny assignments investigated to distinguish existing configuration drift from preventive enforcement
+* Controlled test resource `rg-policy-audit-test-canadacentral` remediated by applying `Environment=Lab`
+* On-demand Azure Policy evaluation triggered after the configuration change
+* Overall resource compliance improved from 71% to 86%, reducing non-compliant resources from two to one
+* Audit assignment improved from 67% to 83% compliance, with the controlled test resource becoming compliant
+* Legacy `rg-az900-learning` resource intentionally retained as documented governance technical debt
+* Deny assignment reviewed and confirmed at 83% compliance with the same remaining legacy governance gap
+* Activity Log used to validate both the tag update and Policy Insights rescan operations
+* Azure Policy exemption workflow reviewed, but no exemption created because no valid business or technical justification existed
+* Eleven sanitized evidence screenshots documented in the Lab 15 README
+
 ### Next
 
-* Lab 15 — Policy Compliance
-* Validate Azure Policy compliance state, investigate non-compliant resources, and document governance assessment and remediation outcomes.
+* Lab 16 — Mini SOC Capstone
+* Combine the validated identity, governance, monitoring, Sentinel, detection, investigation, and threat-hunting components into an end-to-end SOC workflow.
 
 ---
 
