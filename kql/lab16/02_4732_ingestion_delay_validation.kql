@@ -1,0 +1,11 @@
+// Lab 16 - Measure ingestion delay for local Administrators membership changes.
+
+Event
+| where TimeGenerated > ago(2h)
+| where Computer startswith "vm-win-cac-01"
+| where EventLog == "Security"
+| where EventID == 4732
+| extend IngestionTime = ingestion_time()
+| extend IngestionDelay = IngestionTime - TimeGenerated
+| project TimeGenerated, IngestionTime, IngestionDelay, Computer, EventID, RenderedDescription
+| order by TimeGenerated desc

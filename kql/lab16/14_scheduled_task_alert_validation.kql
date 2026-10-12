@@ -1,0 +1,13 @@
+// Lab 16 - Confirm the high-severity scheduled-task persistence SecurityAlert.
+
+SecurityAlert
+| where TimeGenerated > ago(2h)
+| where AlertName has "Scheduled Task Persistence Created"
+| project
+    TimeGenerated,
+    AlertName,
+    AlertSeverity,
+    ProviderName,
+    ProductName,
+    SystemAlertId
+| order by TimeGenerated desc

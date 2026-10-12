@@ -1,0 +1,15 @@
+// Lab 16 - Confirm automatic SecurityIncident generation from the new rule.
+
+SecurityIncident
+| where TimeGenerated > ago(2h)
+| where Title has "Scheduled Task Persistence Created"
+| project
+    TimeGenerated,
+    IncidentNumber,
+    Title,
+    Severity,
+    Status,
+    ProviderName,
+    ProviderIncidentId,
+    AlertIds
+| order by TimeGenerated desc

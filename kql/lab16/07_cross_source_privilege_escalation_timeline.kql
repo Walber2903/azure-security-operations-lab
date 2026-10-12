@@ -1,0 +1,46 @@
+// Lab 16 - Correlate Windows Event 4732 with Azure Run Command activity.
+// This normalizes both sources into a common timeline for analyst review.
+
+union
+(
+    Event
+    | where TimeGenerated > ago(4h)
+    | where EventLog == "Security"
+    | where EventID == 4732
+    | where Computer startswith "vm-win-cac-01"
+    | extend AccountSid = extract(
+        @"Member:[\s\S]*?Security ID:\s+(\S+)",
+        1,
+        RenderedDescription
+    )
+    | extend GroupName = extract(
+        @"Group:[\s\S]*?Group Name:\s+(.*?)\s+Group Domain:",
+        1,
+        RenderedDescription
+    )
+    | extend AccountSid = trim(@"[ \t]", AccountSid)
+    | extend GroupName = trim(@"[ \t]", GroupName)
+    | where GroupName =~ "Administrators"
+    | project
+        TimeGenerated,
+        Source = "Windows Security",
+        Actor = "LOCAL SYSTEM",
+        Activity = strcat("Account added to ", GroupName),
+        Target = AccountSid,
+        Host = Computer
+),
+(
+    AzureActivity
+    | where TimeGenerated > ago(4h)
+    | where ResourceGroup =~ "rg-secops-compute-canadacentral"
+    | where _ResourceId has "/virtualMachines/vm-win-cac-01"
+    | where OperationNameValue has "RUNCOMMAND"
+    | project
+        TimeGenerated,
+        Source = "Azure Activity",
+        Actor = Caller,
+        Activity = strcat(OperationNameValue, " - ", ActivityStatusValue),
+        Target = "vm-win-cac-01",
+        Host = "vm-win-cac-01"
+)
+| order by TimeGenerated asc

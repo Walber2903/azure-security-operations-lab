@@ -1,0 +1,26 @@
+// Lab 16 - Review process creation after privilege escalation.
+// Focuses on discovery and command-interpreter activity from Event ID 4688.
+
+Event
+| where TimeGenerated > ago(2h)
+| where Computer startswith "vm-win-cac-01"
+| where EventLog == "Security"
+| where EventID == 4688
+| extend NewProcessName = extract(
+    @"New Process Name:\s+([^\r\n]+)",
+    1,
+    RenderedDescription
+)
+| extend CommandLine = extract(
+    @"Process Command Line:\s+([^\r\n]+)",
+    1,
+    RenderedDescription
+)
+| extend ParentProcessName = extract(
+    @"Creator Process Name:\s+([^\r\n]+)",
+    1,
+    RenderedDescription
+)
+| where NewProcessName has_any ("whoami.exe", "net.exe", "net1.exe", "cmd.exe", "powershell.exe")
+| project TimeGenerated, Computer, NewProcessName, ParentProcessName, CommandLine
+| order by TimeGenerated desc

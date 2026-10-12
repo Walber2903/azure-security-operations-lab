@@ -1,0 +1,20 @@
+// Lab 16 - Scheduled-task persistence detection logic.
+// Used as the basis for: LAB16 - Scheduled Task Persistence Created.
+
+Event
+| where EventLog == "Security"
+| where EventID == 4698
+| where Computer startswith "vm-win-cac-01"
+| extend TaskName = extract(
+    @"Task Name:\s+([^\r\n]+)",
+    1,
+    RenderedDescription
+)
+| extend SubjectAccount = extract(
+    @"Subject:[\s\S]*?Account Name:\s+(\S+)",
+    1,
+    RenderedDescription
+)
+| extend TaskName = trim(@"[ \t]", TaskName)
+| extend SubjectAccount = trim(@"[ \t]", SubjectAccount)
+| project TimeGenerated, SubjectAccount, TaskName, Computer, EventID

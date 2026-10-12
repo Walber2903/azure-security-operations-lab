@@ -1,0 +1,25 @@
+// Lab 16 - Identify schtasks.exe process creation for the controlled persistence task.
+
+Event
+| where TimeGenerated > ago(2h)
+| where Computer startswith "vm-win-cac-01"
+| where EventLog == "Security"
+| where EventID == 4688
+| extend NewProcessName = extract(
+    @"New Process Name:\s+([^\r\n]+)",
+    1,
+    RenderedDescription
+)
+| extend CommandLine = extract(
+    @"Process Command Line:\s+([^\r\n]+)",
+    1,
+    RenderedDescription
+)
+| extend ParentProcessName = extract(
+    @"Creator Process Name:\s+([^\r\n]+)",
+    1,
+    RenderedDescription
+)
+| where NewProcessName has "schtasks.exe" or CommandLine has "SystemHealthCheck"
+| project TimeGenerated, Computer, NewProcessName, ParentProcessName, CommandLine
+| order by TimeGenerated desc

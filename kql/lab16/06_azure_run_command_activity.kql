@@ -1,0 +1,16 @@
+// Lab 16 - Identify Azure Run Command activity against the Windows lab VM.
+// Caller provides the cloud identity that initiated the management-plane action.
+
+AzureActivity
+| where TimeGenerated > ago(4h)
+| where ResourceGroup =~ "rg-secops-compute-canadacentral"
+| where _ResourceId has "/virtualMachines/vm-win-cac-01"
+| where OperationNameValue has "RUNCOMMAND"
+| project
+    TimeGenerated,
+    Caller,
+    OperationNameValue,
+    ActivityStatusValue,
+    ResourceGroup,
+    _ResourceId
+| order by TimeGenerated asc

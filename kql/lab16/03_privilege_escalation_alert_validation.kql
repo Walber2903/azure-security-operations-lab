@@ -1,0 +1,14 @@
+// Lab 16 - Confirm that the LAB11 local Administrators rule generated a SecurityAlert.
+
+SecurityAlert
+| where TimeGenerated > ago(4h)
+| where AlertName has "User Added to Local Administrators"
+| project
+    TimeGenerated,
+    AlertName,
+    AlertSeverity,
+    CompromisedEntity,
+    ProviderName,
+    ProductName,
+    SystemAlertId
+| order by TimeGenerated desc

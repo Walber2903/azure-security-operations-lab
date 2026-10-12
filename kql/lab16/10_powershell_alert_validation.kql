@@ -1,0 +1,14 @@
+// Lab 16 - Confirm the existing LAB11 PowerShell scheduled analytics alert.
+
+SecurityAlert
+| where TimeGenerated > ago(2h)
+| where AlertName has "PowerShell Spawned by Command Shell"
+| project
+    TimeGenerated,
+    AlertName,
+    AlertSeverity,
+    CompromisedEntity,
+    ProviderName,
+    ProductName,
+    SystemAlertId
+| order by TimeGenerated desc

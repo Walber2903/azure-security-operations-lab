@@ -1,0 +1,26 @@
+// Lab 16 - Check whether the local Administrators SecurityAlert is associated
+// with a SecurityIncident. AlertIds is dynamic, so both join keys are cast to string.
+
+SecurityIncident
+| where TimeGenerated > ago(24h)
+| mv-expand AlertId = AlertIds
+| extend AlertId = tostring(AlertId)
+| join kind=inner (
+    SecurityAlert
+    | where TimeGenerated > ago(4h)
+    | where AlertName has "User Added to Local Administrators"
+    | extend AlertId = tostring(SystemAlertId)
+    | project SystemAlertId, AlertName, AlertTime = TimeGenerated, AlertId
+) on AlertId
+| project
+    IncidentTime = TimeGenerated,
+    IncidentNumber,
+    Title,
+    Severity,
+    Status,
+    CreatedTime,
+    LastModifiedTime,
+    AlertName,
+    AlertId,
+    ProviderIncidentId
+| order by IncidentTime desc
