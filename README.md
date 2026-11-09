@@ -338,8 +338,8 @@ East US        — Phase 5 Windows Server and Active Directory environment
 | [14](labs/lab-14-conditional-access/README-lab-14.md) | Conditional Access, Security Defaults and MFA Validation | Conditional Access assessment, Security Defaults, MFA, sign-in investigation | Completed |
 | [15](labs/lab-15-policy-compliance/README-lab-15.md) | Azure Policy Compliance, Remediation and Governance Assessment | Compliance assessment, remediation, policy scans, exemptions, technical-debt documentation | Completed |
 | [16](labs/lab-16-mini-soc-capstone/README-lab-16.md) | Mini SOC Capstone — Excessive RBAC to Detected Persistence | Cross-source investigation, persistence detection, telemetry troubleshooting, containment, RBAC remediation | Completed |
-| 17 | Windows Server Administration and Remote Operations | Services, Event Viewer, Task Scheduler, firewall, storage, patching, WinRM, PowerShell, health checks | Completed |
-| 18 | Active Directory Domain Services, Security Administration and Automation | AD DS, DNS, domain join, OUs, users/groups, GPO, Windows auditing, least privilege, gMSA | Completed |
+| [17](labs/lab-17-windows-server-administration/README-lab-17.md) | Windows Server Administration and Remote Operations | Services, Event Viewer, Task Scheduler, firewall, storage, patching, WinRM, PowerShell, health checks | Completed |
+| [18](labs/lab-18-active-directory-domain-services/README-lab-18.md)  | Active Directory Domain Services, Security Administration and Automation | AD DS, DNS, domain join, OUs, users/groups, GPO, Windows auditing, least privilege, gMSA | Completed |
 | 19 | Active Directory and Windows Server Administration through GUI Tools | Server Manager, ADUC, GPMC, DNS Manager, Event Viewer, GUI hierarchy and privilege administration | Next |
 | 20 | DNS, DHCP and Domain Infrastructure Services | DHCP scopes, DNS zones, SRV records, reservations, domain service dependencies, troubleshooting | Planned |
 | 21 | Windows File Services, SMB and NTFS Authorization | File Server, shares, NTFS/share permissions, inheritance, effective access, group-based authorization | Planned |
