@@ -93,7 +93,11 @@ The VNet was segmented into separate server and management subnets to preserve a
 
 ![Resource group](screenshots/01_resource_group_eastus_created.png)
 
+> **Execution method:** Azure Portal configuration — no PowerShell script was required for this step.
+
 ![VNet and subnets](screenshots/02_vnet_and_subnets_eastus.png)
+
+> **Execution method:** Azure Portal configuration — no PowerShell script was required for this step.
 
 ---
 
@@ -105,7 +109,11 @@ The initial configuration intentionally relied on Azure's default VNet rules rat
 
 ![NSG rules](screenshots/04_nsg_default_security_rules.png)
 
+> **Execution method:** Azure Portal configuration — no PowerShell script was required for this step.
+
 ![NSG subnet association](screenshots/05_nsg_associated_with_snet_servers.png)
+
+> **Execution method:** Azure Portal configuration — no PowerShell script was required for this step.
 
 This design keeps the lab servers private while allowing communication between resources inside the virtual network.
 
@@ -121,7 +129,11 @@ No public IP address or public inbound port was configured.
 
 ![DC review](screenshots/06_review_create_vm_dc_eastus.png)
 
+> **Execution method:** Azure Portal configuration — no PowerShell script was required for this step.
+
 ![DC deployment complete](screenshots/07_vm_dc_eastus_deployment_complete.png)
+
+> **Execution method:** Azure Portal configuration — no PowerShell script was required for this step.
 
 ---
 
@@ -137,6 +149,8 @@ A stable address is especially important for a domain controller that also provi
 
 ![Static IP](screenshots/08_dc_private_ip_static.png)
 
+> **Execution method:** Azure Portal configuration — no PowerShell script was required for this step.
+
 ---
 
 ## Pre-AD Baseline
@@ -144,6 +158,8 @@ A stable address is especially important for a domain controller that also provi
 Before installing Active Directory, the server identity, networking, time configuration, and Windows feature state were captured.
 
 ![Pre-AD baseline](screenshots/09_dc_pre_ad_baseline.png)
+
+>**Related script:** [`00_pre_ad_baseline.ps1`](scripts/lab18/00_pre_ad_baseline.ps1)
 
 This baseline creates a clear before/after comparison and confirms that AD DS and DNS were not already installed.
 
@@ -161,6 +177,8 @@ The required Windows Server roles were installed through PowerShell:
 
 ![AD DS and DNS installed](screenshots/10_ad_ds_dns_roles_installed.png)
 
+>**Related script:** [`01_install_ad_ds_dns.ps1`](scripts/lab18/01_install_ad_ds_dns.ps1)
+
 ---
 
 ## Creating the Forest
@@ -172,6 +190,8 @@ Domain:  corp.secops.test
 NetBIOS: SECOPS
 ```
 
+>**Promotion script:** [`02_promote_new_forest.ps1`](scripts/lab18/02_promote_new_forest.ps1)
+
 After promotion, the domain controller was validated by checking:
 
 - domain membership;
@@ -182,6 +202,8 @@ After promotion, the domain controller was validated by checking:
 - SYSVOL and NETLOGON shares.
 
 ![DC promotion validation](screenshots/11_domain_controller_promotion_validation.png)
+
+>**Related script:** [`03_validate_domain_controller.ps1`](scripts/lab18/03_validate_domain_controller.ps1)
 
 ---
 
@@ -198,9 +220,13 @@ The lab validated:
 
 ![AD DNS validation](screenshots/12_ad_dns_resolution_validation.png)
 
+> **Related script:** [`04_validate_ad_dns.ps1`](scripts/lab18/04_validate_ad_dns.ps1)
+
 The Azure VNet was then configured to use the domain controller as its custom DNS server.
 
 ![VNet custom DNS](screenshots/12_vnet_custom_dns_domain_controller.png)
+
+**Execution method:** Azure Portal configuration — no PowerShell script was required for this step.
 
 This is important because Active Directory clients locate domain controllers through DNS SRV records rather than by simply knowing a server IP.
 
@@ -214,7 +240,11 @@ A second Windows Server VM was deployed into the same server subnet with no publ
 
 ![Member VM review](screenshots/13_review_create_windows_domain_member.png)
 
+> **Execution method:** Azure Portal configuration — no PowerShell script was required for this step.
+
 ![Member VM deployment](screenshots/14_windows_domain_member_deployment_complete.png)
+
+> **Execution method:** Azure Portal configuration — no PowerShell script was required for this step.
 
 ---
 
@@ -231,11 +261,15 @@ Before attempting the domain join, the member server validated:
 
 ![Pre-domain-join validation](screenshots/15_windows_member_pre_domain_join_validation.png)
 
+> **Related script:** [`05_validate_member_before_domain_join.ps1`](scripts/lab18/05_validate_member_before_domain_join.ps1)
+
 This prevents a common Active Directory troubleshooting mistake: attempting to join a domain before confirming DNS and LDAP connectivity.
 
 ---
 
 ## Domain Join and Secure Channel
+
+> **Domain join script:** [`06_join_member_server_to_domain.ps1`](scripts/lab18/06_join_member_server_to_domain.ps1)
 
 After the domain join and restart, the member server confirmed:
 
@@ -245,6 +279,8 @@ After the domain join and restart, the member server confirmed:
 - a healthy computer-account secure channel.
 
 ![Domain join validation](screenshots/16_windows_member_domain_join_validation.png)
+
+> **Related script:** [`07_validate_domain_membership.ps1`](scripts/lab18/07_validate_domain_membership.ps1)
 
 ---
 
@@ -267,6 +303,8 @@ The built-in `Domain Controllers` OU remains managed separately.
 
 ![OU structure](screenshots/17_active_directory_organizational_units_created.png)
 
+> **Related script:** [`08_create_organizational_units.ps1`](scripts/lab18/08_create_organizational_units.ps1)
+
 OUs are primarily administrative and policy boundaries. They do not automatically grant permissions simply because an object is placed inside them.
 
 ---
@@ -276,6 +314,8 @@ OUs are primarily administrative and policy boundaries. They do not automaticall
 The computer account for `vm-win-eus-01` was moved from the default `Computers` container into the `Servers` OU.
 
 ![Server moved to OU](screenshots/18_windows_member_moved_to_servers_ou.png)
+
+> **Related script:** [`09_move_member_server_to_servers_ou.ps1`](scripts/lab18/09_move_member_server_to_servers_ou.ps1)
 
 This becomes important later because the server security baseline GPO is linked to this OU.
 
@@ -294,6 +334,8 @@ Three controlled lab identities were created:
 | Grace Lee | `grace` | IT support |
 
 ![Domain users](screenshots/19_active_directory_domain_users_enabled.png)
+
+> **Related script:** [`10_create_domain_users.ps1`](scripts/lab18/10_create_domain_users.ps1)
 
 ---
 
@@ -344,6 +386,8 @@ OU=Servers,DC=corp,DC=secops,DC=test
 
 ![GPO details](screenshots/20_gpo_security_baseline_details.png)
 
+> **Related script:** [`12_create_server_security_gpo.ps1`](scripts/lab18/12_create_server_security_gpo.ps1)
+
 The link was enabled but not forced with the `Enforced` option. This is expected: a normal enabled link is sufficient for this lab.
 
 ---
@@ -356,7 +400,11 @@ The baseline applied successfully alongside the Default Domain Policy.
 
 ![GPO applied](screenshots/21_gpo_security_baseline_applied.png)
 
+> **Related script:** [`13_validate_gpo_on_member.ps1`](scripts/lab18/13_validate_gpo_on_member.ps1)
+
 ![GPResult validation](screenshots/22_gpresult_detailed_validation.png)
+
+> **Related script:** [`13_validate_gpo_on_member.ps1`](scripts/lab18/13_validate_gpo_on_member.ps1)
 
 The lab also configured an interactive logon notice:
 
@@ -379,9 +427,13 @@ The server baseline enabled:
 
 ![PowerShell logging](screenshots/23_powershell_logging_policy_validation.png)
 
+> **Related script:** [`14_validate_powershell_logging.ps1`](scripts/lab18/14_validate_powershell_logging.ps1)
+
 PowerShell Operational Event ID `4104` was then validated.
 
 ![Event 4104](screenshots/24_powershell_4104_event_validation.png)
+
+> **Related script:** [`14_validate_powershell_logging.ps1`](scripts/lab18/14_validate_powershell_logging.ps1)
 
 Event `4104` provides valuable script-block telemetry for detection engineering and incident investigation.
 
@@ -403,9 +455,15 @@ hostname
 
 ![Process audit configuration](screenshots/25_process_creation_audit_configuration.png)
 
+> **Related script:** [`15_enable_and_validate_process_creation_auditing.ps1`](scripts/lab18/15_enable_and_validate_process_creation_auditing.ps1)
+
 ![Controlled activity](screenshots/26_controlled_process_creation_activity.png)
 
+> **Related script:** [`15_enable_and_validate_process_creation_auditing.ps1`](scripts/lab18/15_enable_and_validate_process_creation_auditing.ps1)
+
 ![Event 4688](screenshots/27_process_creation_4688_validation.png)
+
+> **Related script:** [`15_enable_and_validate_process_creation_auditing.ps1`](scripts/lab18/15_enable_and_validate_process_creation_auditing.ps1)
 
 This connects traditional Windows administration directly to SOC telemetry and threat detection.
 
@@ -425,9 +483,13 @@ was added to the member server's local `Administrators` group.
 
 ![Local administrators](screenshots/28_local_administrators_validation.png)
 
+> **Related script:** [`16_configure_role_based_local_access.ps1`](scripts/lab18/16_configure_role_based_local_access.ps1)
+
 Alyce was separately validated as a member of the SecOps administrator group.
 
 ![Admin validation](screenshots/29_role_based_admin_validation.png)
+
+> **Related script:** [`17_validate_role_based_access.ps1`](scripts/lab18/17_validate_role_based_access.ps1)
 
 The resulting privilege chain is:
 
@@ -455,6 +517,8 @@ but was intentionally not granted local administrator rights.
 
 ![IT support RDP access](screenshots/30_it_support_rdp_access_validation.png)
 
+> **Related script:** [`17_validate_role_based_access.ps1`](scripts/lab18/17_validate_role_based_access.ps1)
+
 This demonstrates a practical least-privilege model:
 
 ```text
@@ -474,6 +538,8 @@ Remote access without local administrator rights
 `GG-SecOps-Analysts` received neither local administrator nor Remote Desktop membership.
 
 ![Analyst least privilege](screenshots/31_secops_analyst_least_privilege_validation.png)
+
+> **Related script:** [`17_validate_role_based_access.ps1`](scripts/lab18/17_validate_role_based_access.ps1)
 
 The analyst role therefore remains a standard non-privileged identity unless additional permissions are explicitly assigned.
 
@@ -495,9 +561,13 @@ The environment initially had no KDS root key.
 
 ![KDS initial state](screenshots/32_kds_root_key_initial_state.png)
 
+> **Related script:** [`18_create_kds_root_key.ps1`](scripts/lab18/18_create_kds_root_key.ps1)
+
 A KDS root key was then created for the lab.
 
 ![KDS key created](screenshots/33_kds_root_key_creation.png)
+
+> **Related script:** [`18_create_kds_root_key.ps1`](scripts/lab18/18_create_kds_root_key.ps1)
 
 Because this is a single-domain-controller lab, a backdated effective time was used for immediate testing. That shortcut should not be treated as the normal production deployment process for a multi-DC environment.
 
@@ -513,6 +583,8 @@ The original service account name exceeded this constraint.
 
 ![Initial gMSA error](screenshots/34_gmsa_creation_initial_error.png)
 
+> **Related script:** [`19_create_gmsa.ps1`](scripts/lab18/19_create_gmsa.ps1)
+
 The corrected name was:
 
 ```text
@@ -523,7 +595,11 @@ Further validation confirmed that the account existed in the `Service-Accounts` 
 
 ![gMSA existence](screenshots/36_gmsa_existence_validation.png)
 
+> **Related script:** [`19_create_gmsa.ps1`](scripts/lab18/19_create_gmsa.ps1)
+
 ![Authorized host](screenshots/37_gmsa_authorized_host_validation.png)
+
+> **Related script:** [`19_create_gmsa.ps1`](scripts/lab18/19_create_gmsa.ps1)
 
 ---
 
@@ -548,6 +624,8 @@ were unavailable.
 
 ![Initial member gMSA error](screenshots/38_gmsa_member_install_initial_error.png)
 
+> **Related script:** [`20_install_and_validate_gmsa_on_member.ps1`](scripts/lab18/20_install_and_validate_gmsa_on_member.ps1)
+
 The fix was to install:
 
 ```powershell
@@ -557,6 +635,8 @@ Install-WindowsFeature RSAT-AD-PowerShell
 After installing the module, the gMSA was successfully installed and tested.
 
 ![gMSA operational](screenshots/40_gmsa_member_operational_validation.png)
+
+> **Related script:** [`20_install_and_validate_gmsa_on_member.ps1`](scripts/lab18/20_install_and_validate_gmsa_on_member.ps1)
 
 The final result:
 
@@ -586,6 +666,8 @@ The final DC health check confirmed:
 
 ![DC health check](screenshots/41_domain_controller_final_health_check.png)
 
+> **Related script:** [`21_final_dc_health_check.ps1`](scripts/lab18/21_final_dc_health_check.ps1)
+
 ---
 
 ## Member Server
@@ -608,6 +690,8 @@ The final member-server health check confirmed:
 - operational gMSA.
 
 ![Member health check](screenshots/42_member_server_final_health_check.png)
+
+> **Related script:** [`22_final_member_server_health_check.ps1`](scripts/lab18/22_final_member_server_health_check.ps1)
 
 ---
 
