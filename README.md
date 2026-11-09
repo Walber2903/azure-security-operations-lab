@@ -6,20 +6,47 @@ This repository documents the evolution of a hands-on Microsoft infrastructure a
 
 The project originally started as a structured **25-day Azure security learning path**. The first four phases moved from Azure governance and Microsoft Entra ID into virtual machines, networking, Azure Monitor, Log Analytics, Microsoft Sentinel, KQL, detection engineering, incident triage, threat hunting, Conditional Access validation, and Azure Policy. That original path culminated in **Lab 16 — Mini SOC Capstone**, where those individual skills were combined into one end-to-end investigation involving excessive Azure RBAC, Azure Run Command, Windows privilege escalation, process discovery, scheduled-task persistence, telemetry troubleshooting, a new Sentinel detection, containment, least-privilege remediation, and incident closure.
 
-Lab 16 also made the next learning gap much clearer. Detecting an event is only one part of security operations. To investigate and remediate confidently, an analyst also needs to understand the infrastructure underneath the telemetry: **Windows services, Active Directory, DNS, DHCP, Group Policy, SMB and NTFS permissions, storage, routing, firewalls, WinRM, PowerShell remoting, virtualization, and migration workflows**. The repository therefore no longer ends with a cleanup lab. It now continues as a **six-phase Microsoft infrastructure and blue-team portfolio**.
+Lab 16 also made the next learning gap much clearer. Detecting an event is only one part of security operations. To investigate and remediate confidently, an analyst also needs to understand the infrastructure underneath the telemetry: **Windows services, Active Directory, DNS, DHCP, Group Policy, SMB and NTFS permissions, storage, routing, firewalls, WinRM, PowerShell remoting, virtualization, and migration workflows**.
+
+That extension is now actively underway. **Lab 17** established the Windows Server administration foundation through services, Event Viewer, Task Scheduler, firewalling, storage, WinRM, patching, PowerShell, and operational health checks. **Lab 18** then introduced a dedicated Active Directory environment with AD DS, DNS, domain membership, Organizational Units, domain users and security groups, Group Policy, Windows security telemetry, role-based administration, least privilege, and a Group Managed Service Account. The repository therefore now continues as a **six-phase Microsoft infrastructure and blue-team portfolio** rather than ending with the original Azure/Sentinel capstone.
 
 The expanded roadmap has two deliberate goals:
 
-* **Phase 5 — Windows Server, Infrastructure and Hybrid Operations:** build the server-administration, network-administration, troubleshooting, virtualization, storage, and migration skills that complement the cloud-first work already completed.
-* **Phase 6 — Microsoft XDR and Defender Ecosystem:** extend the same investigation methodology into Defender for Endpoint, Advanced Hunting, identity, email, cloud-app, and cross-domain incident correlation, then finish with a unified Microsoft XDR + Sentinel capstone.
+- **Phase 5 — Windows Server, Infrastructure and Hybrid Operations:** build the server-administration, network-administration, troubleshooting, virtualization, storage, and migration skills that complement the cloud-first work already completed.
+- **Phase 6 — Microsoft XDR and Defender Ecosystem:** extend the same investigation methodology into Defender for Endpoint, Advanced Hunting, identity, email, cloud-app, and cross-domain incident correlation, then finish with a unified Microsoft XDR + Sentinel capstone.
 
 The project is also aligned with my Microsoft certification path. **AZ-900 is completed**, while the next major targets are **AZ-104** to deepen Azure administration and infrastructure knowledge and **SC-200** to strengthen Microsoft security operations, Sentinel, Defender XDR, hunting, detection, and incident-response skills. The labs are intentionally designed so certification study is reinforced by configuration, failure analysis, troubleshooting, and documented evidence rather than memorization alone.
 
 This repository is not intended to be a collection of portal screenshots. Each lab follows the same practical cycle:
 
-> Configure → Understand → Test → Validate → Troubleshoot → Document
+> *Configure → Understand → Test → Validate → Troubleshoot → Document*
 
 As the project grows, the objective remains the same: understand **why** a system behaves the way it does, prove it with telemetry or operational evidence, fix what is wrong, and explain the result clearly enough to reproduce it or discuss it in a technical interview.
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Why I Built This Project](#why-i-built-this-project)
+- [Repository Evolution](#repository-evolution)
+- [Project Objectives](#project-objectives)
+- [Learning Path](#learning-path)
+- [Architecture](#architecture)
+- [Lab Roadmap](#lab-roadmap)
+- [Repository Structure](#repository-structure)
+- [Lab Methodology](#lab-methodology)
+- [Cost Governance](#cost-governance)
+- [Naming and Tagging Standards](#naming-and-tagging-standards)
+- [Security Operations Workflow](#security-operations-workflow)
+- [KQL Coverage](#kql-coverage)
+- [Detection Engineering](#detection-engineering)
+- [Incident Investigation](#incident-investigation)
+- [Skills Demonstrated](#skills-demonstrated)
+- [Certifications and Career Alignment](#certifications-and-career-alignment)
+- [Security and Privacy](#security-and-privacy)
+- [Current Progress](#current-progress)
+- [Expected Project Deliverables](#expected-project-deliverables)
+- [Key Principle](#key-principle)
+- [Disclaimer](#disclaimer)
 
 ## Why I Built This Project
 
@@ -31,13 +58,13 @@ The first version of the project was intentionally cloud-first. Azure provided a
 
 That realization changed the roadmap. Instead of immediately adding more SIEM content, the next phase is designed to strengthen the skills that are most transferable to **Windows Server administration, network administration, infrastructure support, cloud administration, and security operations**. The goal is to be able to troubleshoot scenarios such as:
 
-* a server that becomes unreachable after a configuration change;
-* a user who cannot access an SMB share despite appearing to have permission;
-* a DNS or Group Policy problem that looks like an authentication issue;
-* a service that fails remotely but works locally;
-* a domain client that cannot locate or authenticate to the correct infrastructure;
-* a network path blocked by routing, firewall, DNS, or host configuration;
-* a migration that requires inventory, readiness analysis, testing, cutover, validation, and rollback planning.
+- a server that becomes unreachable after a configuration change;
+- a user who cannot access an SMB share despite appearing to have permission;
+- a DNS or Group Policy problem that looks like an authentication issue;
+- a service that fails remotely but works locally;
+- a domain client that cannot locate or authenticate to the correct infrastructure;
+- a network path blocked by routing, firewall, DNS, or host configuration;
+- a migration that requires inventory, readiness analysis, testing, cutover, validation, and rollback planning.
 
 These are not separate from blue-team work. They are the systems and dependencies that produce the logs, identities, network connections, process activity, and failure modes that defenders investigate. Building this infrastructure knowledge should make later security analysis faster and more accurate because I can reason about the underlying platform instead of treating every alert as an isolated SIEM event.
 
@@ -47,22 +74,22 @@ This roadmap therefore supports several related career directions rather than on
 
 The project is designed to help me develop and demonstrate experience with:
 
-* Microsoft Azure administration and governance
-* Microsoft Entra ID and least-privilege access
-* Windows Server administration and troubleshooting
-* Active Directory Domain Services
-* DNS, DHCP, Group Policy, and authentication dependencies
-* Windows networking, firewalling, and remote administration
-* File services, NTFS/SMB permissions, storage, and backup concepts
-* PowerShell and WinRM administration
-* Virtualization and infrastructure lifecycle concepts
-* Azure and hybrid migration workflows
-* Azure Monitor Agent, Data Collection Rules, and telemetry pipelines
-* Microsoft Sentinel and KQL
-* Detection engineering and threat hunting
-* Incident triage, correlation, containment, and remediation
-* Microsoft Defender XDR and Advanced Hunting
-* Technical documentation, root-cause analysis, and repeatable troubleshooting
+- Microsoft Azure administration and governance
+- Microsoft Entra ID and least-privilege access
+- Windows Server administration and troubleshooting
+- Active Directory Domain Services
+- DNS, DHCP, Group Policy, and authentication dependencies
+- Windows networking, firewalling, and remote administration
+- File services, NTFS/SMB permissions, storage, and backup concepts
+- PowerShell and WinRM administration
+- Virtualization and infrastructure lifecycle concepts
+- Azure and hybrid migration workflows
+- Azure Monitor Agent, Data Collection Rules, and telemetry pipelines
+- Microsoft Sentinel and KQL
+- Detection engineering and threat hunting
+- Incident triage, correlation, containment, and remediation
+- Microsoft Defender XDR and Advanced Hunting
+- Technical documentation, root-cause analysis, and repeatable troubleshooting
 
 The long-term value of the repository is not the number of labs completed. It is the progression from **building infrastructure → operating it → observing it → detecting suspicious behavior → investigating it → correcting both the incident and the underlying control weakness**.
 
@@ -72,10 +99,10 @@ After Lab 16, I decided to **continue in the same GitHub repository rather than 
 
 Keeping the work together also makes the progression easier to evaluate. A reader can follow the project from Azure fundamentals to infrastructure operations and then see how those same systems are monitored and investigated through Sentinel and Defender. A separate repository would make the Windows Server labs look disconnected from the cloud and security work even though the purpose of Phase 5 is specifically to strengthen the infrastructure underneath the existing security environment.
 
-The original cleanup-only Lab 17 is therefore no longer the endpoint. **Cleanup, deallocation, cost review, screenshot sanitization, and evidence maintenance remain ongoing operational practices**, but the learning roadmap now continues through two additional phases:
+The original cleanup-only Lab 17 is therefore no longer the endpoint. **Cleanup, deallocation, cost review, screenshot sanitization, and evidence maintenance remain ongoing operational practices**, while the learning roadmap continues through two additional phases:
 
-* **Phase 5 — Windows Server, Infrastructure and Hybrid Operations (Labs 17–25):** Windows Server administration, AD DS, DNS, DHCP, Group Policy, file services, storage, network troubleshooting, PowerShell remoting, virtualization, infrastructure migration, and a multi-layer operations capstone.
-* **Phase 6 — Microsoft XDR and Defender Ecosystem (Labs 26–32):** Defender XDR, Defender for Endpoint, endpoint investigation and response, Advanced Hunting, Defender for Identity, email and cloud-app investigation where licensing permits, and a final XDR + Sentinel capstone.
+- **Phase 5 — Windows Server, Infrastructure and Hybrid Operations (Labs 17–25):** begins with Windows Server administration in Lab 17 and Active Directory security administration in Lab 18. Lab 19 will deliberately revisit the AD environment through native graphical tools so the same concepts are understood from both PowerShell and GUI administration perspectives. The remaining labs extend into DHCP, DNS and authentication troubleshooting, file services and permissions, WinRM and PowerShell remoting, network troubleshooting, storage and recovery, virtualization, migration planning, and a multi-layer infrastructure operations capstone.
+- **Phase 6 — Microsoft XDR and Defender Ecosystem (Labs 26–32):** Defender XDR, Defender for Endpoint, endpoint investigation and response, Advanced Hunting, Defender for Identity, Microsoft 365/email and cloud-app investigation where licensing permits, cross-domain correlation, and a final XDR + Sentinel capstone.
 
 The expanded project intentionally alternates between **administration** and **security**. Phase 5 builds the systems knowledge needed to understand Windows and network failures in depth; Phase 6 then uses that stronger foundation to investigate attacks and suspicious behavior across endpoint, identity, cloud, and Microsoft 365 signals.
 
@@ -120,16 +147,16 @@ This phase establishes the administrative foundation of the environment.
 
 Topics include:
 
-* Azure subscriptions and resource groups
-* Cost Management and budgets
-* Naming and tagging standards
-* Microsoft Entra ID users and groups
-* Manager relationships
-* Administrative Units
-* Azure RBAC
-* Least privilege
-* Azure Policy
-* Activity Log auditing
+- Azure subscriptions and resource groups
+- Cost Management and budgets
+- Naming and tagging standards
+- Microsoft Entra ID users and groups
+- Manager relationships
+- Administrative Units
+- Azure RBAC
+- Least privilege
+- Azure Policy
+- Activity Log auditing
 
 ### Phase 2 Infrastructure and Monitoring
 
@@ -137,17 +164,17 @@ This phase creates the workloads and telemetry sources used throughout the proje
 
 Topics include:
 
-* Azure Virtual Networks
-* Subnets
-* Network Security Groups
-* Windows and Linux virtual machines
-* Secure virtual machine administration
-* Log Analytics workspaces
-* Azure Monitor Agent
-* Data Collection Rules
-* Windows Security Events
-* Linux Syslog
-* Azure Activity Logs
+- Azure Virtual Networks
+- Subnets
+- Network Security Groups
+- Windows and Linux virtual machines
+- Secure virtual machine administration
+- Log Analytics workspaces
+- Azure Monitor Agent
+- Data Collection Rules
+- Windows Security Events
+- Linux Syslog
+- Azure Activity Logs
 
 ### Phase 3 Security Operations
 
@@ -155,17 +182,17 @@ This phase introduces SIEM operations and security analysis.
 
 Topics include:
 
-* Microsoft Sentinel
-* Data connectors
-* KQL fundamentals
-* Authentication analysis
-* Azure administrative activity
-* Security analytics rules
-* Detection engineering
-* Incident generation
-* Incident triage
-* Entity investigation
-* Threat hunting
+- Microsoft Sentinel
+- Data connectors
+- KQL fundamentals
+- Authentication analysis
+- Azure administrative activity
+- Security analytics rules
+- Detection engineering
+- Incident generation
+- Incident triage
+- Entity investigation
+- Threat hunting
 
 ### Phase 4 Governance Validation and Azure/Sentinel Capstone
 
@@ -173,66 +200,80 @@ This phase combines the original Azure and Sentinel project components into a co
 
 Topics include:
 
-* Conditional Access
-* Azure Policy compliance
-* Governance validation
-* Mini SOC investigation
-* Incident documentation
-* Architecture documentation
-* Cost review
-* Resource cleanup
-* Portfolio preparation
+- Conditional Access
+- Azure Policy compliance
+- Governance validation
+- Mini SOC investigation
+- Incident documentation
+- Architecture documentation
+- Cost review
+- Resource cleanup
+- Portfolio preparation
 
-### Phase 5 Hybrid Windows Server and Network Security
+### Phase 5 — Windows Server, Infrastructure and Hybrid Operations
 
-This phase extends the cloud-first lab into a local and hybrid environment so the project can cover the Windows and network layers that a Microsoft blue-team analyst may investigate outside Azure-only workflows.
+This phase extends the original cloud-first lab into deeper Windows Server and domain administration so the project can cover the infrastructure layers that generate the authentication, process, network, policy, and system telemetry investigated by security teams.
 
-Planned topics include:
+The phase now progresses through the following sequence:
 
-* Windows Server administration and hardening
-* Active Directory Domain Services
-* DNS and Group Policy
-* Local authentication and authorization
-* SMB, RDP, WinRM, Kerberos, and LDAP telemetry
-* Network segmentation and server/user/management boundaries
-* Endpoint and authentication logging
-* Lateral-movement and administrative-activity investigation
-* Sending relevant local telemetry into the existing monitoring and SIEM workflow
+- **Lab 17 — Windows Server Administration and Remote Operations:** Windows Server identity, services, Event Viewer, scheduled tasks, Windows Firewall, Azure NSG layering, storage, patching, WinRM, PowerShell, controlled failure/recovery, and operational health checks.
+- **Lab 18 — Active Directory Domain Services, Security Administration and Automation:** AD DS, DNS, domain controller deployment, domain membership, OUs, domain users, security groups, Group Policy, PowerShell logging, process auditing, role-based local access, least privilege, KDS, gMSA, and final health checks.
+- **Lab 19 — Active Directory and Windows Server Administration through GUI Tools:** Server Manager, Active Directory Users and Computers, Group Policy Management, DNS Manager, Computer Management, Event Viewer, graphical OU/user/group administration, privilege relationships, policy inheritance, and direct comparison with the PowerShell work completed in Lab 18.
+- **Lab 20 — DNS, DHCP and Domain Infrastructure Services:** DHCP deployment and scopes, DNS forward and reverse lookup zones, dynamic registration, leases, reservations, domain name resolution, service dependencies, and controlled DNS/DHCP troubleshooting.
+- **Lab 21 — Windows File Services, SMB and NTFS Authorization:** file-server roles, shares, NTFS permissions, share permissions, group-based authorization, inheritance, effective access, access-based troubleshooting, and least-privilege remediation.
+- **Lab 22 — PowerShell Remoting, WinRM and Remote Administration:** WinRM listeners, PowerShell remoting, remote service and process administration, credential context, firewall dependencies, constrained administrative access, and troubleshooting remote-management failures.
+- **Lab 23 — Windows and Azure Network Troubleshooting:** addressing, routing, DNS dependencies, Windows Firewall, Azure NSGs, TCP/UDP validation, packet-flow reasoning, name-resolution failures, and multi-layer connectivity troubleshooting.
+- **Lab 24 — Storage, Backup, Recovery and Virtualization Operations:** Windows storage administration, volumes and disks, backup/recovery concepts, restore validation, VM lifecycle, snapshots/checkpoints where appropriate, operational readiness, and recovery testing.
+- **Lab 25 — Infrastructure Migration and Hybrid Operations Capstone:** inventory, dependency discovery, readiness assessment, migration planning, controlled cutover, validation, rollback planning, server/network/identity troubleshooting, and a final multi-layer operations scenario.
 
-### Phase 6 Microsoft XDR Expansion
+The purpose of Phase 5 is not to separate infrastructure work from security operations. It is to strengthen the platform knowledge required to explain why authentication, policy, network, service, storage, and remote-administration events appear in security telemetry.
 
-After the local Windows and network phase, the project will expand into Microsoft XDR so the same investigation methodology can be applied across multiple Microsoft security signals.
+### Phase 6 — Microsoft XDR and Defender Ecosystem
 
-Planned coverage includes, where licensing permits:
+After the infrastructure phase, the project returns to security operations with a stronger understanding of the Windows, identity, DNS, authentication, networking, and administrative layers underneath the telemetry.
 
-* Microsoft Defender XDR
-* Microsoft Defender for Endpoint
-* Microsoft Defender for Identity
-* Microsoft 365 and email-related security signals
-* Cross-domain incident correlation
-* XDR investigation and response
-* Correlation between Defender XDR and Microsoft Sentinel
+The planned sequence is:
+
+- **Lab 26 — Microsoft Defender XDR Foundation:** Defender XDR portal structure, incidents, alerts, assets, available data sources, investigation workflow, and integration points with the existing Sentinel environment.
+- **Lab 27 — Microsoft Defender for Endpoint:** endpoint onboarding where licensing permits, device inventory, device timeline, process and logon evidence, alerts, investigation actions, and endpoint response concepts.
+- **Lab 28 — Advanced Hunting and Endpoint Detection Engineering:** Advanced Hunting with KQL, endpoint event tables, process and authentication pivots, reusable hunting queries, and custom detection logic where supported.
+- **Lab 29 — Microsoft Defender for Identity:** Active Directory identity signals, authentication behavior, suspicious identity activity, lateral-movement concepts, and correlation with the Phase 5 domain environment where licensing and deployment options permit.
+- **Lab 30 — Microsoft 365, Email and Cloud-App Security Investigation:** email, collaboration, identity, and cloud-app evidence where licensing permits, with emphasis on investigation workflow rather than product breadth.
+- **Lab 31 — Cross-Domain XDR and Sentinel Correlation:** correlate endpoint, identity, cloud, email, and Sentinel evidence into unified timelines, compare incident context between platforms, and validate response decisions across multiple data sources.
+- **Lab 32 — Microsoft XDR + Sentinel Final Capstone:** combine detection, Advanced Hunting, incident triage, endpoint/identity investigation, containment, remediation, validation, reporting, and lessons learned in one final end-to-end Microsoft security-operations scenario.
+
+The exact Defender features used in Labs 26–32 may be adjusted according to tenant licensing, available trial capabilities, and supported integrations. When a feature is unavailable, the lab will document the limitation and use the closest technically valid alternative rather than presenting an unverified configuration.
 
 ---
 
 ## Architecture
 
-The following diagram represents the security operations flow implemented through Lab 16. Microsoft Sentinel ingestion, cross-source KQL investigations, scheduled analytics rules, alert and incident generation, threat hunting, Microsoft Entra identity-control validation, Azure Policy remediation, cloud-to-endpoint correlation, telemetry-pipeline troubleshooting, scheduled-task persistence detection, containment, and least-privilege RBAC remediation have now been completed.
+The following diagram represents the project state through **Lab 18**. The original Sentinel security-operations pipeline remains intact, while the environment now also includes a Windows Server administration layer and a dedicated Active Directory domain in East US. This allows later labs to correlate Azure control-plane activity, Windows host behavior, domain identity, Group Policy, DNS, authentication, endpoint telemetry, and Sentinel/XDR evidence in one continuous environment.
 
-The [current-state architecture](architecture/azure-secops-current-architecture.md) documents only the components already validated.
+The [current-state architecture](architecture/azure-secops-current-architecture.md) should continue to document only components that have actually been built and validated.
 
 ```mermaid
+
 flowchart TD
-    A["Microsoft Entra ID<br/>Users and Groups"]
-    B["Azure Governance<br/>RBAC and Policy"]
-    C["Azure Workloads<br/>Windows and Linux"]
-    D["Azure Monitor<br/>AMA and DCR"]
+
+    A["Microsoft Entra ID\<br/>Cloud Users and Groups"]
+    B["Azure Governance\<br/>RBAC and Policy"]
+    C["Azure Workloads\<br/>Windows and Linux"]
+    D["Azure Monitor\<br/>AMA and DCR"]
     E["Log Analytics Workspace"]
     F["Microsoft Sentinel"]
     G["KQL Queries and Detections"]
     H["Incidents and Threat Hunting"]
-    I["Microsoft Entra Identity Protection<br/>Security Defaults and MFA"]
-    J["Lab 16 Capstone Response<br/>Containment and RBAC Remediation"]
+    I["Microsoft Entra Identity Controls\<br/>Security Defaults and MFA"]
+    J["Lab 16 Capstone Response\<br/>Containment and RBAC Remediation"]
+
+    K["Windows Server Operations\<br/>Lab 17"]
+    L["Active Directory Domain Services\<br/>corp.secops.test"]
+    M["DNS and Domain Controller\<br/>vm-dc-eus-01"]
+    N["Domain Member Server\<br/>vm-win-eus-01"]
+    O["OUs, Users and Security Groups"]
+    P["Group Policy and Windows Auditing"]
+    Q["Role-Based Access and gMSA"]
 
     A --> B
     A --> I
@@ -245,28 +286,41 @@ flowchart TD
     G --> H
     H --> J
     J --> B
+
+    K --> L
+    L --> M
+    M --> N
+    L --> O
+    O --> P
+    O --> Q
+    P --> N
+    Q --> N
+    N --> D
+
 ```
 
-The project separates resources into different Azure Resource Groups to support governance, lifecycle management, cost analysis, and future RBAC testing.
+The project separates resources into different Azure Resource Groups to support governance, lifecycle management, cost analysis, RBAC testing, and infrastructure lifecycle decisions.
 
 | Resource Group                    | Purpose                                      |
 | --------------------------------- | -------------------------------------------- |
-| `rg-secops-core-canadacentral`    | Core networking and shared resources         |
-| `rg-secops-compute-canadacentral` | Windows and Linux virtual machines           |
-| `rg-secops-monitorcanadacentral`  | Monitoring and security operations resources |
+| `rg-secops-core-canadacentral`    | Original core networking and shared resources |
+| `rg-secops-compute-canadacentral` | Original Windows and Linux virtual machines   |
+| `rg-secops-monitorcanadacentral`  | Monitoring and security operations resources  |
+| `rg-secops-eastus`                | Phase 5 Windows Server, AD DS, DNS, domain-member, and infrastructure-administration resources |
 
-The primary deployment region is:
+The project now uses two Azure regions:
 
 ```text
-Canada Central
+Canada Central — original Azure/Sentinel environment
+East US        — Phase 5 Windows Server and Active Directory environment
 ```
 
 ---
 
 ## Lab Roadmap
 
-| Lab | Topic                              | Primary Skills                               | Status    |
-| --: | ---------------------------------- | -------------------------------------------- | --------- |
+| Lab | Topic | Primary Skills | Status |
+| --: | ----- | -------------- | ------ |
 |  [00](labs/lab-00-baseline/README.md) | Azure Baseline and Cost Governance | Budgets, resource groups, tags, Activity Log | Completed |
 |  [01](labs/lab01-entra-users-groups/README.md) | Entra ID Users Managers and Groups | Users, manager relationships, security groups, audit logs | Completed |
 |  [02](labs/lab02-administrative-units/README.md) | Administrative Units and Entra Role Scope | Scoped administration, least privilege, licensing validation | Completed |
@@ -284,8 +338,22 @@ Canada Central
 | [14](labs/lab-14-conditional-access/README-lab-14.md) | Conditional Access, Security Defaults and MFA Validation | Conditional Access assessment, Security Defaults, MFA, sign-in investigation | Completed |
 | [15](labs/lab-15-policy-compliance/README-lab-15.md) | Azure Policy Compliance, Remediation and Governance Assessment | Compliance assessment, remediation, policy scans, exemptions, technical-debt documentation | Completed |
 | [16](labs/lab-16-mini-soc-capstone/README-lab-16.md) | Mini SOC Capstone — Excessive RBAC to Detected Persistence | Cross-source investigation, persistence detection, telemetry troubleshooting, containment, RBAC remediation | Completed |
-| 17 | Hybrid Windows Server and Local Network Security Foundation | Windows Server, AD DS, DNS, Group Policy, network segmentation, endpoint and authentication telemetry | Planned |
-| 18+ | Microsoft XDR Expansion | Defender XDR, endpoint/identity/email correlation, investigation and response | Planned |
+| 17 | Windows Server Administration and Remote Operations | Services, Event Viewer, Task Scheduler, firewall, storage, patching, WinRM, PowerShell, health checks | Completed |
+| 18 | Active Directory Domain Services, Security Administration and Automation | AD DS, DNS, domain join, OUs, users/groups, GPO, Windows auditing, least privilege, gMSA | Completed |
+| 19 | Active Directory and Windows Server Administration through GUI Tools | Server Manager, ADUC, GPMC, DNS Manager, Event Viewer, GUI hierarchy and privilege administration | Next |
+| 20 | DNS, DHCP and Domain Infrastructure Services | DHCP scopes, DNS zones, SRV records, reservations, domain service dependencies, troubleshooting | Planned |
+| 21 | Windows File Services, SMB and NTFS Authorization | File Server, shares, NTFS/share permissions, inheritance, effective access, group-based authorization | Planned |
+| 22 | PowerShell Remoting, WinRM and Remote Administration | PowerShell remoting, WinRM, remote services/processes, firewall dependencies, least-privilege administration | Planned |
+| 23 | Windows and Azure Network Troubleshooting | TCP/IP, routing, DNS, NSGs, Windows Firewall, connectivity validation, packet-flow reasoning | Planned |
+| 24 | Storage, Backup, Recovery and Virtualization Operations | Disks, volumes, backup, restore validation, VM lifecycle, recovery and operational readiness | Planned |
+| 25 | Infrastructure Migration and Hybrid Operations Capstone | Inventory, dependencies, migration readiness, cutover, rollback, troubleshooting, operational validation | Planned |
+| 26 | Microsoft Defender XDR Foundation | Defender XDR portal, data sources, incidents, alerts, XDR investigation model | Planned |
+| 27 | Microsoft Defender for Endpoint | Endpoint onboarding, device inventory, alerts, device timeline, endpoint investigation and response | Planned |
+| 28 | Advanced Hunting and Endpoint Detection Engineering | KQL for XDR, DeviceProcessEvents, DeviceLogonEvents, hunting, custom detection logic | Planned |
+| 29 | Microsoft Defender for Identity | Identity sensors/signals, AD identity activity, lateral movement and credential-related investigation | Planned |
+| 30 | Microsoft 365, Email and Cloud-App Security Investigation | Email, collaboration, cloud-app and identity evidence where licensing permits | Planned |
+| 31 | Cross-Domain XDR and Sentinel Correlation | Endpoint, identity, cloud, email and Sentinel correlation, unified timelines and response | Planned |
+| 32 | Microsoft XDR + Sentinel Final Capstone | End-to-end detection, hunting, investigation, containment, remediation, validation and reporting | Planned |
 
 ---
 
@@ -293,143 +361,22 @@ Canada Central
 
 ```text
 azure-security-operations-lab/
-│
 ├── README.md
-│
 ├── architecture/
-│   ├── azure-secops-current-architecture.md
-│   └── architecture-decisions.md
-│
 ├── labs/
 │   ├── lab-00-baseline/
-│   │   ├── README-lab-00.md
-│   │   └── screenshots/
-│   ├── lab01-entra-users-groups/
-│   │   ├── README-lab-01.md
-│   │   └── screenshots/
-│   ├── lab02-administrative-units/
-│   │   ├── README-lab-02.md
-│   │   └── screenshots/
-│   ├── lab03-azure-rbac/
-│   │   ├── README-lab-03.md
-│   │   └── screenshots/
-│   ├── lab-04-azure-policy/
-│   │   ├── README-lab-04.md
-│   │   └── screenshots/
-│   ├── lab-05-vnet-nsg/
-│   │   ├── README-lab-05.md
-│   │   └── screenshots/
-│   ├── lab-06-virtual-machines/
-│   │   ├── README-lab-06.md
-│   │   └── screenshots/
-│   ├── lab-07-vm-administration/
-│   │   ├── README-lab-07.md
-│   │   └── screenshots/
-│   ├── lab-08-log-analytics-ama-dcr/
-│   │   ├── README-lab-08.md
-│   │   └── screenshots/
-│   ├── lab-09-microsoft-sentinel/
-│   │   ├── README-lab-09.md
-│   │   └── screenshots/
-│   ├── lab-10-kql/
-│   │   ├── README-lab-10.md
-│   │   └── screenshots/
-│   ├── lab-11-detection-rule/
-│   │   ├── README-lab-11.md
-│   │   └── screenshots/
-│   ├── lab-12-incident-triage/
-│   │   ├── README-lab-12.md
-│   │   └── screenshots/
-│   ├── lab-13-threat-hunting/
-│   │   ├── README-lab-13.md
-│   │   └── screenshots/
-│   ├── lab-14-conditional-access/
-│   │   ├── README-lab-14.md
-│   │   └── screenshots/
-│   ├── lab-15-policy-compliance/
-│   │   ├── README-lab-15.md
-│   │   └── screenshots/
-│   └── lab-16-mini-soc-capstone/
-│       ├── README-lab-16.md
-│       └── screenshots/
-│
+│   ├── ...
+│   ├── lab-16-mini-soc-capstone/
+│   ├── lab-17-windows-server-administration/
+│   ├── lab-18-active-directory-security-administration/
+│   └── lab-19-active-directory-gui-administration/   # next
 ├── kql/
-│   ├── lab10/
-│   │   ├── lab10-01-data-source-validation.kql
-│   │   ├── lab10-02-windows-event-baseline.kql
-│   │   ├── lab10-03-authentication-investigation.kql
-│   │   ├── lab10-04-rare-windows-security-events.kql
-│   │   ├── lab10-05-azure-control-plane-investigation.kql
-│   │   ├── lab10-06-unified-security-timeline.kql
-│   │   └── lab10-07-security-events-timechart.kql
-│   ├── lab11/
-│   │   ├── 01-multiple-failed-windows-logons.kql
-│   │   ├── 02-local-user-account-created.kql
-│   │   ├── 03-user-added-to-local-administrators.kql
-│   │   └── 04-powershell-spawned-by-command-shell.kql
-│   ├── lab12/
-│   │   ├── 01-powershell-security-event-correlation.kql
-│   │   ├── 02-powershell-azure-activity-correlation.kql
-│   │   ├── 03-privileged-account-lifecycle.kql
-│   │   ├── 04-privileged-account-actor-identification.kql
-│   │   └── 05-privileged-account-azure-activity-correlation.kql
-│   ├── lab13/
-│   │   ├── 01-command-interpreter-execution.kql
-│   │   ├── 02-process-parent-summary.kql
-│   │   ├── 03-powershell-parent-process-pivot.kql
-│   │   └── 04-controlled-validation-event.kql
-│   ├── lab16/
-│   │   ├── 01_local_admin_membership_change_4732.kql
-│   │   ├── 02_4732_ingestion_delay_validation.kql
-│   │   ├── 03_privilege_escalation_alert_validation.kql
-│   │   ├── 04_alert_incident_association_check.kql
-│   │   ├── 05_historical_security_incident_review.kql
-│   │   ├── 06_azure_run_command_activity.kql
-│   │   ├── 07_cross_source_privilege_escalation_timeline.kql
-│   │   ├── 08_post_escalation_process_discovery_4688.kql
-│   │   ├── 09_powershell_spawned_by_cmd_4688.kql
-│   │   ├── 10_powershell_alert_validation.kql
-│   │   ├── 11_scheduled_task_process_creation_4688.kql
-│   │   ├── 12_scheduled_task_creation_4698.kql
-│   │   ├── 13_4698_ingestion_delay_validation.kql
-│   │   ├── 14_scheduled_task_alert_validation.kql
-│   │   ├── 15_scheduled_task_incident_validation.kql
-│   │   └── README.md
-│   ├── ama-heartbeat-validation.kql
-│   ├── windows-security-account-lifecycle.kql
-│   ├── windows-security-account-lifecycle-summary.kql
-│   ├── windows-system-dcr-validation.kql
-│   ├── azure-activity-events.kql
-│   └── azure-activity-summary.kql
-│
 ├── detections/
-│   └── DET-001 through DET-004
-│
 ├── incidents/
-│   ├── INC-001-powershell-run-command-investigation.md
-│   └── INC-002-privileged-local-account-investigation.md
-│
 └── docs/
-    ├── rbac-matrix.md
-    ├── cost-tracking.md
-    ├── naming-and-tagging-standards.md
-    ├── evidence-register.md
-    └── lessons-learned.md
 ```
 
-Each lab directory contains its own README explaining:
-
-* The objective of the lab
-* The technical concepts involved
-* The resources created
-* The configuration decisions
-* The validation process
-* Troubleshooting performed
-* Sanitized screenshots
-* Key takeaways
-* Skills practiced
-
----
+Each completed lab contains its own documentation, screenshots, scripts or queries where relevant, validation evidence, troubleshooting notes, and technical takeaways. The root README intentionally stays at project level; implementation detail belongs inside the individual lab directories.
 
 ## Lab Methodology
 
@@ -449,11 +396,11 @@ Perform a controlled test to verify the expected behavior.
 
 Examples include:
 
-* Attempting an unauthorized action
-* Creating a noncompliant resource
-* Modifying a resource tag
-* Generating failed authentication events
-* Triggering a detection rule
+- Attempting an unauthorized action
+- Creating a noncompliant resource
+- Modifying a resource tag
+- Generating failed authentication events
+- Triggering a detection rule
 
 ### 4. Validate
 
@@ -473,16 +420,7 @@ Capture sanitized evidence and record the technical outcome in the lab README.
 
 Cost governance was implemented before deploying compute or monitoring resources.
 
-The initial configuration includes:
-
-* Monthly Azure budget: **US$175**
-* Actual-cost alert at 50%
-* Actual-cost alert at 75%
-* Actual-cost alert at 90%
-* Actual-cost alert at 100%
-* Day 0 Cost Analysis baseline
-* Expiration tags on lab resources
-* Planned resource cleanup
+The initial configuration includes a **US$175 monthly budget**, actual-cost alerts at **50%, 75%, 90%, and 100%**, a Day 0 Cost Analysis baseline, expiration tags, and planned resource cleanup.
 
 Azure budgets provide cost visibility and notifications, but they do not automatically stop resources when a threshold is reached.
 
@@ -497,18 +435,24 @@ The project uses descriptive names to make resources easier to identify during a
 General naming pattern:
 
 ```text
-<resource-type>-<workload>-<environment>-<region>-<instance>
+\<resource-type>-\<workload>-\<environment>-\<region>-\<instance>
 ```
 
 Example resource names:
 
 ```text
 rg-secops-core-canadacentral
+
 vm-winclient-lab-cac-001
+
 vm-linux-lab-cac-001
+
 vnet-secops-lab-cac-001
+
 nsg-workstations-lab-001
+
 law-secops-lab-cac-001
+
 dcr-security-events-lab-cac-001
 ```
 
@@ -530,25 +474,45 @@ The final environment is designed to demonstrate the following workflow:
 
 ```text
 Azure or identity activity
-        ↓
+
+       ↓
+
 Telemetry generation
-        ↓
+
+       ↓
+
 Azure Monitor Agent or data connector
-        ↓
+
+       ↓
+
 Log Analytics Workspace
-        ↓
+
+       ↓
+
 Microsoft Sentinel
-        ↓
+
+       ↓
+
 KQL query or analytics rule
-        ↓
+
+       ↓
+
 Alert
-        ↓
+
+       ↓
+
 Incident
-        ↓
+
+       ↓
+
 Triage and investigation
-        ↓
+
+       ↓
+
 Containment or remediation recommendation
-        ↓
+
+       ↓
+
 Incident documentation
 ```
 
@@ -558,83 +522,42 @@ This workflow represents the relationship between cloud administration, telemetr
 
 ## KQL Coverage
 
-The project includes reusable queries developed and validated throughout the completed labs, with additional investigation and hunting queries planned for later phases. Current and planned coverage includes:
+Reusable KQL has been developed and validated across the security-operations labs. Current coverage includes:
 
-* Azure administrative activity
-* Resource creation and modification
-* Authentication activity
-* Successful and failed logons
-* Windows Security Events
-* Linux Syslog
-* Suspicious account behavior
-* Repeated authentication failures
-* Privileged operations
-* Security incident investigation
-* Threat hunting
+- Azure administrative and resource activity
+- Windows authentication and Security Events
+- Account lifecycle and privileged operations
+- Process creation and command-line activity
+- Cross-source Azure/Windows correlation
+- Detection validation
+- Incident investigation
+- Threat hunting
+- Scheduled-task persistence
 
-Example Azure Activity query:
-
-```kusto
-AzureActivity
-| where TimeGenerated > ago(24h)
-| project
-    TimeGenerated,
-    Caller,
-    OperationNameValue,
-    ActivityStatusValue,
-    ResourceGroup
-| order by TimeGenerated desc
-```
-
-Reusable queries are stored in the `kql/` directory and referenced by the relevant lab documentation.
-
----
+Queries are stored under `kql/` and referenced by the relevant lab documentation.
 
 ## Detection Engineering
 
-Lab 11 introduced the detection-engineering phase by converting validated Windows Security patterns into four Microsoft Sentinel scheduled analytics rules. The implemented detections cover repeated failed logons, local account creation, membership in the local Administrators group, and PowerShell launched by Command Prompt.
+Lab 11 introduced the detection-engineering workflow by converting validated Windows Security patterns into Microsoft Sentinel scheduled analytics rules. The implemented detections covered repeated failed logons, local account creation, local Administrators membership changes, and PowerShell launched by Command Prompt.
 
-The rule-development process documents more than the final KQL query. Each detection includes:
+Each detection is documented with its objective, threat scenario, data source, KQL logic, threshold, entity mappings, validation procedure, investigation steps, expected false positives, response guidance, and MITRE ATT&CK mapping where applicable.
 
-* Detection objective
-* Threat scenario
-* Required data source
-* KQL query
-* Query time range
-* Trigger threshold
-* Entity mappings
-* Expected false positives
-* Validation procedure
-* Investigation steps
-* Recommended response
-* MITRE ATT&CK mapping when applicable
-
-This approach demonstrates the full lifecycle of a security detection rather than only showing a successful alert.
-
-Lab 16 extended that lifecycle into a capstone scenario. A scheduled-task persistence technique was first observed through Event `4688`, then validated locally through Event `4698`. When `4698` was missing from Sentinel, the troubleshooting process traced the gap to the Data Collection Rule, repaired the XPath coverage, revalidated ingestion, and only then created the new high-severity `LAB16 - Scheduled Task Persistence Created` analytics rule. The rule was validated through the full chain from raw event to `SecurityAlert` and automatic `SecurityIncident`.
-
----
+Lab 16 extended this lifecycle into an end-to-end persistence scenario. Scheduled-task activity was observed through Event `4688`, the missing `4698` telemetry was traced to Data Collection Rule coverage, the ingestion gap was corrected, and a new high-severity Sentinel rule was validated from raw event through `SecurityAlert` and `SecurityIncident`.
 
 ## Incident Investigation
 
-Incident documentation follows a consistent investigation structure:
+Incident work follows a repeatable structure:
 
-1. Incident summary
-2. Alert source
-3. Detection logic
-4. Affected user or host
-5. Timeline of events
-6. Evidence reviewed
-7. KQL queries used
-8. True-positive or false-positive assessment
-9. Scope and impact
-10. Containment recommendations
-11. Remediation recommendations
-12. Lessons learned
+1. Incident summary and alert source
+2. Detection logic and affected entities
+3. Timeline and evidence review
+4. KQL and cross-source correlation
+5. True-positive or false-positive assessment
+6. Scope and impact
+7. Containment and remediation
+8. Validation and lessons learned
 
-The goal is to demonstrate a repeatable analytical process that can be explained during a technical interview.
-
----
+The goal is to demonstrate an investigation process that can be reproduced and explained during a technical interview.
 
 ## Skills Demonstrated
 
@@ -642,60 +565,79 @@ This project is designed to demonstrate practical experience with:
 
 ### Microsoft Azure
 
-* Azure Resource Manager
-* Resource Groups
-* Azure Cost Management
-* Azure Virtual Networks
-* Network Security Groups
-* Azure Virtual Machines
-* Azure Monitor
-* Log Analytics
-* Azure Activity Log
+- Azure Resource Manager
+- Resource Groups
+- Azure Cost Management
+- Azure Virtual Networks
+- Network Security Groups
+- Azure Virtual Machines
+- Azure Monitor
+- Log Analytics
+- Azure Activity Log
 
 ### Identity and Governance
 
-* Microsoft Entra ID
-* Users and security groups
-* Administrative Units
-* Azure RBAC
-* Least privilege
-* Azure Policy
-* Conditional Access assessment
-* Security Defaults
-* Multifactor Authentication (MFA)
-* Microsoft Authenticator
-* Sign-in log investigation
-* Resource tagging
-* Policy compliance
-* Compliance remediation
-* On-demand policy evaluation
-* Policy exemptions
-* Governance technical-debt assessment
+- Microsoft Entra ID
+- Users and security groups
+- Administrative Units
+- Azure RBAC
+- Least privilege
+- Azure Policy
+- Conditional Access assessment
+- Security Defaults
+- Multifactor Authentication (MFA)
+- Microsoft Authenticator
+- Sign-in log investigation
+- Resource tagging
+- Policy compliance
+- Compliance remediation
+- On-demand policy evaluation
+- Policy exemptions
+- Governance technical-debt assessment
+
+### Windows Server and Active Directory Infrastructure
+
+- Windows Server administration and health validation
+- Windows services, Event Viewer, Task Scheduler, patching, and storage
+- Windows Defender Firewall and Azure NSG interaction
+- WinRM and PowerShell-based remote administration
+- Active Directory Domain Services
+- Active Directory-integrated DNS
+- Domain controller deployment and validation
+- Domain join and secure-channel validation
+- Organizational Units and object placement
+- Domain users and global security groups
+- Group-based role assignment and least privilege
+- Group Policy creation, linking, inheritance, and validation
+- PowerShell Script Block Logging and Module Logging
+- Windows Security Event 4688 process creation auditing
+- Group Managed Service Accounts and KDS
+- Infrastructure health checks and configuration troubleshooting
 
 ### Security Operations
 
-* Microsoft Sentinel
-* Kusto Query Language
-* Security monitoring
-* Alert triage
-* Incident investigation
-* Threat hunting
-* Detection engineering
-* Cross-source Azure and Windows correlation
-* Telemetry-pipeline troubleshooting with AMA and DCR
-* Scheduled-task persistence detection
-* Incident containment and least-privilege RBAC remediation
-* Detection-to-alert-to-incident validation
-* Security reporting
-* Evidence preservation
+- Microsoft Sentinel
+- Kusto Query Language
+- Security monitoring
+- Alert triage
+- Incident investigation
+- Threat hunting
+- Detection engineering
+- Cross-source Azure and Windows correlation
+- Telemetry-pipeline troubleshooting with AMA and DCR
+- Scheduled-task persistence detection
+- Incident containment and least-privilege RBAC remediation
+- Detection-to-alert-to-incident validation
+- Security reporting
+- Evidence preservation
 
 ### Professional Practices
 
-* Technical documentation
-* Cost awareness
-* Structured troubleshooting
-* Security-focused decision-making
-* Privacy-conscious portfolio development
+- Technical documentation
+- Cost awareness
+- Structured troubleshooting
+- Security-focused decision-making
+- Privacy-conscious portfolio development
 
 ---
 
@@ -713,14 +655,14 @@ AZ-104 is a natural fit for the expanded Phase 5 because it strengthens the admi
 
 Relevant project areas include:
 
-* Azure subscriptions and resource groups
-* Microsoft Entra ID and RBAC
-* Azure Policy and governance
-* Virtual machines and managed disks
-* Virtual networking and Network Security Groups
-* Storage concepts
-* Monitoring and operational troubleshooting
-* Hybrid administration and migration thinking
+- Azure subscriptions and resource groups
+- Microsoft Entra ID and RBAC
+- Azure Policy and governance
+- Virtual machines and managed disks
+- Virtual networking and Network Security Groups
+- Storage concepts
+- Monitoring and operational troubleshooting
+- Hybrid administration and migration thinking
 
 The Windows Server and infrastructure labs add an important complement to AZ-104: understanding what happens **inside** the server and across local infrastructure, not only how Azure manages the resource from the control plane.
 
@@ -730,23 +672,23 @@ SC-200 remains the main security-operations certification alignment for the proj
 
 Relevant project areas include:
 
-* Microsoft Sentinel
-* Log Analytics and KQL
-* Analytics rules and detection engineering
-* SecurityAlert and SecurityIncident investigation
-* Threat hunting
-* Incident triage and evidence correlation
-* Microsoft Defender XDR
-* Defender for Endpoint investigation and response
-* Advanced Hunting
-* Identity and cross-domain investigation
-* Containment, remediation, and post-response validation
+- Microsoft Sentinel
+- Log Analytics and KQL
+- Analytics rules and detection engineering
+- SecurityAlert and SecurityIncident investigation
+- Threat hunting
+- Incident triage and evidence correlation
+- Microsoft Defender XDR
+- Defender for Endpoint investigation and response
+- Advanced Hunting
+- Identity and cross-domain investigation
+- Containment, remediation, and post-response validation
 
 ### Why combine AZ-104 and SC-200?
 
 The project deliberately develops both sides because infrastructure and security operations overlap. AZ-104-oriented administration helps answer **how the platform is built, configured, connected, and operated**. SC-200-oriented security operations helps answer **what happened, whether it is suspicious, what evidence supports the conclusion, and how to respond**.
 
-Phase 5 is designed to close the Windows Server and network-administration gap between those two perspectives. Phase 6 then uses that stronger infrastructure foundation to make XDR investigations more meaningful.
+Phase 5 is actively closing the Windows Server and network-administration gap between those two perspectives. Labs 17 and 18 now provide concrete Windows Server and Active Directory evidence, while Labs 19–25 deepen administration, troubleshooting, storage, networking, file services, and migration skills. Phase 6 then uses that stronger infrastructure foundation to make XDR investigations more meaningful.
 
 ### Future Microsoft Security Specialization
 
@@ -760,16 +702,16 @@ No production systems, third-party systems, or unauthorized targets are used.
 
 Before evidence is published, screenshots and documentation are reviewed to remove:
 
-* Personal email addresses
-* Subscription IDs
-* Tenant IDs
-* Billing identifiers
-* Access tokens
-* Passwords
-* API keys
-* Secrets
-* Private IP information when unnecessary
-* Other tenant-sensitive identifiers
+- Personal email addresses
+- Subscription IDs
+- Tenant IDs
+- Billing identifiers
+- Access tokens
+- Passwords
+- API keys
+- Secrets
+- Private IP information when unnecessary
+- Other tenant-sensitive identifiers
 
 Resource names, sanitized logs, KQL queries, policy names, configuration decisions, and controlled test results may remain visible when they provide useful technical evidence.
 
@@ -779,216 +721,68 @@ No credentials or secrets should ever be committed to this repository.
 
 ## Current Progress
 
-The project is being developed one lab at a time.
+The original Azure/Sentinel learning path is complete through **Lab 16**, and the infrastructure expansion is now complete through **Lab 18**.
 
-### Completed
+### Completed milestones
 
-* Lab 00 — Azure Baseline and Cost Governance
-* Azure monthly budget and alerts
-* Resource group baseline
-* Naming and tagging standards
-* Day 0 cost baseline
-* Azure Activity Log validation
-* Screenshot sanitization
-* Initial portfolio structure
-* Lab 01 — Microsoft Entra ID Users, Managers and Groups
-* Five cloud-only lab users with job and department information
-* Grace Manager configured as manager of Alice Analyst and Bob Analyst
-* `SG-SecOps-Analysts` with Grace as owner and Alice and Bob as members
-* `SG-SecOps-Readers` with Victor Viewer as a member
-* Empty `SG-Cloud-Admins` group reserved for future least-privilege testing
-* Microsoft Entra user and group-management audit logs validated
-* Twelve sanitized evidence screenshots documented in the Lab 01 README
-* Dynamic membership documented but not executed because the tenant uses Microsoft Entra ID Free
+| Range | Focus | Outcome |
+| ----- | ----- | ------- |
+| Labs 00–04 | Identity and governance | Resource groups, cost governance, Entra ID, Administrative Units, RBAC, Azure Policy |
+| Labs 05–09 | Infrastructure and monitoring | VNets, NSGs, Windows/Linux VMs, managed disks, AMA, DCR, Log Analytics, Sentinel |
+| Labs 10–13 | Security operations | KQL investigations, scheduled analytics rules, incident triage, cross-source correlation, threat hunting |
+| Labs 14–16 | Governance and SOC capstone | MFA/Security Defaults validation, Policy remediation, persistence detection, containment, RBAC remediation |
+| Lab 17 | Windows Server administration | Services, Event Viewer, firewalling, storage, patching, WinRM, PowerShell, health checks |
+| Lab 18 | Active Directory security administration | AD DS, DNS, domain join, OUs, users/groups, GPO, auditing, least privilege, gMSA, final health validation |
 
-* Lab 02 — Administrative Units and Microsoft Entra Role Scope
-* `AU-Security-Lab` administrative unit created with assigned membership
-* Alice Analyst, Bob Analyst, and Grace Manager added as direct members
-* Restricted management kept disabled for the lab
-* Scoped `User Administrator` assignment to Ian IT evaluated but not executed because Microsoft Entra ID P1 or P2 is required
-* Least privilege preserved without activating a trial or assigning a broader tenant-wide role
-* Three sanitized evidence screenshots documented in the Lab 02 README
+### Current environment
 
-* Lab 03 — Azure RBAC: Subscription vs Resource Permissions
-* `SG-SecOps-Readers` assigned the Reader role at the compute resource-group scope
-* `SG-SecOps-Analysts` assigned the Virtual Machine Contributor role at the same scope
-* Direct resource-group assignments compared with inherited subscription permissions
-* Least privilege applied through group-based access and resource-group scoping
-* Differences between Reader, Virtual Machine Contributor, Contributor, Owner, and User Access Administrator documented
-* Four sanitized evidence screenshots documented in the Lab 03 README
-* End-user permission testing deferred until virtual machines are deployed in a later lab
+The project now has two connected learning tracks:
 
-* Lab 04 — Azure Policy: Audit, Deny, and Compliance
-* Custom policy definition created to audit resource groups missing the `Environment` tag
-* Audit assignment applied at subscription scope and non-compliant resources identified
-* Built-in deny policy assigned to require the `Environment` tag on new resource groups
-* Requests without the required tag blocked while `Environment=Lab` passed validation
-* Compliance dashboard reviewed with three of five resource groups compliant
-* Eight sanitized evidence screenshots documented in the Lab 04 README
+- **Canada Central:** original Azure/Sentinel environment used for governance, monitoring, KQL, detection engineering, threat hunting, and incident response.
+- **East US:** Windows Server and Active Directory environment used for deeper infrastructure, identity, DNS, Group Policy, authorization, and remote-administration practice.
 
-* Lab 05 — Virtual Network Segmentation and Network Security Groups
-* `vnet-secops-cc-01` created with the `10.20.0.0/16` address space
-* Server and management workloads separated into `snet-servers` (`10.20.1.0/24`) and `snet-management` (`10.20.2.0/24`)
-* `nsg-secops-servers` configured to allow RDP and SSH from the management subnet and deny other management-subnet inbound traffic
-* Network Security Group associated only with the server subnet
-* Five sanitized evidence screenshots documented in the Lab 05 README
-* Effective connectivity testing deferred until virtual machines and network interfaces are deployed
+### Next — Lab 19
 
-* Lab 06 — Windows and Linux Virtual Machines
-* Windows Server 2022 and Ubuntu Server 24.04 LTS deployed into the server and management subnets
-* Trusted Launch, Secure Boot, vTPM, managed disks, SSH key authentication, and automatic shutdown configured
-* Windows RDP and Linux SSH administration validated through Azure Bastion Developer without public inbound rules
-* Subnet segmentation tested from Linux: TCP/3389 reached the Windows server while TCP/445, TCP/80, and TCP/22 were not reachable during testing
-* Compute provider registration, subscription quota restrictions, Microsoft support escalation, regional allocation failure, and VM resizing documented
-* Both virtual machines confirmed as stopped and deallocated after validation
-* Twenty sanitized evidence screenshots documented in the Lab 06 README
+Lab 19 will revisit the Active Directory environment through **graphical administration tools**. The goal is to understand the same concepts implemented in Lab 18 from the GUI perspective and to demonstrate practical administration with:
 
-* Lab 07 — Virtual Machine Administration and Managed Disks
-* Windows and Linux VM lifecycle managed and validated with Azure CLI
-* Difference between stopped and deallocated states tested and documented
-* 4 GiB Standard SSD managed disk attached, formatted as `ext4`, and mounted persistently on Linux using its UUID
-* Disk persistence confirmed after restart despite the Linux device name changing
-* Linux and Windows guest diagnostics executed remotely with Azure Run Command
-* Windows RDP listener, Secure Boot, and vTPM validated
-* Both virtual machines deallocated after testing for cost control
-* Ten sanitized evidence screenshots documented in the Lab 07 README
+- Server Manager
+- Active Directory Users and Computers
+- Group Policy Management
+- DNS Manager
+- Computer Management
+- Event Viewer
+- OU hierarchy and object placement
+- User and group membership
+- Privilege relationships
+- Policy inheritance and effective configuration
 
-* Lab 08 — Log Analytics, Azure Monitor Agent, Data Collection Rules, and KQL
-* Log Analytics workspace configured with 30-day retention and cost review
-* Windows VM onboarded through AMA and a scoped Data Collection Rule
-* Selected Security and System events collected through narrow XPath filters
-* DCR provisioning, VM association, AMA health, and data ingestion validated
-* Controlled account-lifecycle and System Warning events investigated with KQL
-* Four reusable KQL queries stored in the root `kql/` directory
-* Windows VM deallocated after testing for cost control
-* Nineteen sanitized evidence screenshots documented in the Lab 08 README
+The lab will also introduce additional directory objects where useful so that hierarchy, administration, and privilege boundaries can be demonstrated visually rather than only through PowerShell.
 
-* Lab 09 — Microsoft Sentinel and Azure Activity Connector
-* Existing Log Analytics workspace onboarded to Microsoft Sentinel
-* Primary SIEM workspace connected to the Microsoft Defender portal
-* Azure Activity solution installed from Content Hub
-* Subscription Activity Logs routed through an Azure Policy-managed diagnostic setting
-* Policy remediation completed and assignment validated at 100% compliance
-* Controlled resource-tag activity ingested into the `AzureActivity` table
-* Two reusable Azure Activity queries stored in the root `kql/` directory
-* Thirteen sanitized evidence screenshots documented in the Lab 09 README
+### Remaining roadmap
 
-* Lab 10 — KQL Investigation Fundamentals
-* Data freshness validated across `Event`, `Heartbeat`, and `AzureActivity`
-* Windows authentication investigated with controlled `4624` and `4625` events
-* Account names parsed from event-specific `RenderedDescription` layouts
-* Rare Windows Security events prioritized and mapped to readable activities
-* Azure control-plane operations summarized into analyst-friendly actions
-* Windows and Azure activity normalized into a unified security timeline
-* Seven reusable, commented KQL query files stored in the root `kql/` directory
-* Ten sanitized evidence screenshots documented in the Lab 10 README
+**Labs 20–25 — Infrastructure and Hybrid Operations**
 
-* Lab 11 — Microsoft Sentinel Scheduled Analytics Rules
-* Four scheduled analytics rules created and validated from Windows Security Events `4625`, `4720`, `4732`, and `4688`
-* Controlled events generated safely on the Windows VM through Azure VM Run Command
-* Detection logic tested manually in Log Analytics before each rule was enabled
-* Five-minute execution frequency and 15-minute lookback windows validated
-* Account and Host entities mapped using account names, computer names, and SIDs where appropriate
-* Alert thresholds, event grouping, suppression, MITRE ATT&CK mappings, and custom details configured
-* Sentinel incidents investigated through their timelines, alerts, entities, and supporting event evidence
-* KQL parsing, rule-window timing, account-name limitations, and PowerShell telemetry gaps troubleshot and documented
-* Four reusable detection queries stored in `kql/lab11/` and seventeen sanitized evidence screenshots stored in the Lab 11 directory
+DNS/DHCP → File Services and SMB/NTFS → WinRM/PowerShell Remoting → Network Troubleshooting → Storage/Backup/Virtualization → Migration and Hybrid Operations Capstone
 
-* Lab 12 — Microsoft Sentinel Incident Triage and Correlation
-* Two Sentinel incidents investigated from initial triage through classification and closure
-* Incident ownership, Active status, investigation tasks, analyst comments, and closure reasons documented
-* PowerShell execution correlated across Windows Security Events `4624`, `4672`, and `4688`
-* Local-account creation and privileged-group membership reconstructed with Events `4720`, `4732`, and `4733`
-* Windows Security evidence correlated with Azure `Run Command` operations in the `AzureActivity` table
-* Endpoint execution under `LOCAL SYSTEM` connected to the authorized Azure identity that initiated each controlled action
-* Alerts classified as **Benign Positive — Suspicious but expected** only after host, identity, operation, and timestamp validation
-* Five reusable investigation queries stored in `kql/lab12/`
-* Two formal incident records stored in `incidents/` and twenty sanitized evidence screenshots stored in the Lab 12 directory
+**Labs 26–32 — Microsoft XDR and Defender**
 
-* Lab 13 — Microsoft Sentinel Threat Hunting
-* Hypothesis-driven hunt performed across Windows process-creation telemetry using Security Event `4688`
-* PowerShell and CMD executions investigated through account, host, parent-process, and command-line context
-* Parent-child process pivots used to distinguish expected activity from potentially suspicious execution paths
-* Missing process command-line telemetry identified as an investigation visibility gap
-* Windows process-creation command-line auditing enabled and validated with the controlled `LAB13-HUNT-TEST` execution
-* Custom hunting query linked to a Microsoft Sentinel Hunt and executed against collected telemetry
-* Controlled evidence preserved with a Sentinel Bookmark and Host and Account entity mappings
-* Hunt closed with the hypothesis **Invalidated** after no evidence of malicious command execution was identified
-* Four reusable hunting and validation queries stored in `kql/lab13/` and nineteen curated sanitized evidence screenshots stored in the Lab 13 directory
+Defender XDR → Defender for Endpoint → Advanced Hunting → Defender for Identity → Microsoft 365/Cloud-App Investigation → Cross-Domain Correlation → XDR + Sentinel Final Capstone
 
-* Lab 14 — Microsoft Entra ID Conditional Access, Security Defaults and MFA Validation
-* Conditional Access capabilities assessed and Microsoft Entra ID Premium licensing requirements validated
-* Custom Conditional Access policy creation and Named Locations configuration confirmed unavailable with the current tenant licensing
-* Existing Security Defaults configuration reviewed and confirmed enabled
-* Microsoft Entra sign-in logs investigated to validate authentication requirements and access-control evaluation
-* Alice Analyst used as a controlled lab identity with no initial usable authentication methods
-* Microsoft Authenticator registration triggered and completed through the Security Defaults workflow
-* Authentication-method state validated before and after enrollment
-* Interrupted and successful Azure Portal sign-ins compared to reconstruct the MFA registration and authentication sequence
-* Security Defaults confirmed to require multifactor authentication with a successful enforcement result
-* Authentication Details and Basic Info used to verify that the MFA requirement was satisfied by the authentication claim in the token
-* Registration timeout troubleshooting documented and successfully resolved through a new authentication session
-* Seventeen sanitized evidence screenshots documented in the Lab 14 README
-
-* Lab 15 — Azure Policy Compliance, Remediation and Governance Assessment
-* Azure Policy compliance baseline reviewed with 71% overall resource compliance and two non-compliant resource groups
-* Audit and Deny assignments investigated to distinguish existing configuration drift from preventive enforcement
-* Controlled test resource `rg-policy-audit-test-canadacentral` remediated by applying `Environment=Lab`
-* On-demand Azure Policy evaluation triggered after the configuration change
-* Overall resource compliance improved from 71% to 86%, reducing non-compliant resources from two to one
-* Audit assignment improved from 67% to 83% compliance, with the controlled test resource becoming compliant
-* Legacy `rg-az900-learning` resource intentionally retained as documented governance technical debt
-* Deny assignment reviewed and confirmed at 83% compliance with the same remaining legacy governance gap
-* Activity Log used to validate both the tag update and Policy Insights rescan operations
-* Azure Policy exemption workflow reviewed, but no exemption created because no valid business or technical justification existed
-* Eleven sanitized evidence screenshots documented in the Lab 15 README
-
-* Lab 16 — Mini SOC Capstone: From Excessive Azure RBAC to Detected Persistence and Validated Containment
-* Identity, Azure RBAC, Windows Security telemetry, Azure Activity, Log Analytics, Sentinel detections, incident handling, and remediation combined into one end-to-end scenario
-* `SG-SecOps-Analysts` excessive `Virtual Machine Contributor` access used in a controlled simulation to invoke Azure Run Command against `vm-win-cac-01`
-* Existing `lab11-persist` account deliberately re-added to local `Administrators`, generating a fresh Event `4732` after a clean-baseline reset
-* Windows endpoint evidence correlated with `AzureActivity` to distinguish the local `LOCAL SYSTEM` execution context from the initiating cloud identity
-* Post-escalation discovery reconstructed through Event `4688`, including `cmd.exe`, `powershell.exe`, `net.exe`, `net1.exe`, and `whoami.exe` process activity
-* Benign scheduled-task persistence created with `SystemHealthCheck`, producing process evidence in `4688` and local scheduled-task creation evidence in `4698`
-* Missing `4698` visibility traced to the Data Collection Rule, XPath coverage corrected, and ingestion revalidated before building the new detection
-* New high-severity `LAB16 - Scheduled Task Persistence Created` analytics rule mapped to `T1053.005` and validated through `SecurityAlert` and automatic `SecurityIncident` creation
-* Containment removed both the scheduled task and the controlled local administrative membership
-* Root authorization path remediated by reducing `SG-SecOps-Analysts` from `Virtual Machine Contributor` to `Reader`; the same Run Command action then failed with `AuthorizationFailed`
-* Incident investigation and remediation documented and closed as **Benign Positive — Suspicious but expected**, because the detections were accurate while the activity was intentionally generated in the lab
-* Fifteen reusable KQL files stored in `kql/lab16/` and forty-five curated sanitized evidence screenshots documented in the Lab 16 README
-
-### Next — Project Extension
-
-Lab 16 completes the original Azure/Sentinel capstone, but it no longer marks the end of the repository. Rather than finishing with a cleanup-only Lab 17 or opening a separate GitHub project, the same repository will continue so the architecture and investigation story remain connected.
-
-* **Lab 17 and the next phase:** build a local/hybrid Windows Server and network-security foundation, including Active Directory Domain Services, DNS, Group Policy, authentication telemetry, endpoint logging, and local network segmentation.
-* **Following phase:** expand into Microsoft XDR and related Defender technologies so incidents can be investigated across endpoint, identity, email, cloud, and Sentinel data where licensing permits.
-* Resource cleanup and cost validation remain ongoing operational tasks rather than the final objective of the project.
-
----
+Resource cleanup, deallocation, cost review, screenshot sanitization, and evidence maintenance remain continuous operational practices throughout the project.
 
 ## Expected Project Deliverables
 
-As the project evolves, this repository is intended to contain:
+The repository is intended to provide a complete portfolio of:
 
-* Complete documentation for the original Azure/Sentinel sequence and the extended hybrid/XDR labs
-* Azure security architecture diagram
-* Identity and RBAC matrix
-* Azure Policy assignments and validation results
-* Network security documentation
-* Log Analytics and data collection configuration
-* Microsoft Sentinel deployment evidence
-* Reusable KQL queries
-* Detection engineering documentation
-* Incident investigation report
-* Threat-hunting queries
-* Cost analysis and cleanup report
-* Lessons learned
-* Mini SOC capstone
-* Windows Server and local/hybrid network security documentation
-* Microsoft XDR detection and investigation labs
-
----
+- Azure governance, identity, networking, compute, and monitoring documentation
+- Microsoft Sentinel deployment, KQL, analytics rules, hunting, and incident investigations
+- Windows Server and Active Directory administration evidence
+- DNS, Group Policy, authorization, file services, networking, storage, and remote-management labs
+- Reusable PowerShell, KQL, health-check, and validation scripts
+- Architecture and operational decision documentation
+- Sanitized technical evidence and troubleshooting records
+- Infrastructure and security capstones
+- Microsoft Defender XDR investigation and response labs
 
 ## Key Principle
 
@@ -996,13 +790,13 @@ The purpose of this project is not simply to show that Azure resources were crea
 
 The purpose is to demonstrate that I can:
 
-* Explain why a security control is required
-* Configure the control
-* Test whether it works
-* Analyze the resulting telemetry
-* Identify failures or misconfigurations
-* Document the outcome clearly
-* Connect technical implementation to security operations
+- Explain why a security control is required
+- Configure the control
+- Test whether it works
+- Analyze the resulting telemetry
+- Identify failures or misconfigurations
+- Document the outcome clearly
+- Connect technical implementation to security operations
 
 ---
 
