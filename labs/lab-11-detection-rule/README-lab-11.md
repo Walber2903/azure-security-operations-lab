@@ -53,7 +53,7 @@ flowchart LR
 | User Added to Local Administrators | 4732 | High | Addition of an account to the local Administrators group | Persistence and Privilege Escalation |
 | PowerShell Spawned by Command Shell | 4688 | Medium | `cmd.exe` launches `powershell.exe` | Execution / T1059.001 |
 
-The final reusable queries are stored in [`queries/`](queries/). They are kept separate so they can be copied, tested, and versioned independently.
+The final reusable queries are stored in [`kql/Lab11/`](../../kql/Lab11/). They are kept separate so they can be copied, tested, and versioned independently.
 
 ## How the activity was generated safely
 

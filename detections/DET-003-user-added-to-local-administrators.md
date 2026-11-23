@@ -10,7 +10,7 @@
 | Log Analytics table | `Event` |
 | Windows Event ID | `4732` — A member was added to a security-enabled local group |
 | Severity | High |
-| Query | [`kql/lab11/03-user-added-to-local-administrators.kql`](../kql/lab11/03-user-added-to-local-administrators.kql) |
+| Query | [`kql/lab11/03-user-added-to-local-administrators.kql`](../kql/Lab11/03-user-added-to-local-administrators.kql) |
 | MITRE ATT&CK | Persistence, Privilege Escalation — T1098.007 Additional Local or Domain Groups |
 | Lab evidence | [`labs/lab-11-detection-rule/README-lab-11.md`](../labs/lab-11-detection-rule/README-lab-11.md) |
 

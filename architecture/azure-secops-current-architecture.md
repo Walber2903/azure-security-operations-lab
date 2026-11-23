@@ -40,4 +40,4 @@ flowchart TD
 | `rg-secops-compute-canadacentral` | Windows and Linux compute resources |
 | `rg-secops-monitorcanadacentral` | Log Analytics and monitoring resources |
 
-This separation supports lifecycle operations, access scoping, cost review, and troubleshooting. Detailed evidence remains in each lab's `screenshots/` directory and is mapped in [`docs/evidence-register.md`](../docs/evidence-register.md).
+This separation supports lifecycle operations, access scoping, cost review, and troubleshooting. Detailed evidence remains in each lab's `screenshots/` directory.

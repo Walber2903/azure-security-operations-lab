@@ -325,19 +325,19 @@ East US        — Phase 5 Windows Server and Active Directory environment
 
 | Lab | Topic | Primary Skills | Status |
 | --: | ----- | -------------- | ------ |
-|  [00](labs/lab-00-baseline/README.md) | Azure Baseline and Cost Governance | Budgets, resource groups, tags, Activity Log | Completed |
-|  [01](labs/lab01-entra-users-groups/README.md) | Entra ID Users Managers and Groups | Users, manager relationships, security groups, audit logs | Completed |
-|  [02](labs/lab02-administrative-units/README.md) | Administrative Units and Entra Role Scope | Scoped administration, least privilege, licensing validation | Completed |
-|  [03](labs/lab03-azure-rbac/README.md) | Azure RBAC | Resource-group roles, scopes, inheritance, least privilege | Completed |
-|  [04](labs/lab-04-azure-policy/README.md) | Azure Policy | Audit, deny, tagging, compliance | Completed |
-|  [05](labs/lab-05-vnet-nsg/README.md) | Virtual Network and NSG | VNet design, subnet segmentation, NSG rules | Completed |
-|  [06](labs/lab-06-virtual-machines/README.md) | Windows and Linux Virtual Machines | Secure deployment, Bastion access, segmentation testing | Completed |
-|  [07](labs/lab-07-vm-administration/README.md) | Virtual Machine Administration | VM lifecycle, managed disks, Run Command | Completed |
+|  [00](labs/lab-00-baseline/README-lab-00.md) | Azure Baseline and Cost Governance | Budgets, resource groups, tags, Activity Log | Completed |
+|  [01](labs/lab-01-entra-users-groups/README-lab-01.md) | Entra ID Users Managers and Groups | Users, manager relationships, security groups, audit logs | Completed |
+|  [02](labs/lab-02-administrative-units/README-lab-02.md) | Administrative Units and Entra Role Scope | Scoped administration, least privilege, licensing validation | Completed |
+|  [03](labs/lab-03-azure-rbac/README-lab-03.md) | Azure RBAC | Resource-group roles, scopes, inheritance, least privilege | Completed |
+|  [04](labs/lab-04-azure-policy/README-lab-04.md) | Azure Policy | Audit, deny, tagging, compliance | Completed |
+|  [05](labs/lab-05-vnet-nsg/README-lab-05.md) | Virtual Network and NSG | VNet design, subnet segmentation, NSG rules | Completed |
+|  [06](labs/lab-06-virtual-machines/README-lab-06.md) | Windows and Linux Virtual Machines | Secure deployment, Bastion access, segmentation testing | Completed |
+|  [07](labs/lab-07-vm-administration/README-lab-07.md) | Virtual Machine Administration | VM lifecycle, managed disks, Run Command | Completed |
 |  [08](labs/lab-08-log-analytics-ama-dcr/README-lab-08.md) | Log Analytics, AMA, and DCR | Log ingestion, DCR, XPath filtering, and KQL validation | Completed |
 |  [09](labs/lab-09-microsoft-sentinel/README-lab-09.md) | Microsoft Sentinel | SIEM deployment, Azure Activity connector, Policy remediation, and KQL validation | Completed |
 |  [10](labs/lab-10-kql/README-lab-10.md) | KQL Investigation Fundamentals | Windows authentication, rare-event hunting, Azure control-plane analysis, and unified timelines | Completed |
 |  [11](labs/lab-11-detection-rule/README-lab-11.md) | Microsoft Sentinel Scheduled Analytics Rules | KQL detections, entity mapping, alert grouping, incident generation | Completed |
-| [12](labs/lab-12-incident-triage/README-lab-12.md) | Microsoft Sentinel Incident Triage and Correlation | Windows event timelines, Azure control-plane correlation, classification, and closure | Completed |
+| [12](labs/lab-12-incident-investigation/README-lab-12.md) | Microsoft Sentinel Incident Triage and Correlation | Windows event timelines, Azure control-plane correlation, classification, and closure | Completed |
 | [13](labs/lab-13-threat-hunting/README-lab-13.md) | Microsoft Sentinel Threat Hunting | Hypothesis-driven hunting, process analysis, telemetry validation, and bookmarks | Completed |
 | [14](labs/lab-14-conditional-access/README-lab-14.md) | Conditional Access, Security Defaults and MFA Validation | Conditional Access assessment, Security Defaults, MFA, sign-in investigation | Completed |
 | [15](labs/lab-15-policy-compliance/README-lab-15.md) | Azure Policy Compliance, Remediation and Governance Assessment | Compliance assessment, remediation, policy scans, exemptions, technical-debt documentation | Completed |

@@ -10,7 +10,7 @@
 | Log Analytics table | `Event` |
 | Windows Event ID | `4720` — A user account was created |
 | Severity | Medium |
-| Query | [`kql/lab11/02-local-user-account-created.kql`](../kql/lab11/02-local-user-account-created.kql) |
+| Query | [`kql/lab11/02-local-user-account-created.kql`](../kql/Lab11/02-local-user-account-created.kql) |
 | MITRE ATT&CK | Persistence — T1136.001 Create Account: Local Account |
 | Lab evidence | [`labs/lab-11-detection-rule/README-lab-11.md`](../labs/lab-11-detection-rule/README-lab-11.md) |
 

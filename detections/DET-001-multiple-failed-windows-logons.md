@@ -10,7 +10,7 @@
 | Log Analytics table | `Event` |
 | Windows Event ID | `4625` — An account failed to log on |
 | Severity | Medium |
-| Query | [`kql/lab11/01-multiple-failed-windows-logons.kql`](../kql/lab11/01-multiple-failed-windows-logons.kql) |
+| Query | [`kql/lab11/01-multiple-failed-windows-logons.kql`](../kql/Lab11/01-multiple-failed-windows-logons.kql) |
 | MITRE ATT&CK | Credential Access — T1110 Brute Force |
 | Lab evidence | [`labs/lab-11-detection-rule/README-lab-11.md`](../labs/lab-11-detection-rule/README-lab-11.md) |
 

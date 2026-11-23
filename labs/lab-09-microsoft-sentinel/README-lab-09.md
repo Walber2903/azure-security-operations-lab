@@ -185,7 +185,6 @@ The table had no data while the diagnostic setting was absent. After remediation
 
 - [`azure-activity-events.kql`](../../kql/azure-activity-events.kql)
 - [`azure-activity-summary.kql`](../../kql/azure-activity-summary.kql)
-- [`lab-09-sentinel-data-flow.md`](../../architecture/lab-09-sentinel-data-flow.md)
 - [`lab-09-evidence-register.md`](../../docs/lab-09-evidence-register.md)
 - [`lab-09-lessons-learned.md`](../../docs/lab-09-lessons-learned.md)
 

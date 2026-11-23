@@ -27,13 +27,13 @@ The investigation uses three tables:
 
 | Step | Question | Evidence | Query |
 | --- | --- | --- | --- |
-| 1 | Is the expected telemetry available and current? | Screenshot 01 | [`lab10-01-data-source-validation.kql`](../../kql/lab10-01-data-source-validation.kql) |
-| 2 | What Windows events are being collected? | Screenshot 02 | [`lab10-02-windows-event-baseline.kql`](../../kql/lab10-02-windows-event-baseline.kql) |
-| 3 | Are both successful and failed logons visible? | Screenshots 03–05 | [`lab10-03-authentication-investigation.kql`](../../kql/lab10-03-authentication-investigation.kql) |
-| 4 | Which security events are rare in this window? | Screenshot 06 | [`lab10-04-rare-windows-security-events.kql`](../../kql/lab10-04-rare-windows-security-events.kql) |
-| 5 | What changed in the Azure control plane? | Screenshots 07–08 | [`lab10-05-azure-control-plane-investigation.kql`](../../kql/lab10-05-azure-control-plane-investigation.kql) |
-| 6 | How do endpoint and cloud events align in time? | Screenshot 09 | [`lab10-06-unified-security-timeline.kql`](../../kql/lab10-06-unified-security-timeline.kql) |
-| 7 | Is a visual time-series useful for this window? | Screenshot 10, optional | [`lab10-07-security-events-timechart.kql`](../../kql/lab10-07-security-events-timechart.kql) |
+| 1 | Is the expected telemetry available and current? | Screenshot 01 | [`lab10-01-data-source-validation.kql`](../../kql/lab10/lab10-01-data-source-validation.kql) |
+| 2 | What Windows events are being collected? | Screenshot 02 | [`lab10-02-windows-event-baseline.kql`](../../kql/lab10/lab10-02-windows-event-baseline.kql) |
+| 3 | Are both successful and failed logons visible? | Screenshots 03–05 | [`lab10-03-authentication-investigation.kql`](../../kql/lab10/lab10-03-authentication-investigation.kql) |
+| 4 | Which security events are rare in this window? | Screenshot 06 | [`lab10-04-rare-windows-security-events.kql`](../../kql/lab10/lab10-04-rare-windows-security-events.kql) |
+| 5 | What changed in the Azure control plane? | Screenshots 07–08 | [`lab10-05-azure-control-plane-investigation.kql`](../../kql/lab10/lab10-05-azure-control-plane-investigation.kql) |
+| 6 | How do endpoint and cloud events align in time? | Screenshot 09 | [`lab10-06-unified-security-timeline.kql`](../../kql/lab10/lab10-06-unified-security-timeline.kql) |
+| 7 | Is a visual time-series useful for this window? | Screenshot 10, optional | [`lab10-07-security-events-timechart.kql`](../../kql/lab10/lab10-07-security-events-timechart.kql) |
 
 ## 1. Validate the telemetry before investigating
 

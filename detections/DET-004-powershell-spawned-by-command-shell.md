@@ -10,7 +10,7 @@
 | Log Analytics table | `Event` |
 | Windows Event ID | `4688` — A new process was created |
 | Severity | Medium |
-| Query | [`kql/lab11/04-powershell-spawned-by-command-shell.kql`](../kql/lab11/04-powershell-spawned-by-command-shell.kql) |
+| Query | [`kql/lab11/04-powershell-spawned-by-command-shell.kql`](../kql/Lab11/04-powershell-spawned-by-command-shell.kql) |
 | MITRE ATT&CK | Execution — T1059.001 Command and Scripting Interpreter: PowerShell |
 | Lab evidence | [`labs/lab-11-detection-rule/README-lab-11.md`](../labs/lab-11-detection-rule/README-lab-11.md) |
 
