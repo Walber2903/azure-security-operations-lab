@@ -8,7 +8,7 @@ The project originally started as a structured **25-day Azure security learning 
 
 Lab 16 also made the next learning gap much clearer. Detecting an event is only one part of security operations. To investigate and remediate confidently, an analyst also needs to understand the infrastructure underneath the telemetry: **Windows services, Active Directory, DNS, DHCP, Group Policy, SMB and NTFS permissions, storage, routing, firewalls, WinRM, PowerShell remoting, virtualization, and migration workflows**.
 
-That extension is now actively underway. **Lab 17** established the Windows Server administration foundation through services, Event Viewer, Task Scheduler, firewalling, storage, WinRM, patching, PowerShell, and operational health checks. **Lab 18** then introduced a dedicated Active Directory environment with AD DS, DNS, domain membership, Organizational Units, domain users and security groups, Group Policy, Windows security telemetry, role-based administration, least privilege, and a Group Managed Service Account. The repository therefore now continues as a **six-phase Microsoft infrastructure and blue-team portfolio** rather than ending with the original Azure/Sentinel capstone.
+That extension is now actively underway. **Lab 17** established the Windows Server administration foundation through services, Event Viewer, Task Scheduler, firewalling, storage, WinRM, patching, PowerShell, and operational health checks. **Lab 18** then introduced a dedicated Active Directory environment with AD DS, DNS, domain membership, Organizational Units, domain users and security groups, Group Policy, Windows security telemetry, role-based administration, least privilege, and a Group Managed Service Account. **Lab 19** extended this work through graphical Windows Server and Active Directory administration, validated domain DNS records and lookups, confirmed Group Policy application, tested process and PowerShell auditing, and documented a controlled Windows service-start failure with cleanup and service-health verification. The repository therefore now continues as a **six-phase Microsoft infrastructure and blue-team portfolio** rather than ending with the original Azure/Sentinel capstone.
 
 The expanded roadmap has two deliberate goals:
 
@@ -101,7 +101,7 @@ Keeping the work together also makes the progression easier to evaluate. A reade
 
 The original cleanup-only Lab 17 is therefore no longer the endpoint. **Cleanup, deallocation, cost review, screenshot sanitization, and evidence maintenance remain ongoing operational practices**, while the learning roadmap continues through two additional phases:
 
-- **Phase 5 — Windows Server, Infrastructure and Hybrid Operations (Labs 17–25):** begins with Windows Server administration in Lab 17 and Active Directory security administration in Lab 18. Lab 19 will deliberately revisit the AD environment through native graphical tools so the same concepts are understood from both PowerShell and GUI administration perspectives. The remaining labs extend into DHCP, DNS and authentication troubleshooting, file services and permissions, WinRM and PowerShell remoting, network troubleshooting, storage and recovery, virtualization, migration planning, and a multi-layer infrastructure operations capstone.
+- **Phase 5 — Windows Server, Infrastructure and Hybrid Operations (Labs 17–25):** begins with Windows Server administration in Lab 17 and Active Directory security administration in Lab 18. Lab 19 revisited the AD environment through native graphical tools and added DNS verification, GPO enforcement checks, Windows event validation, and a documented service-failure investigation. The remaining labs extend into DHCP, DNS and authentication troubleshooting, file services and permissions, WinRM and PowerShell remoting, network troubleshooting, storage and recovery, virtualization, migration planning, and a multi-layer infrastructure operations capstone.
 - **Phase 6 — Microsoft XDR and Defender Ecosystem (Labs 26–32):** Defender XDR, Defender for Endpoint, endpoint investigation and response, Advanced Hunting, Defender for Identity, Microsoft 365/email and cloud-app investigation where licensing permits, cross-domain correlation, and a final XDR + Sentinel capstone.
 
 The expanded project intentionally alternates between **administration** and **security**. Phase 5 builds the systems knowledge needed to understand Windows and network failures in depth; Phase 6 then uses that stronger foundation to investigate attacks and suspicious behavior across endpoint, identity, cloud, and Microsoft 365 signals.
@@ -218,7 +218,7 @@ The phase now progresses through the following sequence:
 
 - **Lab 17 — Windows Server Administration and Remote Operations:** Windows Server identity, services, Event Viewer, scheduled tasks, Windows Firewall, Azure NSG layering, storage, patching, WinRM, PowerShell, controlled failure/recovery, and operational health checks.
 - **Lab 18 — Active Directory Domain Services, Security Administration and Automation:** AD DS, DNS, domain controller deployment, domain membership, OUs, domain users, security groups, Group Policy, PowerShell logging, process auditing, role-based local access, least privilege, KDS, gMSA, and final health checks.
-- **Lab 19 — Active Directory and Windows Server Administration through GUI Tools:** Server Manager, Active Directory Users and Computers, Group Policy Management, DNS Manager, Computer Management, Event Viewer, graphical OU/user/group administration, privilege relationships, policy inheritance, and direct comparison with the PowerShell work completed in Lab 18.
+- **Lab 19 — Windows Server Administration through GUI Tools:** Server Manager, Active Directory Users and Computers, Group Policy Management, DNS Manager, Services and Event Viewer; domain group membership, DNS and SRV record validation, Group Policy application and registry checks, PowerShell and process-creation auditing, service dependencies, controlled service failure, root-cause analysis, and cleanup.
 - **Lab 20 — DNS, DHCP and Domain Infrastructure Services:** DHCP deployment and scopes, DNS forward and reverse lookup zones, dynamic registration, leases, reservations, domain name resolution, service dependencies, and controlled DNS/DHCP troubleshooting.
 - **Lab 21 — Windows File Services, SMB and NTFS Authorization:** file-server roles, shares, NTFS permissions, share permissions, group-based authorization, inheritance, effective access, access-based troubleshooting, and least-privilege remediation.
 - **Lab 22 — PowerShell Remoting, WinRM and Remote Administration:** WinRM listeners, PowerShell remoting, remote service and process administration, credential context, firewall dependencies, constrained administrative access, and troubleshooting remote-management failures.
@@ -248,7 +248,7 @@ The exact Defender features used in Labs 26–32 may be adjusted according to te
 
 ## Architecture
 
-The following diagram represents the project state through **Lab 18**. The original Sentinel security-operations pipeline remains intact, while the environment now also includes a Windows Server administration layer and a dedicated Active Directory domain in East US. This allows later labs to correlate Azure control-plane activity, Windows host behavior, domain identity, Group Policy, DNS, authentication, endpoint telemetry, and Sentinel/XDR evidence in one continuous environment.
+The following diagram represents the project state through **Lab 19**. The original Sentinel security-operations pipeline remains intact, while the environment now also includes a Windows Server administration layer and a dedicated Active Directory domain in East US. Lab 19 additionally validated GUI-based domain administration, DNS resolution, Group Policy application, host auditing, service health and controlled failure analysis. This allows later labs to correlate Azure control-plane activity, Windows host behavior, domain identity, Group Policy, DNS, authentication, endpoint telemetry, and Sentinel/XDR evidence in one continuous environment.
 
 The [current-state architecture](architecture/azure-secops-current-architecture.md) should continue to document only components that have actually been built and validated.
 
@@ -274,6 +274,8 @@ flowchart TD
     O["OUs, Users and Security Groups"]
     P["Group Policy and Windows Auditing"]
     Q["Role-Based Access and gMSA"]
+    R["Lab 19 GUI Validation: ADUC, GPMC, DNS and Event Viewer"]
+    S["GPO, Process/PowerShell Audit and Service RCA"]
 
     A --> B
     A --> I
@@ -296,6 +298,8 @@ flowchart TD
     P --> N
     Q --> N
     N --> D
+    N --> R
+    R --> S
 
 ```
 
@@ -340,7 +344,7 @@ East US        — Phase 5 Windows Server and Active Directory environment
 | [16](labs/lab-16-mini-soc-capstone/README-lab-16.md) | Mini SOC Capstone — Excessive RBAC to Detected Persistence | Cross-source investigation, persistence detection, telemetry troubleshooting, containment, RBAC remediation | Completed |
 | [17](labs/lab-17-windows-server-administration/README-lab-17.md) | Windows Server Administration and Remote Operations | Services, Event Viewer, Task Scheduler, firewall, storage, patching, WinRM, PowerShell, health checks | Completed |
 | [18](labs/lab-18-active-directory-domain-services/README-lab-18.md)  | Active Directory Domain Services, Security Administration and Automation | AD DS, DNS, domain join, OUs, users/groups, GPO, Windows auditing, least privilege, gMSA | Completed |
-| 19 | Active Directory and Windows Server Administration through GUI Tools | Server Manager, ADUC, GPMC, DNS Manager, Event Viewer, GUI hierarchy and privilege administration | Next |
+| [19](labs/Lab-19-windows-server-administration-gui/README-lab-19.md) | Windows Server Administration through GUI Tools | ADUC, GPMC, DNS records and lookups, GPO validation, Windows auditing, services, root-cause analysis and cleanup ([RCA](labs/Lab-19-windows-server-administration-gui/rca-service-failure.md)) | Completed |
 | 20 | DNS, DHCP and Domain Infrastructure Services | DHCP scopes, DNS zones, SRV records, reservations, domain service dependencies, troubleshooting | Planned |
 | 21 | Windows File Services, SMB and NTFS Authorization | File Server, shares, NTFS/share permissions, inheritance, effective access, group-based authorization | Planned |
 | 22 | PowerShell Remoting, WinRM and Remote Administration | PowerShell remoting, WinRM, remote services/processes, firewall dependencies, least-privilege administration | Planned |
@@ -368,8 +372,11 @@ azure-security-operations-lab/
 │   ├── ...
 │   ├── lab-16-mini-soc-capstone/
 │   ├── lab-17-windows-server-administration/
-│   ├── lab-18-active-directory-security-administration/
-│   └── lab-19-active-directory-gui-administration/   # next
+│   ├── lab-18-active-directory-domain-services/
+│   └── Lab-19-windows-server-administration-gui/
+│       ├── README-lab-19.md
+│       ├── rca-service-failure.md
+│       └── screenshots/
 ├── kql/
 ├── detections/
 ├── incidents/
@@ -424,7 +431,7 @@ The initial configuration includes a **US$175 monthly budget**, actual-cost aler
 
 Azure budgets provide cost visibility and notifications, but they do not automatically stop resources when a threshold is reached.
 
-Resources such as virtual machines will be stopped, deallocated, or removed when they are not required.
+Resources such as virtual machines will be stopped, deallocated, or removed when they are not required. Lab 19 also used Azure Bastion for temporary, secure GUI access, then removed the Bastion host and its associated public IP after VM deallocation to avoid unnecessary ongoing charges.
 
 ---
 
@@ -613,6 +620,11 @@ This project is designed to demonstrate practical experience with:
 - Windows Security Event 4688 process creation auditing
 - Group Managed Service Accounts and KDS
 - Infrastructure health checks and configuration troubleshooting
+- GUI administration with Server Manager, ADUC, GPMC, DNS Manager, Services, and Event Viewer
+- DNS A/SRV record resolution and controlled record removal validation
+- GPO application verification with `gpupdate`, `gpresult`, and registry inspection
+- PowerShell events 4103/4104 and process creation event 4688 validation
+- Windows Service Control Manager events 7045, 7000, and 7009; controlled service failure, RCA, and cleanup
 
 ### Security Operations
 
@@ -688,7 +700,7 @@ Relevant project areas include:
 
 The project deliberately develops both sides because infrastructure and security operations overlap. AZ-104-oriented administration helps answer **how the platform is built, configured, connected, and operated**. SC-200-oriented security operations helps answer **what happened, whether it is suspicious, what evidence supports the conclusion, and how to respond**.
 
-Phase 5 is actively closing the Windows Server and network-administration gap between those two perspectives. Labs 17 and 18 now provide concrete Windows Server and Active Directory evidence, while Labs 19–25 deepen administration, troubleshooting, storage, networking, file services, and migration skills. Phase 6 then uses that stronger infrastructure foundation to make XDR investigations more meaningful.
+Phase 5 is actively closing the Windows Server and network-administration gap between those two perspectives. Labs 17–19 now provide concrete Windows Server, Active Directory, GUI administration, auditing, and service-troubleshooting evidence, while Labs 20–25 deepen DNS/DHCP, storage, networking, file services, remote administration, and migration skills. Phase 6 then uses that stronger infrastructure foundation to make XDR investigations more meaningful.
 
 ### Future Microsoft Security Specialization
 
@@ -721,7 +733,7 @@ No credentials or secrets should ever be committed to this repository.
 
 ## Current Progress
 
-The original Azure/Sentinel learning path is complete through **Lab 16**, and the infrastructure expansion is now complete through **Lab 18**.
+The original Azure/Sentinel learning path is complete through **Lab 16**, and the infrastructure expansion is now complete through **Lab 19**.
 
 ### Completed milestones
 
@@ -733,6 +745,7 @@ The original Azure/Sentinel learning path is complete through **Lab 16**, and th
 | Labs 14–16 | Governance and SOC capstone | MFA/Security Defaults validation, Policy remediation, persistence detection, containment, RBAC remediation |
 | Lab 17 | Windows Server administration | Services, Event Viewer, firewalling, storage, patching, WinRM, PowerShell, health checks |
 | Lab 18 | Active Directory security administration | AD DS, DNS, domain join, OUs, users/groups, GPO, auditing, least privilege, gMSA, final health validation |
+| [Lab 19](labs/Lab-19-windows-server-administration-gui/README-lab-19.md) | Windows Server GUI administration and troubleshooting | ADUC/GPMC/DNS administration, GPO validation, process and PowerShell event auditing, service failure RCA, cleanup and cost-conscious Azure Bastion lifecycle |
 
 ### Current environment
 
@@ -741,22 +754,13 @@ The project now has two connected learning tracks:
 - **Canada Central:** original Azure/Sentinel environment used for governance, monitoring, KQL, detection engineering, threat hunting, and incident response.
 - **East US:** Windows Server and Active Directory environment used for deeper infrastructure, identity, DNS, Group Policy, authorization, and remote-administration practice.
 
-### Next — Lab 19
+### Completed — Lab 19
 
-Lab 19 will revisit the Active Directory environment through **graphical administration tools**. The goal is to understand the same concepts implemented in Lab 18 from the GUI perspective and to demonstrate practical administration with:
+[Lab 19 — Windows Server Administration through GUI Tools](labs/Lab-19-windows-server-administration-gui/README-lab-19.md) reused the East US Active Directory environment to validate administrative and troubleshooting workflows through Server Manager, ADUC, GPMC, DNS Manager, Services, Event Viewer, and PowerShell. The documented work includes group membership checks; DNS A and SRV lookups and temporary-record removal; application of the server-security GPO; verification of command-line, PowerShell Script Block/Module, and process-creation auditing (events 4104, 4103, and 4688); and investigation of a deliberately misconfigured test service using Service Control Manager events. The temporary service was removed and essential Windows services were confirmed running. The [service failure RCA](labs/Lab-19-windows-server-administration-gui/rca-service-failure.md) records the failure and remediation evidence.
 
-- Server Manager
-- Active Directory Users and Computers
-- Group Policy Management
-- DNS Manager
-- Computer Management
-- Event Viewer
-- OU hierarchy and object placement
-- User and group membership
-- Privilege relationships
-- Policy inheritance and effective configuration
+### Next — Lab 20
 
-The lab will also introduce additional directory objects where useful so that hierarchy, administration, and privilege boundaries can be demonstrated visually rather than only through PowerShell.
+Lab 20 will extend the domain environment into **DNS, DHCP, and domain infrastructure services**, including scopes, DNS records, name resolution, dependencies, and controlled troubleshooting.
 
 ### Remaining roadmap
 
@@ -776,7 +780,7 @@ The repository is intended to provide a complete portfolio of:
 
 - Azure governance, identity, networking, compute, and monitoring documentation
 - Microsoft Sentinel deployment, KQL, analytics rules, hunting, and incident investigations
-- Windows Server and Active Directory administration evidence
+- Windows Server and Active Directory administration evidence, including Lab 19 GUI, auditing, and service-failure RCA
 - DNS, Group Policy, authorization, file services, networking, storage, and remote-management labs
 - Reusable PowerShell, KQL, health-check, and validation scripts
 - Architecture and operational decision documentation
