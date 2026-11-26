@@ -348,7 +348,7 @@ East US        — Phase 5 Windows Server and Active Directory environment
 | [16](labs/lab-16-mini-soc-capstone/README-lab-16.md) | Mini SOC Capstone — Excessive RBAC to Detected Persistence | Cross-source investigation, persistence detection, telemetry troubleshooting, containment, RBAC remediation | Completed |
 | [17](labs/lab-17-windows-server-administration/README-lab-17.md) | Windows Server Administration and Remote Operations | Services, Event Viewer, Task Scheduler, firewall, storage, patching, WinRM, PowerShell, health checks | Completed |
 | [18](labs/lab-18-active-directory-domain-services/README-lab-18.md)  | Active Directory Domain Services, Security Administration and Automation | AD DS, DNS, domain join, OUs, users/groups, GPO, Windows auditing, least privilege, gMSA | Completed |
-| [19](labs/lab-19-windows-server-administration-gui/README-lab-19.md) | Windows Server Administration through GUI Tools | ADUC, GPMC, DNS records and lookups, GPO validation, Windows auditing, services, root-cause analysis and cleanup ([RCA](labs/lab-19-windows-server-administration-gui/rca-service-failure.md)) | Completed |
+| [19](labs/Lab-19-windows-server-administration-gui/README-lab-19.md) | Windows Server Administration through GUI Tools | ADUC, GPMC, DNS records and lookups, GPO validation, Windows auditing, services, root-cause analysis and cleanup ([RCA](labs/Lab-19-windows-server-administration-gui/rca-service-failure.md)) | Completed |
 | [20](labs/lab-20-active-directory-authentication-least-privilege-delegated-administration/README-lab-20.md) | Active Directory Authentication, Least Privilege and Delegated Administration | Domain authentication and Kerberos, group membership, protected paths, SYSVOL/NETLOGON, OU ACLs and scoped password-reset delegation | Completed |
 | 21 | DNS, DHCP and Domain Infrastructure Services | DHCP scopes in an isolated environment, DNS zones, dynamic records, reservations, domain service dependencies, troubleshooting | Planned |
 | 22 | Windows File Services, SMB and NTFS Authorization | File Server, shares, NTFS/share permissions, inheritance, effective access, group-based authorization | Planned |
@@ -378,7 +378,7 @@ azure-security-operations-lab/
 │   ├── lab-16-mini-soc-capstone/
 │   ├── lab-17-windows-server-administration/
 │   ├── lab-18-active-directory-domain-services/
-│   ├── lab-19-windows-server-administration-gui/
+│   ├── Lab-19-windows-server-administration-gui/
 │   │   ├── README-lab-19.md
 │   │   ├── rca-service-failure.md
 │   │   └── screenshots/
@@ -755,7 +755,7 @@ The original Azure/Sentinel learning path is complete through **Lab 16**, and th
 | Labs 14–16 | Governance and SOC capstone | MFA/Security Defaults validation, Policy remediation, persistence detection, containment, RBAC remediation |
 | Lab 17 | Windows Server administration | Services, Event Viewer, firewalling, storage, patching, WinRM, PowerShell, health checks |
 | Lab 18 | Active Directory security administration | AD DS, DNS, domain join, OUs, users/groups, GPO, auditing, least privilege, gMSA, final health validation |
-| [Lab 19](labs/lab-19-windows-server-administration-gui/README-lab-19.md) | Windows Server GUI administration and troubleshooting | ADUC/GPMC/DNS administration, GPO validation, process and PowerShell event auditing, service failure RCA, cleanup and cost-conscious Azure Bastion lifecycle |
+| [Lab 19](labs/Lab-19-windows-server-administration-gui/README-lab-19.md) | Windows Server GUI administration and troubleshooting | ADUC/GPMC/DNS administration, GPO validation, process and PowerShell event auditing, service failure RCA, cleanup and cost-conscious Azure Bastion lifecycle |
 | [Lab 20](labs/lab-20-active-directory-authentication-least-privilege-delegated-administration/README-lab-20.md) | AD authentication, least privilege and delegated administration | Kerberos and secure-channel validation, protected system and domain shares, OU ACLs, password-reset delegation, and denied out-of-scope modifications |
 
 ### Current environment
@@ -767,7 +767,7 @@ The project now has two connected learning tracks:
 
 ### Completed — Lab 19
 
-[Lab 19 — Windows Server Administration through GUI Tools](labs/lab-19-windows-server-administration-gui/README-lab-19.md) reused the East US Active Directory environment to validate administrative and troubleshooting workflows through Server Manager, ADUC, GPMC, DNS Manager, Services, Event Viewer, and PowerShell. The documented work includes group membership checks; DNS A and SRV lookups and temporary-record removal; application of the server-security GPO; verification of command-line, PowerShell Script Block/Module, and process-creation auditing (events 4104, 4103, and 4688); and investigation of a deliberately misconfigured test service using Service Control Manager events. The temporary service was removed and essential Windows services were confirmed running. The [service failure RCA](labs/lab-19-windows-server-administration-gui/rca-service-failure.md) records the failure and remediation evidence.
+[Lab 19 — Windows Server Administration through GUI Tools](labs/Lab-19-windows-server-administration-gui/README-lab-19.md) reused the East US Active Directory environment to validate administrative and troubleshooting workflows through Server Manager, ADUC, GPMC, DNS Manager, Services, Event Viewer, and PowerShell. The documented work includes group membership checks; DNS A and SRV lookups and temporary-record removal; application of the server-security GPO; verification of command-line, PowerShell Script Block/Module, and process-creation auditing (events 4104, 4103, and 4688); and investigation of a deliberately misconfigured test service using Service Control Manager events. The temporary service was removed and essential Windows services were confirmed running. The [service failure RCA](labs/Lab-19-windows-server-administration-gui/rca-service-failure.md) records the failure and remediation evidence.
 
 ### Completed — Lab 20
 

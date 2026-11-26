@@ -464,7 +464,7 @@ The Description remained `Temporary account for Lab 20 delegation validation`, a
 
 ## 12. Evidence directory
 
-All 31 screenshots are stored under [`screenshots/`](screenshots/) and linked inline in the sequence of the lab. The source filenames were renumbered consistently; original-to-final mappings and redaction notes are in [`SCREENSHOT-MANIFEST.md`](SCREENSHOT-MANIFEST.md). Where a screenshot does not directly show a step (for example, the delegation wizard completion), this is disclosed rather than fabricated. Edited images contain **opaque redactions** and have been re-encoded with no original image metadata.
+All 31 screenshots are stored under [`screenshots/`](screenshots/) and linked inline in the sequence of the lab. Where a screenshot does not directly show a step (for example, the delegation wizard completion), this is disclosed rather than fabricated. Edited images contain **opaque redactions** and have been re-encoded with no original image metadata.
 
 ## 13. Next steps
 
